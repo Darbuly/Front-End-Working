@@ -9,38 +9,80 @@ html {
     min-width: 6.4rem;
     font-size: 312.5%;
 }
+
 body {
     color: #333;
     font-size: .28em;
     line-height: 1.5;
-    font-family: arial, Microsoft Yahei;
+    font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
     background: #eeefef
 }
-body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+th,
+td {
     margin: 0;
     padding: 0;
 }
+
 table {
     border-collapse: collapse;
     border-spacing: 0
 }
+
 img {
     vertical-align: middle;
     border: 0
 }
-h1, h2, h3, h4, h5, h6 {
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: normal;
 }
-ul, ol, li {
+
+ul,
+ol,
+li {
     list-style: none;
 }
-em, i {
+
+em,
+i {
     font-style: normal
 }
+
 img {
     border: none
 }
-input, img {
+
+input,
+img {
     vertical-align: middle
 }
 
@@ -79,30 +121,44 @@ textarea {
 
 
 
-textarea:focus,input:focus {
+textarea:focus,
+input:focus {
     outline: 0
 }
+
 a {
     color: #6E7D8B;
     text-decoration: none;
     outline: 0
 }
-a:active, a:hover, a.current {
+
+a:active,
+a:hover,
+a.current {
     outline: 0
 }
+
 .c {
     text-align: center;
 }
+
 .tr {
     text-align: right;
 }
-.f60, input.f60 {
+
+.f60,
+input.f60 {
     color: #FF4C06;
 }
+
 .f00 {
     color: #f00;
 }
-input, button, select, textarea {
+
+input,
+button,
+select,
+textarea {
     font-family: inherit;
     font-size: inherit;
     line-height: 1;
@@ -113,22 +169,34 @@ input, button, select, textarea {
     text-shadow: none;
     vertical-align: middle;
 }
-button, input, optgroup, select, textarea {
+
+button,
+input,
+optgroup,
+select,
+textarea {
     color: inherit;
     margin: 0;
     -webkit-writing-mode: horizontal-tb;
 }
-button, html input[type=button], input[type=reset], input[type=submit] {
+
+button,
+html input[type=button],
+input[type=reset],
+input[type=submit] {
     -webkit-appearance: button;
     cursor: pointer
 }
+
 input {
     color: #333;
 }
+
 @-webkit-keyframes rotate {
     from {
         -webkit-transform: rotate(0deg);
     }
+
     to {
         -webkit-transform: rotate(360deg);
     }
@@ -145,14 +213,15 @@ input {
         font-size: 400%;
     }
 }
+
 @media screen and (min-width: 480px) {
     html {
         font-size: 469%;
     }
 }
+
 @media screen and (min-width: 640px) {
     html {
         font-size: 625%;
     }
 }
-
