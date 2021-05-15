@@ -1,0 +1,12 @@
+<div>
+    <div class="product-time">{{time}}</div>
+    <van-card :class="['product-item',product_price=='none'?'nonePrice':'']" :num="product_num" :price="product_price"
+        :desc="product_desc" :title="product_title" :thumb="product_thumb">
+        <template v-if='tags &&tags.length' #tags>
+            <van-tag v-for="(item,index) in tags" plain :type="item.type">{{item.title}}</van-tag>
+        </template>
+        <template v-if='footer &&footer.length' #footer>
+            <van-button v-for="(item,index) in footer" :size="item.size">{{item.title}}</van-button>
+        </template>
+    </van-card>
+</div>

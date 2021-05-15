@@ -1,0 +1,19 @@
+<div class="field-number-title">
+    <!-- 默认类型 -->
+    <div class="field-big-title">
+        <span class="field-number" v-text="field_number"></span>
+        <span class="title" v-text="field_title"></span>
+    </div>
+    <van-field v-if="field_type!='datetime'" v-model="field_value" :type='field_type' name="用户名" :label="field_label"
+        :placeholder="fleld_placeholder" :maxlength="field_maxlength"
+        :rules="[{ required: true, message: '请填写用户名' }]" />
+
+    <!-- 时间类型 -->
+    <van-field v-if="field_type=='datetime'" readonly clickable name="datetimePicker" :label="field_label"
+        :value="field_value" :placeholder="fleld_placeholder" @click="showPicker = true" />
+    <van-popup v-model="showPicker" position="bottom">
+        <van-datetime-picker :type="field_type" @confirm="onPickerConfirm" @cancel="showPicker = false" />
+    </van-popup>
+
+
+</div>
