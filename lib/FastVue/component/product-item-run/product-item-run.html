@@ -1,0 +1,86 @@
+<div id="shop_list" style="width: 89.3333%; margin: 0 auto; ">
+    <div
+        style="width: 100%; margin-top: 5.3333vw; background: #ffffff; border-radius: 2.66667vw; align-items: center;display: flex; flex-direction: column;">
+
+        <div v-for="(sItem,sIndex) in store_list"
+            style="width: 100%; margin-top: 5.3333vw; background: #ffffff; border-radius: 2.66667vw; align-items: center;display: flex; flex-direction: column;">
+            <div style="display: flex; flex-direction: row;  width: 88.0597%; justify-content: space-between;">
+                <div style="display: flex; flex-direction: row;">
+                    <img v-if='sItem.selected' style="width: 5.3333vw; height: 5.3333vw;"
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj48ZGVmcz48c3R5bGU+LmEsLmIsLmR7ZmlsbDpub25lO30uYXtzdHJva2U6IzUyNzVmNzt9LmEsLmJ7c3Ryb2tlLXdpZHRoOjJweDt9LmJ7c3Ryb2tlOiM1ZDdjZWU7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7fS5je3N0cm9rZTpub25lO308L3N0eWxlPjwvZGVmcz48ZyBjbGFzcz0iYSI+PGNpcmNsZSBjbGFzcz0iYyIgY3g9IjEwIiBjeT0iMTAiIHI9IjEwIi8+PGNpcmNsZSBjbGFzcz0iZCIgY3g9IjEwIiBjeT0iMTAiIHI9IjkiLz48L2c+PHBhdGggY2xhc3M9ImIiIGQ9Ik0yMTA0Ljc5MiwxMTIuNWwyLjQxMSwyLjQxMSw0Ljg5Mi00Ljg5MiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIwOTguMjkyIC0xMDIuNTE5KSIvPjwvc3ZnPg=="
+                        id="store_sel_1" @click='hitSelect(0,"sIndex",sIndex)'>
+                    <img v-if='!sItem.selected' @click='hitSelect(1,"sIndex",sIndex)'
+                        style="width: 5.3333vw; height: 5.3333vw;"
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj48ZGVmcz48c3R5bGU+LmEsLmN7ZmlsbDpub25lO30uYXtzdHJva2U6IzM4Mzk1MDtzdHJva2Utd2lkdGg6MnB4O30uYntzdHJva2U6bm9uZTt9PC9zdHlsZT48L2RlZnM+PGcgY2xhc3M9ImEiPjxjaXJjbGUgY2xhc3M9ImIiIGN4PSIxMCIgY3k9IjEwIiByPSIxMCIvPjxjaXJjbGUgY2xhc3M9ImMiIGN4PSIxMCIgY3k9IjEwIiByPSI5Ii8+PC9nPjwvc3ZnPg=="
+                        id="store_sel_1">
+                    <div style="margin-left: 5.3333vw; font-weight: bold; font-size:3.73333vw;">{{sItem.supplier_name}}
+                    </div>
+                </div>
+                <div v-if='!hideDelete' style="display: flex; flex-direction: row;">
+
+                    <div style="font-size:3.73333vw; color: #777989;" id="store_delete_1">删除
+                    </div>
+                </div>
+            </div>
+
+            <div v-for="(pItem,pIndex) in sItem.product_list" style="display: flex; flex-direction: row; width: 100%;
+            justify-content: center; position: relative;">
+                <div style="display: flex; flex-direction: row; width: 88.0597%; align-items: center; border-bottom: 0.26667vw solid #f4f4f4;
+                padding: 5.3333vw 0; position: relative;">
+                    <img v-if='pItem.selected' @click='hitSelect(0,"pIndex",sIndex,pIndex)'
+                        style="width: 5.3333vw; height: 5.3333vw;" id="check_1_0"
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj48ZGVmcz48c3R5bGU+LmEsLmIsLmR7ZmlsbDpub25lO30uYXtzdHJva2U6IzUyNzVmNzt9LmEsLmJ7c3Ryb2tlLXdpZHRoOjJweDt9LmJ7c3Ryb2tlOiM1ZDdjZWU7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7fS5je3N0cm9rZTpub25lO308L3N0eWxlPjwvZGVmcz48ZyBjbGFzcz0iYSI+PGNpcmNsZSBjbGFzcz0iYyIgY3g9IjEwIiBjeT0iMTAiIHI9IjEwIi8+PGNpcmNsZSBjbGFzcz0iZCIgY3g9IjEwIiBjeT0iMTAiIHI9IjkiLz48L2c+PHBhdGggY2xhc3M9ImIiIGQ9Ik0yMTA0Ljc5MiwxMTIuNWwyLjQxMSwyLjQxMSw0Ljg5Mi00Ljg5MiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIwOTguMjkyIC0xMDIuNTE5KSIvPjwvc3ZnPg==">
+                    <img v-if='!pItem.selected' @click='hitSelect(1,"pIndex",sIndex,pIndex)'
+                        style="width: 5.3333vw; height: 5.3333vw;" id="check_1_0"
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj48ZGVmcz48c3R5bGU+LmEsLmN7ZmlsbDpub25lO30uYXtzdHJva2U6IzM4Mzk1MDtzdHJva2Utd2lkdGg6MnB4O30uYntzdHJva2U6bm9uZTt9PC9zdHlsZT48L2RlZnM+PGcgY2xhc3M9ImEiPjxjaXJjbGUgY2xhc3M9ImIiIGN4PSIxMCIgY3k9IjEwIiByPSIxMCIvPjxjaXJjbGUgY2xhc3M9ImMiIGN4PSIxMCIgY3k9IjEwIiByPSI5Ii8+PC9nPjwvc3ZnPg==">
+                    <a style="display: flex; flex-direction: row;" :href="pItem.url_link">
+                        <div><img style="width: 21.3333vw; margin-left: 5.3333vw;" :src="pItem.product_thumb">
+                        </div>
+                        <div
+                            style="display: flex; flex-direction: column; flex-grow: 1; height: 24vw; margin-left: 5.3333vw;  position: relative; ">
+                            <div style="font-size: 3.7333vw; color: #383950; max-height: 11.4vw; display: -webkit-box; -webkit-box-orient: vertical;-webkit-line-clamp: 2;
+                            overflow: hidden; text-overflow: ellipsis;">{{pItem.product_title}}
+                            </div>
+                            <div style="font-size: 3.2vw; color: #383950; flex-wrap: wrap;">{{pItem.product_desc}}
+                            </div>
+                            <div
+                                style="color:#383950; font-size: 3.7333vw; font-weight:bold; position: absolute; left: 0; bottom: 0;">
+                                ￥<span id="price_1_0">{{pItem.product_price}}</span>
+                            </div>
+                        </div>
+                    </a>
+                    <span class="action" style="display: none; position: absolute; bottom: 5.3333vw; right: 0;">
+                        <span id="spanp" class="action-num">
+                            <span class="reduce" id="reduce_1_0"> - </span>
+                            <input class="ad_rd_input" type="tel" name="unit_quantityX" disabled="disabled"
+                                style="font-size: 0.28rem; font-weight: bold; color: #666666; border: none;"
+                                id="sub_1_0" :value="pItem.product_price">
+                            <span class="add" id="add_1_0"> + </span>
+                        </span>
+                    </span>
+                </div>
+                <div style="position: absolute; inset: 0px; z-index: 2; background-color: rgb(0, 0, 0); opacity: 0.4; display: none;"
+                    id="item_zhezhao_1_0">
+                </div>
+            </div>
+
+            <div class="count_sum" style="display: flex; flex-direction: column; width: 88.0597%; padding:5.3333vw 0;">
+                <div v-for='(cItem,cIndex) in other_cost'
+                    style="display: flex; flex-direction: row; width: 100%; justify-content: space-between;">
+                    <div style="font-size: 3.7333vw;color:#383950;">{{cItem.cost_title}}</div>
+                    <div style="font-size: 3.2vw;color:#383950;" id="post_money_1">{{cItem.cost_price}}
+                    </div>
+                </div>
+                <div style="display: flex; width: 100%; justify-content: flex-end; margin-top: 3vw;">
+                    <div style="font-size: 3.7333vw; color:#383950;">小计&nbsp;<span
+                            style="color: #FF7E2E;font-weight: bold;">￥<span
+                                id="sum_money_1">{{sum.all_money}}</span></span>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
