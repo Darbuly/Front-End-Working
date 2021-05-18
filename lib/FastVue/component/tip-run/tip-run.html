@@ -1,0 +1,13 @@
+<div class="tip-run"
+    :style="{ 
+    display: showStatus==true?'flex':'none' ,position: 'fixed' , top:0,left: 0,zIndex: 9999, 
+ backgroundColor:'#fff',width: '100vw', height: '100vh',flexDirection: 'column' ,justifyContent:'center',alignItems: 'center' }">
+    <div class="tip-icon"
+        style="width: 24.53vw;height: 24.53vw;background-size: 100%;background-repeat: no-repeat;background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MiIgaGVpZ2h0PSI5MiIgdmlld0JveD0iMCAwIDkyIDkyIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDojMDRiZTAyO30uYntmaWxsOiNmZmY7fTwvc3R5bGU+PC9kZWZzPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNTguODM0IC0zMjYuODM0KSI+PGNpcmNsZSBjbGFzcz0iYSIgY3g9IjQ2IiBjeT0iNDYiIHI9IjQ2IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNTguODM0IDMyNi44MzQpIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTYyLjk2OCAzMjkuODUpIj48cGF0aCBjbGFzcz0iYiIgZD0iTTY1LjA3MSwzMy43OGEyLjczLDIuNzMsMCwwLDAtMy44NTMsMEw0MC4xMDgsNTQuODksMzAuNSw0NS4zNGEyLjczLDIuNzMsMCwwLDAtMy44NTMsMCwyLjcsMi43LDAsMCwwLDAsMy44TDM3Ljg3NCw2MC4zNjJhMS4yMTgsMS4yMTgsMCwwLDAsLjIyMy4yNzksMi44LDIuOCwwLDAsMCwzLjkwOSwwLC45OC45OCwwLDAsMCwuMjIzLS4yNzlMNjUuMDcxLDM3LjYzM0EyLjczLDIuNzMsMCwwLDAsNjUuMDcxLDMzLjc4WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTQgLTQpIi8+PC9nPjwvZz48L3N2Zz4=');">
+    </div>
+    <div class="tip-msg" style="  margin-top: 5.86vw;font-size:6.4vw;font-weight: bold;text-align: center;">{{tip_msg}}
+    </div>
+    <div class="tip-back-btn" @click="toBack"
+        style="z-index: 99999; position: fixed; bottom: 0;left: 0;height: 13.3333vw;width: 100vw; background-color: #e6e9f0; text-align: center; font-size: 4.2666vw;line-height: 13.3333vw; ">
+        {{back_title}}</div>
+</div>

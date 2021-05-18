@@ -234,10 +234,20 @@
             height: '2rem'
         })
 
+        let tip = await F1.pushComponent('#container', 'tip-run', {
+        }, {
+            toBack() {
+                this.showStatus = false;
+            }
+        })
+
         let submit_btn = await F1.pushComponent('#container', 'submit-bottom', {
             title: '确认提交'
         }, {
             submit() {
+                tip.show('success')
+
+                return;
                 if (!field_time.field_value) {
                     vant.Toast('请选择时间');
                     return;
