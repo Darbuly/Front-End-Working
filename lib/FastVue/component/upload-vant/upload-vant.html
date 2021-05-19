@@ -1,5 +1,6 @@
 <div class="upload-vant">
-    <van-uploader v-if='!multiple' :after-read="afterRead" />
-    <van-uploader v-if='multiple' multiple :after-read="afterRead" v-model="fileList" :max-count="max_count"
-        :max-size="max_size" @oversize="onOversize" />
+    <van-uploader v-if='!multiple'  :after-read="afterRead" :deletable="deletable" />
+    <van-uploader v-if='multiple' multiple  :after-read="afterRead" :deletable="deletable" v-model="fileList" :max-count="max_count"
+                  :max-size="max_size" :show-upload="!disableUpload" @oversize="onOversize" >
+    </van-uploader>
 </div>
