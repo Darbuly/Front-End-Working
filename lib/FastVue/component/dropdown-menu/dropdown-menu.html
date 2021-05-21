@@ -1,5 +1,5 @@
-<van-dropdown-menu :active-color="activeColor" @click="clickItem(index)">
-    <van-dropdown-item v-model="value" :options="option" />
-    <van-dropdown-item v-for="(item,index) in optionList" :id='`item_${index}`' :disabled="item.disable"
-        v-model="item.value" :options="item.option" />
+<van-dropdown-menu :active-color="activeColor" @click="clickItem(index)" >
+    <van-dropdown-item v-model="value" :options="option"   @change="onItemChange"/>
+    <van-dropdown-item v-for="(item,index) in optionList" :key="index" :id='`item_${index}`' @change="onItemChange" :disabled="item.disable"
+        v-model="item.value" :options="item.option"  />
 </van-dropdown-menu>
