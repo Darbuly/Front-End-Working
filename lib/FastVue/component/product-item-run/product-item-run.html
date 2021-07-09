@@ -6,10 +6,10 @@
             style="width: 100%; margin-top: 5.3333vw; background: #ffffff; border-radius: 2.66667vw; align-items: center;display: flex; flex-direction: column;">
             <div style="display: flex; flex-direction: row;  width: 88.0597%; justify-content: space-between;">
                 <div style="display: flex; flex-direction: row;">
-                    <img v-if='sItem.selected  ' style="width: 5.3333vw; height: 5.3333vw;"
+                    <img v-if='sItem.selected  &&canStoreSelect'  style="width: 5.3333vw; height: 5.3333vw;"
                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj48ZGVmcz48c3R5bGU+LmEsLmIsLmR7ZmlsbDpub25lO30uYXtzdHJva2U6IzUyNzVmNzt9LmEsLmJ7c3Ryb2tlLXdpZHRoOjJweDt9LmJ7c3Ryb2tlOiM1ZDdjZWU7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7fS5je3N0cm9rZTpub25lO308L3N0eWxlPjwvZGVmcz48ZyBjbGFzcz0iYSI+PGNpcmNsZSBjbGFzcz0iYyIgY3g9IjEwIiBjeT0iMTAiIHI9IjEwIi8+PGNpcmNsZSBjbGFzcz0iZCIgY3g9IjEwIiBjeT0iMTAiIHI9IjkiLz48L2c+PHBhdGggY2xhc3M9ImIiIGQ9Ik0yMTA0Ljc5MiwxMTIuNWwyLjQxMSwyLjQxMSw0Ljg5Mi00Ljg5MiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIwOTguMjkyIC0xMDIuNTE5KSIvPjwvc3ZnPg=="
                         id="store_sel_1" @click='hitSelect(0,"sIndex",sIndex)'>
-                    <img v-if='!sItem.selected  ' @click='hitSelect(1,"sIndex",sIndex)'
+                    <img v-if='!sItem.selected  &&canStoreSelect' @click='hitSelect(1,"sIndex",sIndex)'
                         style="width: 5.3333vw; height: 5.3333vw;"
                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj48ZGVmcz48c3R5bGU+LmEsLmN7ZmlsbDpub25lO30uYXtzdHJva2U6IzM4Mzk1MDtzdHJva2Utd2lkdGg6MnB4O30uYntzdHJva2U6bm9uZTt9PC9zdHlsZT48L2RlZnM+PGcgY2xhc3M9ImEiPjxjaXJjbGUgY2xhc3M9ImIiIGN4PSIxMCIgY3k9IjEwIiByPSIxMCIvPjxjaXJjbGUgY2xhc3M9ImMiIGN4PSIxMCIgY3k9IjEwIiByPSI5Ii8+PC9nPjwvc3ZnPg=="
                         id="store_sel_1">
@@ -27,10 +27,10 @@
             justify-content: center; position: relative;">
                 <div style="display: flex; flex-direction: row; width: 88.0597%; align-items: center; border-bottom: 0.26667vw solid #f4f4f4;
                 padding: 5.3333vw 0; position: relative;">
-                    <img v-if='pItem.selected &&canSelect' @click='hitSelect(0,"pIndex",sIndex,pIndex)'
+                    <img v-if='pItem.selected &&canProductSelect' @click='hitSelect(0,"pIndex",sIndex,pIndex)'
                         style="width: 5.3333vw; height: 5.3333vw;" id="check_1_0"
                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj48ZGVmcz48c3R5bGU+LmEsLmIsLmR7ZmlsbDpub25lO30uYXtzdHJva2U6IzUyNzVmNzt9LmEsLmJ7c3Ryb2tlLXdpZHRoOjJweDt9LmJ7c3Ryb2tlOiM1ZDdjZWU7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7fS5je3N0cm9rZTpub25lO308L3N0eWxlPjwvZGVmcz48ZyBjbGFzcz0iYSI+PGNpcmNsZSBjbGFzcz0iYyIgY3g9IjEwIiBjeT0iMTAiIHI9IjEwIi8+PGNpcmNsZSBjbGFzcz0iZCIgY3g9IjEwIiBjeT0iMTAiIHI9IjkiLz48L2c+PHBhdGggY2xhc3M9ImIiIGQ9Ik0yMTA0Ljc5MiwxMTIuNWwyLjQxMSwyLjQxMSw0Ljg5Mi00Ljg5MiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIwOTguMjkyIC0xMDIuNTE5KSIvPjwvc3ZnPg==">
-                    <img v-if='!pItem.selected  &&canSelect' @click='hitSelect(1,"pIndex",sIndex,pIndex)'
+                    <img v-if='!pItem.selected  &&canProductSelect' @click='hitSelect(1,"pIndex",sIndex,pIndex)'
                         style="width: 5.3333vw; height: 5.3333vw;" id="check_1_0"
                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj48ZGVmcz48c3R5bGU+LmEsLmN7ZmlsbDpub25lO30uYXtzdHJva2U6IzM4Mzk1MDtzdHJva2Utd2lkdGg6MnB4O30uYntzdHJva2U6bm9uZTt9PC9zdHlsZT48L2RlZnM+PGcgY2xhc3M9ImEiPjxjaXJjbGUgY2xhc3M9ImIiIGN4PSIxMCIgY3k9IjEwIiByPSIxMCIvPjxjaXJjbGUgY2xhc3M9ImMiIGN4PSIxMCIgY3k9IjEwIiByPSI5Ii8+PC9nPjwvc3ZnPg==">
                     <a style="display: flex; flex-direction: row;" :href="pItem.url_link ">

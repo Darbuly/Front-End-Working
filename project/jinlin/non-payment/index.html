@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>立即预约</title>
+
+    <link rel="stylesheet" href="../../../lib/runCommon/yw_global.css">
+
+
+    <!-- vue -->
+    <script src="../../../lib/vue/vue@2.6.11.js"></script>
+
+    <!-- vant -->
+    <link rel="stylesheet" href="../../../lib/vant/index.css">
+    <script src="../../../lib/vant/vant.min.js"></script>
+
+    <!-- rem.js -->
+    <script src="../../../lib/remJS/rem.js"></script>
+    <!-- jq -->
+    <script src="../../../lib/jquery/jquery.min.js"></script>
+    <!-- FastVue -->
+    <script src="../../../lib/FastVue/FastVue.js"></script>
+
+    <!-- moment.js -->
+    <script src="../../../lib/momentJs/moment.js"></script>
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            background-color: #f3f3f3;
+        }
+
+        .loadingMask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 下拉菜单 start*/
+        .van-dropdown-menu__bar {
+            height: 1rem;
+
+        }
+
+        .van-dropdown-menu__item {
+            justify-content: flex-start;
+        }
+
+        .van-dropdown-menu__title {
+            padding-left: 0.4rem;
+            padding-right: 0.4rem;
+            opacity: 1;
+            font-size: 0.28rem;
+            font-weight: bold;
+            color: #5275F7;
+        }
+
+        .van-dropdown-item .van-overlay {
+            display: none;
+        }
+
+        .van-dropdown-item .van-popup {
+            width: 3.36rem;
+            height: 2.47rem;
+
+        }
+
+
+        .van-dropdown-item .van-cell__value {
+            display: none;
+        }
+
+        .van-dropdown-item__option {
+            text-align: center;
+        }
+
+        .van-dropdown-menu__item--disabled {
+            justify-content: flex-end;
+        }
+
+        .van-dropdown-menu__item--disabled .van-dropdown-menu__title {
+            padding-left: 0.2rem;
+            padding-right: 0.4rem;
+            font-size: 0.28rem;
+            font-weight: bold;
+            color: #808092;
+        }
+
+        .van-dropdown-menu__item--disabled .van-dropdown-menu__title::after {
+            display: none;
+        }
+
+
+        /* 下拉菜单 end*/
+
+        /* 商品列表 start */
+        .count_sum {
+            display: none !important;
+        }
+
+        /* 商品列表 end */
+    </style>
+</head>
+
+<body>
+    <div id="container">
+    </div>
+    <div class="loadingMask" id='loadingMask'>正在加载中...</div>
+</body>
+
+<script>
+
+    async function iniFastVue() {
+
+
+        const F1 = new FastVue({
+            appName: 'myFirstFastVue',
+            templatePathRoot: '../../../lib/FastVue/component/'
+        });
+        F1.initPlugin(vant.Lazyload);
+        //下拉菜单
+        let menuVm = await F1.pushComponent('#container', 'dropdown-menu', {
+            activeColor: '#5275f7',
+            value: 0,
+            option: [
+                { text: '天安豪园3栋806', value: 0 },
+                { text: '天安豪园3栋802', value: 1 },
+                { text: '天安豪园3栋383', value: 2 },
+            ],
+            optionList: [{
+                disable: true,
+                value: 0,
+                option: [
+                    { text: '已缴记录', value: 0 },
+                ]
+            }]
+        })
+
+        let tip = await F1.pushComponent('#container', 'tip-run', {
+        })
+
+        let submitOrder = await F1.pushComponent('#container', 'submit-bottom', {
+            title: '提交订单',
+            count: '2',
+            unit: '笔',
+            item_name: '账单',
+            sumPrice: '9999'
+        }, {
+            submit() {
+                tip.show('success');
+            }
+        })
+
+
+        let item = await F1.pushComponent('#container', 'product-item-run', {
+
+            time: '',
+            store_list: [
+                {
+                    selected: false,
+                    supplier_name: '全选',
+                    product_list: [
+                        {
+                            url_link: 'http://www.baidu.com',
+                            selected: false,
+                            product_num: 1,
+                            product_price: 182,
+                            product_desc: '6月30-7月311',
+                            product_title: '水费',
+                            product_thumb: './images/money_card.svg'
+                        },
+                        {
+                            url_link: 'http://www.baidu.com',
+                            selected: false,
+                            product_num: 1,
+                            product_price: 232,
+                            product_desc: '6月30-7月31',
+                            product_title: '物业费',
+                            product_thumb: './images/money_card.svg'
+                        }
+
+                    ]
+                }
+            ],
+            hideDelete: true,
+            other_cost: [],
+            sumPrice: '9999'
+
+        }, {
+            changeCallback() {
+                console.log(this.count);
+                submitOrder.count = this.count;
+                submitOrder.sumPrice = this.sumPrice;
+            }
+        })
+
+
+
+
+        // hideLoading
+        let loadingMask = document.getElementById('loadingMask');
+        loadingMask.style.display = 'none';
+    }
+    iniFastVue()
+
+
+</script>
+
+</html>
