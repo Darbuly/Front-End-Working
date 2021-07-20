@@ -325,11 +325,10 @@
 		.show-content-box {
 			width: 1200px;
 			height: 864px;
-			position: fixed;
+			position: absolute;
 			left: 50%;
 			top: 50%;
-
-
+			cursor: auto;
 		}
 
 		.show {
@@ -509,8 +508,18 @@
 			height: 100vh;
 			display: none;
 		}
-	</style>
 
+		/* 固定不动窗口 */
+		#fixedBox {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100vw;
+			height: 100vh;
+			opacity: 0.5;
+			z-index: -1;
+		}
+	</style>
 
 	<div class="fwbs-main" id="main">
 		<div class="region">
@@ -616,33 +625,152 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<div class="mask"></div>
 
-	<div class="show-content-box" id='show-content-box' style="display: none;" v-if='show'>
-		<div class="closer" @click='hide'></div>
-		<div class="content-view" ref="contentView">
-			<div class="show-content">
-				<div class="content-node" v-for='(item,index) in article_list' :key='index'
-					:ref="`article_${item.id}`">
-					<div class="left-time">
-						<div class="day" v-text='item.day'>01</div>
-						<div class="month" v-text='item.month'>JUNE</div>
+			<div class="form_container">
+				<div class="item-list">
+					<div class="year">2017</div>
+					<div class="item" onclick="ShowArticle(2017,1)">
+						<div class="lightbox"></div>
+						<img src="./res/avater.jpg" alt="">
+						<span
+							class="desc">这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要</span>
 					</div>
-					<div class="right-article">
-						<div class="cover-img"></div>
-						<div class="title" v-text='item.title'></div>
-						<div class="article-content" data-fold="1"
-							v-html='item.article_content'>
-						</div>
-						<span class="fold-btn" onclick="foldArticleToggle(this)">[展开]</span>
+					<div class="item">
+						<div class="lightbox"></div>
+						<img src="./res/avater.jpg" alt="">
+						<span
+							class="desc">这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要</span>
+					</div>
+					<div class="item">
+						<div class="lightbox"></div>
+						<img src="./res/avater.jpg" alt="">
+						<span
+							class="desc">这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要</span>
+					</div>
+					<div class="item">
+						<div class="lightbox"></div>
+						<img src="./res/avater.jpg" alt="">
+						<span
+							class="desc">这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要</span>
+					</div>
+					<div class="item">
+						<div class="lightbox"></div>
+						<img src="./res/avater.jpg" alt="">
+						<span
+							class="desc">这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要</span>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="form_container">
+				<div class="item-list">
+					<div class="year">2017</div>
+					<div class="item" onclick="ShowArticle(2017,1)">
+						<div class="lightbox"></div>
+						<img src="./res/avater.jpg" alt="">
+						<span
+							class="desc">这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要</span>
+					</div>
+					<div class="item">
+						<div class="lightbox"></div>
+						<img src="./res/avater.jpg" alt="">
+						<span
+							class="desc">这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要</span>
+					</div>
+					<div class="item">
+						<div class="lightbox"></div>
+						<img src="./res/avater.jpg" alt="">
+						<span
+							class="desc">这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要</span>
+					</div>
+					<div class="item">
+						<div class="lightbox"></div>
+						<img src="./res/avater.jpg" alt="">
+						<span
+							class="desc">这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要</span>
+					</div>
+					<div class="item">
+						<div class="lightbox"></div>
+						<img src="./res/avater.jpg" alt="">
+						<span
+							class="desc">这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要</span>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="form_container">
+				<div class="item-list">
+					<div class="year">2017</div>
+					<div class="item" onclick="ShowArticle(2017,1)">
+						<div class="lightbox"></div>
+						<img src="./res/avater.jpg" alt="">
+						<span
+							class="desc">这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要</span>
+					</div>
+					<div class="item">
+						<div class="lightbox"></div>
+						<img src="./res/avater.jpg" alt="">
+						<span
+							class="desc">这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要</span>
+					</div>
+					<div class="item">
+						<div class="lightbox"></div>
+						<img src="./res/avater.jpg" alt="">
+						<span
+							class="desc">这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要</span>
+					</div>
+					<div class="item">
+						<div class="lightbox"></div>
+						<img src="./res/avater.jpg" alt="">
+						<span
+							class="desc">这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要</span>
+					</div>
+					<div class="item">
+						<div class="lightbox"></div>
+						<img src="./res/avater.jpg" alt="">
+						<span
+							class="desc">这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要这是风味捕手的摘要</span>
 					</div>
 				</div>
 
 			</div>
 		</div>
+
+
+
 	</div>
+
+	<div id="fixedBox">
+		<div class="show-content-box" id='show-content-box' style="display: none;" v-if='show'>
+			<div class="closer" @click='hide'></div>
+			<div class="content-view" ref="contentView">
+				<div class="show-content">
+					<div class="content-node" v-for='(item,index) in article_list' :key='index'
+						:ref="`article_${item.id}`">
+						<div class="left-time">
+							<div class="day" v-text='item.day'>01</div>
+							<div class="month" v-text='item.month'>JUNE</div>
+						</div>
+						<div class="right-article">
+							<div class="cover-img"></div>
+							<div class="title" v-text='item.title'></div>
+							<div class="article-content" data-fold="1"
+								v-html='item.article_content'>
+							</div>
+							<span class="fold-btn"
+								onclick="foldArticleToggle(this)">[展开]</span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
 
 </body>
 
