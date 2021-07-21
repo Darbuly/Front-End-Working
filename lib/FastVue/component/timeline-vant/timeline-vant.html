@@ -1,0 +1,15 @@
+<!-- 支持子组件 -->
+<div class="timeline-vant">
+	<div v-for="(lineItem,lineIndex) in propsdata.line_list" :key="lineIndex">
+		<h1 class="timeline-vant-bigtitle">{{lineItem.line_title}}</h1>
+		<van-steps direction="vertical" :active="0">
+
+			<van-step v-for="(item,index) in lineItem.list" v-if='item.contentComponent!=undefined'>
+				<div class="time">06月23日</div>
+				<component v-if='item.contentComponent!=undefined' v-bind:is="item.contentComponent"
+					:componentkey="index" :propsdata="item" @changFn="changFn">
+				</component>
+			</van-step>
+		</van-steps>
+	</div>
+</div>

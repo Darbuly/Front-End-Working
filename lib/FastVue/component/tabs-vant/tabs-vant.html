@@ -1,0 +1,11 @@
+<!-- 支持子组件 -->
+
+<div class="tabs-vant">
+	<van-tabs v-model="active" animated>
+		<van-tab v-for="(item,index) in list" :title="item.tab_title">
+			<component v-if='item.contentComponent!=undefined' v-bind:is="item.contentComponent"
+				:componentkey="index" :propsdata="item" @changFn="changFn">
+			</component>
+		</van-tab>
+	</van-tabs>
+</div>

@@ -85,7 +85,6 @@ $(function () {
             if (e.changedTouches.length == 1) {
                 let deltaX = e.changedTouches[0].pageX - position[0];
                 if (Math.abs(deltaX) < 10) {
-                    console.log(Math.abs(deltaX))
                     return;
                 }
                 if (deltaX > 0) {

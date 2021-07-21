@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<link rel="stylesheet" href="../../../lib/runCommon/yw_global.css">
+
+
+	<!-- vue -->
+	<script src="../../../lib/vue/vue@2.6.11.js"></script>
+
+	<!-- vant -->
+	<link rel="stylesheet" href="../../../lib/vant/index.css">
+	<script src="../../../lib/vant/vant.min.js"></script>
+
+	<!-- rem.js -->
+	<script src="../../../lib/remJS/rem.js"></script>
+	<!-- jq -->
+	<script src="../../../lib/jquery/jquery.min.js"></script>
+	<!-- FastVue -->
+	<script src="../../../lib/FastVue/FastVue.js"></script>
+
+	<!-- moment.js -->
+	<script src="../../../lib/momentJs/moment.js"></script>
+
+
+	<script src="../../../lib/drag/drag.js"></script>
+
+	<style>
+		.drag-wrap {
+			display: flex;
+			flex-direction: row;
+		}
+
+		.drag-wrap .a,
+		.drag-wrap .b,
+		.drag-wrap .c,
+		.drag-wrap .d {
+			width: 800px;
+			height: 100px;
+		}
+
+		.a {
+			background-color: red;
+		}
+
+		.b {
+			background-color: blue;
+		}
+
+		.c {
+			background-color: brown;
+		}
+	</style>
+
+
+
+</head>
+
+<body>
+	<div id="container">
+	</div>
+	<div class="drag-wrap" id='main'>
+		<div class="a"></div>
+		<div class="b"></div>
+		<div class="c"></div>
+	</div>
+
+
+</body>
+
+<script>
+
+
+	// async function iniFastVue() {
+
+	// 	const F1 = new FastVue({
+	// 		appName: 'myFirstFastVue',
+	// 		templatePathRoot: '../../../lib/FastVue/component/'
+	// 	});
+	// 	let field_upload = await F1.pushComponent('#container', 'tabs-vant', {
+
+	// 	})
+
+	// }
+	// iniFastVue()
+
+
+	initDrag('main', {
+		disableY: true,//是否固定Y轴
+		turnBack: true,//是否自动弹回
+		maxLeft: 300,//最大拖动左边极限留白宽度
+		maxRight: 300,//最大拖动右边极限留白宽度
+	})
+
+</script>
+
+</html>
