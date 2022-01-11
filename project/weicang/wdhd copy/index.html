@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="../../../lib/runCommon/yw_global.css">
+
+
+	<!-- vue -->
+	<script src="../../../lib/vue/vue_2.6.11.js"></script>
+	<!-- vant -->
+	<link rel="stylesheet" href="../../../lib/vant/index.css">
+	<script src="../../../lib/vant/vant.min.js"></script>
+
+	<!-- rem.js -->
+	<script src="../../../lib/remJS/rem.js"></script>
+	<!-- jq -->
+	<script src="../../../lib/jquery/jquery.min.js"></script>
+	<!-- FastVue -->
+	<script src="../../../lib/FastVue/FastVue.js"></script>
+
+	<title>味道黑洞</title>
+
+
+	<style>
+		.banner {
+			width: 100%;
+			height: 6.8rem;
+			background-image: url(./images/banner.png);
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+			overflow: hidden;
+		}
+
+		.banner .title {
+			font-size: 0.56rem;
+			color: #ffffff;
+			line-height: 0.8rem;
+			margin-top: 1.86rem;
+			margin-left: 0.86rem;
+			margin-bottom: 0.52rem;
+		}
+
+		.banner .block-btn-row {
+			margin-left: 0.86rem;
+			margin-bottom: 0.36rem;
+		}
+
+		.banner .block-btn-row .btn {
+			height: 0.88rem;
+			opacity: 1;
+			background: rgba(52, 55, 64, 0.50);
+			color: #fff;
+			border: 2px solid #979797;
+			backdrop-filter: blur(8px);
+			line-height: 0.88rem;
+			padding-left: 0.34rem;
+			display: inline-flex;
+			flex-direction: row;
+			align-items: center;
+			margin-right: 0.36rem;
+		}
+
+		.banner .block-btn-row .btn::after {
+			content: ' ';
+			display: block;
+			width: 0.4rem;
+			height: 0.16rem;
+			background-image: url(./images/arrow.png);
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+			margin-left: 0.56rem;
+			margin-right: 0.26rem;
+		}
+
+		.post-card {
+			margin: 0.4rem auto;
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.post-body {
+			width: 72.23%;
+
+		}
+
+		.wdhd-series {
+			width: 6.7rem;
+			margin: 0 auto;
+		}
+
+		.wdhd-series .title::before,
+		.wdhd-series .title::after {
+			content: ' - ';
+		}
+
+		.wdhd-series .title {
+			font-size: 0.56rem;
+			color: #343740;
+			line-height: 0.8rem;
+			text-align: center;
+		}
+
+		.wdhd-series .post-body {
+			font-size: 0.3rem;
+			color: #343740;
+			line-height: 0.64rem;
+		}
+
+		.wdhd-series .desc {
+			margin: 0.56rem 0 0.28rem;
+		}
+
+		.wdhd-series .cover {
+			width: 6.7rem;
+			height: 4.12rem;
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+		}
+
+
+		.product-card {
+			width: 100%;
+			height: 7.92rem;
+			background-color: #7c8795;
+			overflow: hidden;
+		}
+
+		.product-card .product-img {
+			width: 5.44rem;
+			height: 3.7rem;
+			margin: 0.76rem auto 0.3rem;
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+		}
+
+		.product-card .product-title {
+			font-size: 0.4rem;
+			font-weight: bold;
+			text-align: center;
+			color: #ffffff;
+			line-height: 0.56rem;
+			letter-spacing: 1px;
+		}
+
+		.product-card .product-desc {
+			font-size: 0.28rem;
+			margin: 0.08rem auto 0.22rem;
+			text-align: center;
+			color: #ffffff;
+			line-height: 0.4rem;
+			letter-spacing: 1px;
+		}
+
+		.product-card .btn-group {
+			display: flex;
+			justify-content: center;
+		}
+
+		.product-card .btn-group .btn {
+			width: 2.74rem;
+			height: 0.8rem;
+			background: rgba(52, 55, 64, 0.50);
+			line-height: 0.8rem;
+			text-align: center;
+			backdrop-filter: blur(8px);
+			margin-right: 0.24rem;
+			font-size: .28rem;
+			color: #ffffff;
+			letter-spacing: 1px;
+		}
+
+		.product-card .btn-group .btn:last-child {
+			margin-right: 0;
+		}
+
+		.swipe-vant {
+			margin-top: 0.68rem;
+			margin-bottom: 0.4rem;
+		}
+
+		.van-swipe__indicators {
+			bottom: 0.46rem;
+		}
+
+		.van-swipe__indicator {
+			width: 0.2rem;
+			height: 0.2rem;
+			background-color: #7c8795;
+			border: 1px solid #ffffff;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div class="banner">
+		<div class="title">味道黑洞</div>
+		<div class="block-btn-row">
+			<span class="btn">豁然开朗系列</span>
+		</div>
+		<div class="block-btn-row">
+			<span class="btn">玩味系列</span>
+			<span class="btn">醒 系列</span>
+		</div>
+	</div>
+
+	<div class="post-card" style="width: 6.7rem;height: 10.9rem; background-image: url(./images/m.png);">
+		<div class="post-body">
+			<div class="titleA" style="
+			font-size: 0.56rem;
+			color: #ffffff;
+			line-height: 0.8rem;">味仓最佳风土茶<br>大自然的馈赠</div>
+			<div class="titleB" style="
+			font-size: 0.28rem;
+			color: #ffffff;
+			line-height: 0.44rem;">我们的风味捕手在云南省人迹罕至的大山深处展开狩猎，捕捉到了历经岁月沉淀的古茶乐园的味道气息，<br> 那些美如仙境的林间茶园，<br>
+				沿袭着在地人民的时代梦想，流淌着自然清澈的溪流，<br>
+				仿佛人类最后的归宿，<br> 自然而然，最佳风土的想象顺应而生</div>
+			<div class="titleC" style="
+			font-size: 0.28rem;
+			font-weight: bold;
+			color: #ffffff;
+			line-height: 0.44rem">——世界上从此有了味仓最佳风土茶。</div>
+		</div>
+	</div>
+
+	<div class="wdhd-series">
+		<div class="title">豁然开朗系列</div>
+		<div class="desc">
+			<p style="text-align:center;font-size: 0.3rem;color: #343740;line-height: 0.64rem;">在非同凡味的味道体验中
+				获得新的灵感、</p>
+			<p style="text-align:center;font-size: 0.3rem;color: #343740;line-height: 0.64rem;">
+				、交到新的朋友、得到新的能量。 </p>
+			<p style="text-align:center;font-size: 0.3rem;color: #343740;line-height: 0.64rem;">
+				这样的体验，我们称之为“豁然开朗”</p>
+		</div>
+		<div class="cover" style="background-image: url(./images/m2.png);"></div>
+		<div class="product-slide" id="product-silde-h">
+			<div class="product-card">
+				<div class="product-img" style="background-image: url(./images/product.png);"></div>
+				<div class="product-title">{{propsdata.id}}百花仙子的玉液琼浆</div>
+				<div class="product-desc">豁然开朗1号作品</div>
+				<div class="btn-group">
+					<div class="btn" @click="to_nav">进一步了解 ></div>
+					<div class="btn">购买 ></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="wdhd-series">
+		<div class="title">玩味系列</div>
+		<div class="desc">
+			<p style="text-align:center;font-size: 0.3rem;color: #343740;line-height: 0.64rem;">
+				玩味是一种生活情趣，</p>
+			<p style="text-align:center;font-size: 0.3rem;color: #343740;line-height: 0.64rem;">
+				是对着值得把玩、品味、思考的味道进行深度探索。 </p>
+
+		</div>
+		<div class="cover" style="background-image: url(./images/m3.png);"></div>
+		<div class="product-slide" id="product-silde-w">
+			<div class="product-card">
+				<div class="product-img" style="background-image: url(./images/product.png);"></div>
+				<div class="product-title">{{propsdata.id}}久旱逢甘霖的味道</div>
+				<div class="product-desc">玩味60号地块</div>
+				<div class="btn-group">
+					<div class="btn">进一步了解 ></div>
+					<div class="btn">购买 ></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="wdhd-series">
+		<div class="title">醒 系列</div>
+		<div class="desc">
+			<p style="text-align:center;font-size: 0.3rem;color: #343740;line-height: 0.64rem;">
+				再好的茶，也唤不醒一个装睡的人</p>
+
+
+		</div>
+		<div class="cover" style="background-image: url(./images/x.png);"></div>
+		<div class="product-slide" id="product-silde-x">
+			<div class="product-card">
+				<div class="product-img" style="background-image: url(./images/product.png);"></div>
+				<div class="product-title">{{propsdata.id}}久旱逢甘霖的味道</div>
+				<div class="product-desc">醒来，一起闻兰花</div>
+				<div class="btn-group">
+					<div class="btn">进一步了解 ></div>
+					<div class="btn">购买 ></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+
+	var a = null;
+
+	async function iniFastVue() {
+
+		const F1 = new FastVue({
+			appName: 'myFirstFastVue',
+			templatePathRoot: '../../../lib/FastVue/component/'
+		});
+		F1.initPlugin(vant.Lazyload);
+
+		a = await F1.wrapComponent('#product-silde-h', 'swipe-vant', {
+			autoplay: 3000,
+			list: [
+				{
+					id: 12312
+				},
+
+				{
+					id: 2
+				}
+			]
+		}, {
+			to_nav: function (p) {
+				console.log(p);
+				console.log('cdcd');
+			}
+		})
+
+
+		await F1.wrapComponent('#product-silde-w', 'swipe-vant', {
+			autoplay: 3000,
+			list: [
+				{
+					id: 12312
+				},
+
+				{
+					id: 2
+				}
+			]
+		})
+
+
+		await F1.wrapComponent('#product-silde-x', 'swipe-vant', {
+			autoplay: 3000,
+			list: [
+				{
+					id: 12312
+				},
+
+				{
+					id: 2
+				}
+			]
+		})
+
+	}
+
+
+
+
+	iniFastVue()
+
+	function test() {
+		a.to_nav(1)
+		console.log(a);
+		console.log(a.methods)
+	}
+</script>
+
+</html>

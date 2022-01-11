@@ -1,0 +1,24 @@
+<div class="likeap-collapse">
+	<el-collapse v-model="activeName" @change="handleCollapseChange" accordion onlyOneHit>
+		<el-collapse-item v-for="(item,index) in list" :class="'collapse_'+item.id" :title="item.collapse_title"
+			:name="item.id" :ref="'collapse_item_'+item.id">
+			<template v-if="item.titleObj" slot="title">
+				<div class="fapiao-title" :tabindex="index">
+					<div class="fapiao-maintitle">{{item.titleObj.fapiao_title}}</div>
+					<div v-if="item.titleObj.fapiap_title_desc" class="fapiap_title_desc">
+						{{item.titleObj.fapiap_title_desc}}
+					</div>
+				</div>
+				<div class="fapiao-desc">{{item.titleObj.fapiao_desc}}
+					<div v-if="item.titleObj.fapiao_desc2" class="fapiao-desc2">
+						{{item.titleObj.fapiao_desc2}}</div>
+				</div>
+
+
+			</template>
+			<component v-if='item.contentComponent!=undefined' v-bind:is="item.contentComponent"
+				:componentkey="index" :propsdata="item" @changFn="changFn">
+			</component>
+		</el-collapse-item>
+	</el-collapse>
+</div>

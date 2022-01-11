@@ -1,0 +1,113 @@
+<div class="likeap-form">
+	<el-form :hide-required-asterisk='outputData.hide_required_asterisk' :model="outputData.formValue"
+		:rules="outputData.rules" :ref="outputData.form_id" label-width="100px" class="demo-formValue">
+
+		<div v-if="outputData.groups!=undefined">
+			<div v-for="(gItem,gIndex) in outputData.groups"
+				:class="gItem.disable?  ['group-'+gIndex,'group-disable']: ['group-'+gIndex]">
+				<div v-if="gItem.title!=undefined" class="group-title">{{gItem.title}}</div>
+				<div class="group-form-item-list">
+					<el-form-item v-for="(fItem,fIndex) in outputData.formType"
+						v-if="fItem.group==gIndex||(gIndex=='default'&&fItem.group==undefined)"
+						:label="fItem.label" :prop="fIndex"
+						:rules="gItem.disable?{required: false}:outputData.rules[fIndex]">
+						<!-- 输入框 -->
+						<el-input v-if="fItem.type=='input'"
+							v-model="outputData.formValue[fIndex]"
+							:autocomplete="fItem.autocomplete?fItem.autocomplete:'off'">
+
+						</el-input>
+						<!-- 密码输入 -->
+						<el-input v-if="fItem.type=='input-password'" type="password"
+							v-model="outputData.formValue[fIndex]"
+							:autocomplete="fItem.autocomplete?fItem.autocomplete:'off'">
+						</el-input>
+						<!-- 带按钮的输入框 -->
+						<el-input v-if="fItem.type=='input-button'"
+							v-model="outputData.formValue[fIndex]"
+							:autocomplete="fItem.autocomplete?fItem.autocomplete:'off'">
+
+						</el-input>
+
+						<el-checkbox-group v-if="fItem.type=='input-checkbox'"
+							v-model="outputData.formValue[fIndex]">
+							<el-checkbox
+								v-for="(opItem,opIndex) in fItem.params.option_list"
+								:label="opItem.label" :value="opItem.value">
+							</el-checkbox>
+						</el-checkbox-group>
+						<div v-if="fItem.type=='input-button'" :class="fItem.params.class"
+							:ref="fItem.params.ref_id">
+							{{fItem.params.button_title}}
+						</div>
+
+						<!-- 联级选择器 -->
+						<el-cascader placeholder='' v-if="fItem.type=='input-cascader'"
+							v-model="outputData.formValue[fIndex]" :options="fItem.options">
+						</el-cascader>
+
+						<!-- 选择框 -->
+						<el-select v-if="fItem.type=='select'"
+							v-model="outputData.formValue[fIndex]"
+							:placeholder="fItem.params.placeholder">
+							<el-option v-for="(opItem,opIndex) in fItem.params.option_list"
+								:label="opItem.label" :value="opItem.value"></el-option>
+						</el-select>
+
+					</el-form-item>
+				</div>
+
+
+			</div>
+
+		</div>
+		<div v-else>
+
+			<el-form-item v-for="(fItem,fIndex) in outputData.formType" :label="fItem.label" :prop="fIndex">
+				<!-- 输入框 -->
+				<el-input v-if="fItem.type=='input'" v-model="outputData.formValue[fIndex]"
+					:autocomplete="fItem.autocomplete?fItem.autocomplete:'off'">
+
+				</el-input>
+				<!-- 密码输入 -->
+				<el-input v-if="fItem.type=='input-password'" type="password"
+					v-model="outputData.formValue[fIndex]"
+					:autocomplete="fItem.autocomplete?fItem.autocomplete:'off'"></el-input>
+				<!-- 带按钮的输入框 -->
+				<el-input v-if="fItem.type=='input-button'" v-model="outputData.formValue[fIndex]"
+					:autocomplete="fItem.autocomplete?fItem.autocomplete:'off'">
+
+				</el-input>
+
+				<el-checkbox-group v-if="fItem.type=='input-checkbox'"
+					v-model="outputData.formValue[fIndex]">
+					<el-checkbox v-for="(opItem,opIndex) in fItem.params.option_list"
+						:label="opItem.label" :value="opItem.value"></el-checkbox>
+				</el-checkbox-group>
+				<div v-if="fItem.type=='input-button'" :class="fItem.params.class"
+					:ref="fItem.params.ref_id">
+					{{fItem.params.button_title}}
+				</div>
+
+				<!-- 联级选择器 -->
+				<el-cascader placeholder='' v-if="fItem.type=='input-cascader'"
+					v-model="outputData.formValue[fIndex]" :options="fItem.options">
+				</el-cascader>
+
+				<!-- 选择框 -->
+				<el-select v-if="fItem.type=='select'" v-model="outputData.formValue[fIndex]"
+					:placeholder="fItem.params.placeholder">
+					<el-option v-for="(opItem,opIndex) in fItem.params.option_list"
+						:label="opItem.label" :value="opItem.value"></el-option>
+				</el-select>
+
+			</el-form-item>
+
+
+		</div>
+
+
+
+
+	</el-form>
+</div>

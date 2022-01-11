@@ -1,8 +1,8 @@
-<div class="swipe-vant">
-	<van-swipe class="swipe-vant-swipe" :autoplay="3000" indicator-color="white">
+<div v-bind:class="[defaultClass,addClass]">
+	<van-swipe class="swipe-vant-swipe" :autoplay="autoplay" indicator-color="white">
 		<van-swipe-item v-for="(ListItem,ListIndex) in iterateList" :key="ListIndex">
-			<component v-for="(item,index) in ListItem" :key="index" v-if='useComponent!=undefined'
-				v-bind:is="useComponent" :componentkey="index" :propsdata="item" @changFn="changFn">
+			<component v-if='useComponent!=undefined' v-bind:is="useComponent" :componentkey="ListIndex"
+				:propsdata="ListItem" @changFn="changFn">
 			</component>
 		</van-swipe-item>
 	</van-swipe>

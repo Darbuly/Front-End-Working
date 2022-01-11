@@ -5,7 +5,7 @@
 		<van-steps direction="vertical" :active="0">
 
 			<van-step v-for="(item,index) in lineItem.list" v-if='item.contentComponent!=undefined'>
-				<div class="time">06月23日</div>
+				<div class="time">{{item.date}}</div>
 				<component v-if='item.contentComponent!=undefined' v-bind:is="item.contentComponent"
 					:componentkey="index" :propsdata="item" @changFn="changFn">
 				</component>

@@ -1,6 +1,14 @@
 
 $(function () {
+
+
+    //初始化产品高宽
+    var height = document.getElementById("product_contain").offsetHeight//600
+    var smHeight = height / 3; //600/3=200
+    $(".product_infos_wrap").css('marginTop', height - 20 + 'px')
+
     var curr_item_indx = 0;
+
 
     logo_item_click = function () {
 
@@ -31,23 +39,45 @@ $(function () {
         curr_item_indx = indx;
 
 
-        $("#product_contain .product_item").eq(indx).addClass("productItemCur").siblings().removeClass('productItemCur');
+        //变大当前 其余变小
+
+
+        //当前元素处理：变大，去透明,加class标记
+        $("#product_contain .product_item").eq(indx).addClass('productItemCur').siblings().removeClass('productItemCur');
+
+        $("#product_contain .product_item img").eq(indx).css('width', height + 'px');
+        $("#product_contain .product_item img").eq(indx).css('height', height + 'px');
+        $("#product_contain .product_item img").eq(indx).css('opacity', '1');
+
+
+        //处理其余元素
+        var others = $("#product_contain .product_item").eq(indx).siblings();
+        for (let i = 0; i < others.length; i++) {
+            const pItem = others[i];
+            const img = pItem.firstChild;
+            //透明
+            img.style.opacity = 0.3;
+            //变小
+            img.style.width = smHeight + 'px';
+            img.style.height = smHeight + 'px';
+        }
+
+        //导航记录状态
         $("#hd ul li").eq(indx).addClass("on").siblings().removeClass('on');
 
 
 
         var p_w = $("#product_layer").width();//总长
-        var one_p_w = 200;//单位长
-        var big_p_w = 600;
+        var one_p_w = smHeight//单位长
+        var big_p_w = height;
 
         if (document.body.clientWidth <= 750) {
-            big_p_w = document.body.clientWidth * 0.8036;
+            // big_p_w = document.body.clientWidth * 0.8036;
         }
 
 
         console.log(`${one_p_w},${big_p_w}`);
         var l = (p_w - big_p_w) / 2 - one_p_w * indx;
-        // var l = (p_w - 600) / 2 - 200 * indx;
         //商品条向左移动
         $("#product_contain").css({
             'left': l,
@@ -126,7 +156,23 @@ $(function () {
                 && point_desc.length) {
 
                 point_desc.map((pItem) => {
-                    point_desc_str += `<div class="point_desc" style="left:${pItem.top}%;top:${pItem.left}%;" ><span>${pItem.text}</span></div>`;
+
+                    //计算加宽值
+                    let add_width = 0;
+                    let minWidth = 220;
+                    let maxWidth = 500;
+
+                    if (pItem.addW && document.body.clientWidth > 750) {
+                        add_width = height * pItem.addW * 0.01;
+                    }
+
+                    if (document.body.clientWidth <= 750) {
+                        minWidth = 120;
+                        maxWidth = 250;
+                    }
+
+
+                    point_desc_str += `<div class="point_desc" style="left:${pItem.left}%;top:${pItem.top}%;" ><span style="min-width:${add_width + minWidth}px;max-width:${maxWidth}px;"> <div class='p_desc_t'>${pItem.text}</div></span></div>`;
                 })
 
 
@@ -144,14 +190,30 @@ $(function () {
         }
 
 
-        product_item_click(Math.floor(product_infos.length / 2));
-        $('#product_layer').hide();
-        setTimeout(() => {
-            $('#border_animat').show();
-            $('#street_contain').css('display', 'flex')
-            $('#flash_title').css('display', 'none')
 
-        }, 2800)
+
+
+        $("#product_contain .product_item img").css('width', height);
+
+        $("#product_contain .product_item img").css('height', height);
+        // for (let i = 0; i < imglist.length; i++) {
+        //     const imgItem = imglist[i];
+        //     imgItem.css('width', smHeight)
+        //     imgItem.css('height', smHeight)
+
+        // }
+
+
+        $('#flash_title').css('display', 'none')
+        product_item_click(Math.floor(product_infos.length / 2));
+
+        // $('#product_layer').hide();
+        // setTimeout(() => {
+        //     $('#border_animat').show();
+        //     $('#street_contain').css('display', 'flex')
+        //     $('#flash_title').css('display', 'none')
+
+        // }, 2800)
 
         //禁止浏览器拖动图片打开新标签页的默认事件
         document.ondragover = function (e) { e.preventDefault(); };
@@ -198,7 +260,90 @@ $(function () {
         // $('#border_animat').show();
         $('.closer_phone')[0].style.display = 'none';
 
+        // setTimeout(() => {
+        //     $('#product_layer').css('display', 'none')
+        // }, 1000)
+
     }
+
+
+
+    function responseStreet() {
+        if (document.body.clientWidth > 750) {
+            var divW = $("#street_contain").css('width');
+            var divH = $("#street_contain").css('height', divW);
+
+        }
+
+    }
+    responseStreet();
+    window.addEventListener('resize', responseStreet, false);
+
+
+    function children(curEle, tagName) {
+        var nodeList = curEle.childNodes;
+        var ary = [];
+        if (/MSIE(6|7|8)/.test(navigator.userAgent)) {
+            for (var i = 0; i < nodeList.length; i++) {
+                var curNode = nodeList[i];
+                if (curNode.nodeType === 1) {
+                    ary[ary.length] = curNode;
+                }
+            }
+        } else {
+            ary = Array.prototype.slice.call(curEle.children);
+        }
+
+        // 获取指定子元素
+        if (typeof tagName === "string") {
+            for (var k = 0; k < ary.length; k++) {
+                curTag = ary[k];
+                if (curTag.nodeName.toLowerCase() !== tagName.toLowerCase()) {
+                    ary.splice(k, 1);
+                    k--;
+                }
+            }
+        }
+
+        return ary;
+    }
+
+    //取绝对坐标
+    function getAbsX(e) {
+        var x = e.offsetLeft;
+        while (e = e.offsetParent) {
+            x += e.offsetLeft;
+        }
+        return x;
+    }
+
+    //亮点hover事件,赋予改变方向
+    $(".point_desc").hover(function (e) {
+        //取当前hover 元素的x坐标
+        const p_x = getAbsX(e.currentTarget)
+        //取当前页面的中心点x坐标
+        const fullWidth = document.documentElement.clientWidth;
+        console.log(`${p_x},${fullWidth / 2}`)
+        let descDiv = e.currentTarget;
+        let spanDiv = children(descDiv, 'span');
+        if (p_x <= fullWidth / 2) {//中心轴左侧
+            // 改变方向
+
+            if (spanDiv) {
+                let sWidth = spanDiv[0].offsetWidth;
+                spanDiv[0].style.left = `-${sWidth - 10}px`;
+                spanDiv[0].className = 'p_to_left';
+            }
+
+        } else {
+
+            if (spanDiv) {
+                spanDiv[0].style.left = '10px';
+                spanDiv[0].className = '';
+            }
+        }
+
+    })
 
 
 });

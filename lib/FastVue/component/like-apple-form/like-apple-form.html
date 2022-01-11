@@ -1,0 +1,36 @@
+<div class="likeap-form">
+	<el-form :hide-required-asterisk='hide_required_asterisk' :autocomplete="autocomplete" :model="formValue"
+		:rules="rules" :ref="form_id" label-width="100px" class="demo-formValue">
+		<el-form-item v-for="(fItem,fIndex) in formType" :label="fItem.label" :prop="fIndex">
+			<!-- 输入框 -->
+			<el-input v-if="fItem.type=='input'" :autocomplete="fItem.autocomplete?fItem.autocomplete:'off'"
+				v-model="formValue[fIndex]">
+			</el-input>
+			<!-- 密码输入 -->
+			<el-input v-if="fItem.type=='input-password'" type="password" v-model="formValue[fIndex]"
+				:autocomplete="fItem.autocomplete?fItem.autocomplete:'off'"></el-input>
+			<!-- 带按钮的输入框 -->
+			<el-input v-if="fItem.type=='input-button'"
+				:autocomplete="fItem.autocomplete?fItem.autocomplete:'off'" v-model="formValue[fIndex]">
+			</el-input>
+
+			<el-checkbox-group v-if="fItem.type=='input-checkbox'" v-model="formValue[fIndex]">
+				<el-checkbox v-for="(opItem,opIndex) in fItem.params.option_list" :label="opItem.label"
+					:value="opItem.value"></el-checkbox>
+			</el-checkbox-group>
+			<button v-if="fItem.type=='input-button'" :class="fItem.params.class"
+				:ref="fItem.params.ref_id">
+				{{fItem.params.button_title}}
+			</button>
+			<!-- 选择框 -->
+			<el-select v-if="fItem.type=='select'" v-model="formValue[fIndex]"
+				:placeholder="fItem.params.placeholder">
+				<el-option v-for="(opItem,opIndex) in fItem.params.option_list" :label="opItem.label"
+					:value="opItem.value"></el-option>
+			</el-select>
+
+		</el-form-item>
+
+
+	</el-form>
+</div>

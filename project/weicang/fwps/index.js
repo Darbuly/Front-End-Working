@@ -13,16 +13,34 @@ $(function () {
 			$clamp(element, { clamp: 2 });
 		}
 
+
 		//自动取时间线宽度
 		const line_width = $('.region')[0].clientWidth;
 		const mainDiv = $('#main');
 		mainDiv.css('width', `${line_width}px`);
 
+		//叶片高度修正
+		const ypHeight = $('.region')[0].clientWidth;
+		const yplist = $(".item-list");
+		for (let i = 0; i < yplist.length; i++) {
+			const element = yplist[i];
+			// element.css('height', mainDiv.css('height') * 0.547)
+			element.style.width = mainDiv[0].clientHeight * 0.547 + mainDiv[0].clientHeight * 0.547 * 0.457 + 'px';
+			element.style.height = mainDiv[0].clientHeight * 0.547 + 'px';
+			// element.style.marginRight = mainDiv[0].clientHeight * 0.547 * 0.457 + 'px';
+		}
+
+		//叶片覆盖内容宽修正
+
+
 		//固定层高度修正
 		$("#fixedBox").css('height', mainDiv.css('height'));
 
 
+
+
 	}
+
 
 
 
@@ -97,7 +115,24 @@ const showArt = new Vue({
 		hide: function () {
 			$("#show-content-box").removeClass('show');
 			$("#show-content-box").addClass('hide');
-			$("#fixedBox").css('z-index', '-1');
+			$("#fixedBox").css('opacity', '0');
+			setTimeout(function () {
+
+				$("#fixedBox").css('z-index', '-1');
+				const article_list = $('.article-content');
+				for (let i = 0; i < article_list.length; i++) {
+					const element = article_list[i];
+					element.style.height = '110px';
+					$clamp(element, { clamp: 4 });
+					element.dataset.fold = '1';
+				}
+				const btn_list = $(".fold-btn");
+				for (let i = 0; i < btn_list.length; i++) {
+					const element = btn_list[i];
+					element.innerText = '[展开]';
+				}
+
+			}, 500)
 		},
 		toArticle: function (id) {
 			if (id != -1) {
@@ -278,13 +313,15 @@ function ShowArticle(year, _id) {
 		// } else {
 		// 	$("#show-content-box").css('left', `50vw`);
 		// }
-		$("#fixedBox").css('z-index', '999');
+		$("#fixedBox").css('z-index', '9999');
+		$("#fixedBox").css('opacity', '1');
 		$("#show-content-box").removeClass('hide');
 		$("#show-content-box").addClass('show');
 		$("#show-content-box").css('display', 'block');
 
 
 		initArticle(id);
+		window.scrollTo(0, 0)
 	}, 0)
 
 	// if (!id) {

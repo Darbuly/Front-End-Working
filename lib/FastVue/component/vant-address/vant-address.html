@@ -1,0 +1,5 @@
+<div class="product-notice">
+	<van-popup v-model="showPicker" round position="bottom">
+		<van-picker show-toolbar :columns="columns" @cancel="showPicker = false" @confirm="onConfirm" />
+	</van-popup>
+</div>

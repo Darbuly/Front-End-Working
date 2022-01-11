@@ -1,0 +1,18 @@
+.weicang-msg-modal {
+	position: fixed;
+	background: rgba(52, 58, 65, 0.600000);
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 999999;
+}
+
+.msg-modal-wrap {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 500px;
+	background-color: #fff;
+}

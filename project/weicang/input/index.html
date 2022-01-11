@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- vue -->
+	<script src="../../../lib/vue/vue_2.6.11.js"></script>
+	<!-- vant -->
+	<link rel="stylesheet" href="../../../lib/element/element.css">
+	<script src="../../../lib/element/element.js"></script>
+	<!-- jq -->
+	<script src="../../../lib/jquery/jquery.min.js"></script>
+	<!-- FastVue -->
+	<script src="../../../lib/FastVue/FastVue.js"></script>
+
+	<link rel="stylesheet" href="./likeap.css">
+</head>
+
+<style>
+
+</style>
+
+<body>
+	<div id="container">
+	</div>
+
+	<button onclick="test()">test</button>
+
+</body>
+
+<script>
+	var isPoneAvailable = function (rule, value, callback) {
+		if (!value) {
+			tabs.formType.code.params.class = ["code-button"]
+			return callback(new Error('手机号码不能为空'));
+		}
+		var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+		if (!myreg.test(value)) {
+			tabs.formType.code.params.class = ["code-button"]
+			callback(new Error('手机号码格式不正确'));
+		} else {
+			tabs.formType.code.params.class = ["code-button", 'active']
+			callback();
+		}
+
+	}
+	var toggleWechat = function (rule, value, callback) {
+		console.log(value);
+		callback();
+
+	}
+	function likeapInputFocus() {
+		console.log('cdcd')
+	}
+
+	var tabs = null;
+	async function iniFastVue() {
+
+		const F1 = new FastVue({
+			appName: 'myFirstFastVue',
+			templatePathRoot: '../../../lib/FastVue/component/'
+		});
+
+
+		tabs = await F1.pushComponent('#container', 'like-apple-form', {
+			formValue: {
+				telephone: '',
+				code: '',
+				password: '',
+				region: '',
+				date1: '',
+				date2: '',
+				delivery: false,
+				type: [],
+				resource: '',
+				desc: ''
+			},
+
+			formType: {
+				telephone: {
+					type: 'input',
+					label: '手机号码',
+					autocomplete: 'on'
+				},
+
+				code: {
+					type: 'input-button',
+					label: '验证码',
+
+					params: {
+						class: ['code-button'],
+						button_title: '获取验证码',
+						ref_id: 'code_button'
+
+					}
+				},
+				password: {
+					type: 'input-password',
+					label: '密码',
+					autocomplete: 'on'
+
+				},
+				type: {
+					type: 'input-checkbox',
+					params: {
+						option_list: [
+							{
+								label: '绑定微信',
+								value: 'bindWechat'
+							}
+
+						]
+					}
+				},
+				region: {
+					type: 'select',
+					params: {
+						placeholder: '味仓ID未填写',
+						option_list: [
+							{
+								label: '区域一',
+								value: 'shanghai'
+							},
+							{
+								label: '区域二',
+								value: 'beijing'
+							}
+						]
+					}
+				},
+
+
+			},
+			rules: {
+				telephone: [
+					{ validator: isPoneAvailable, trigger: 'blur' },
+				],
+				region: [
+					{ required: true, message: '请选择活动区域', trigger: 'change' }
+				],
+				password: [
+					{ validator: isPoneAvailable, trigger: 'blur' },
+				],
+				date1: [
+					{ type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+				],
+				date2: [
+					{ type: 'date', required: true, message: '请选择时间', trigger: 'change' }
+				],
+				type: [
+					{ validator: toggleWechat, required: true, message: '请至少选择一个活动性质', trigger: 'change' }
+				],
+				resource: [
+					{ required: true, message: '请选择活动资源', trigger: 'change' }
+				],
+				desc: [
+					{ required: true, message: '请填写活动形式', trigger: 'blur' }
+				]
+			}
+
+		})
+		console.log(tabs.$refs['ruleForm']);
+		tabs.$refs['ruleForm'].fields[0].validateMessage = "cdcd";
+		tabs.$refs['ruleForm'].fields[0].forceError = true;
+		let input_list = document.getElementsByClassName('el-input__inner');
+
+		for (let i = 0; i < input_list.length; i++) {
+			const input = input_list[i];
+
+			input.onfocus = function (e) {
+				console.log(e.target.parentNode.parentNode.previousSibling);
+				e.target.parentNode.parentNode.previousSibling.classList.add('onfocus')
+			}
+			input.onblur = function (e) {
+				if (e.target.value === '') {
+					e.target.parentNode.parentNode.previousSibling.classList.remove('onfocus')
+				}
+
+			}
+		}
+	}
+	iniFastVue()
+
+	function test() {
+		console.log(tabs.validateForm())
+	}
+
+
+</script>
+
+</html>

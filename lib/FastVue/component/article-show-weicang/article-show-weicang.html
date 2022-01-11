@@ -1,8 +1,8 @@
 <div class="article-show-weicang" ref='main' :style="{ 
     display: showStatus==true?'block':'none' ,position: 'fixed' , top:0,left: 0,zIndex: 9999, 
- backgroundColor:'rgba(0,0,0,0.90)',width: '100vw', height: '100vh',overflowY: 'scroll' ,
-color:'#fff' }">
+ backgroundColor:'#fff',width: '100vw', height: vh_100,overflowY: 'scroll' ,
+color:'#1e1e28',    'border': '1px solid transparent;' }">
     <div class="title">{{title}}</div>
-    <div class="body">{{body}}{{body}}</div>
+    <div class="body" v-html="body"></div>
     <div class="closer" @click='hide'></div>
 </div>

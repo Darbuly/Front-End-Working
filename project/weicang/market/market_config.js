@@ -12,12 +12,14 @@ function readProductInfos() {
             'point_desc': [
                 {
                     'top': 30,
-                    'left': 50,
+                    'left': 60,
+                    'addW': 10,
                     'text': '枪有AK47 器有不二器'
                 },
                 {
                     'top': 50,
                     'left': 30,
+                    'addW': 10,
                     'text': '枪有AK47 器有不二器2'
                 }
             ]
@@ -57,12 +59,14 @@ function readProductInfos() {
             'point_desc': [
                 {
                     'top': 30,
-                    'left': 50,
+                    'left': 70,
+                    'addW': 10,
                     'text': '枪有AK47 器有不二器'
                 },
                 {
                     'top': 50,
                     'left': 30,
+                    'addW': 15,
                     'text': '枪有AK47 器有不二器2'
                 }
             ]

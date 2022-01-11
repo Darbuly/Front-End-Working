@@ -6,12 +6,12 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	<link rel="stylesheet" href="../../../lib/runCommon/yw_global.css">
+	<link rel="stylesheet" href="./yw_global.css">
 	<!-- jq -->
-	<script src="../../../lib/jquery/jquery.min.js"></script>
+	<script src="./jquery.min.js"></script>
 
 	<!-- vue -->
-	<script src="../../../lib/vue/vue_2.6.11.js"></script>
+	<script src="./vue_2.6.11.js"></script>
 </head>
 
 <body>
@@ -36,7 +36,7 @@
 			position: relative;
 			background-color: #343740;
 
-			height: 1000px;
+			height: 100vh;
 			cursor: grab;
 			display: flex;
 			align-items: center;
@@ -45,8 +45,8 @@
 
 		/* 中间树干 */
 		.fwbs-main .region {
-			width: 150vw;
-			height: 24px;
+			/* width: 150vw; */
+			height: 2.4%;
 			background-color: #4a4f60;
 			position: relative;
 			padding-left: 100px;
@@ -65,11 +65,20 @@
 
 
 		.form_container .year {
-			position: absolute;
-			left: 17px;
-			top: 26px;
+			/* position: absolute;
+			left: 2.1%;
+			top: 5.2%;
 			opacity: 1;
-			font-size: 22px;
+			font-size: 2.2vmin; */
+
+			width: 11.5%;
+			height: 15.5%;
+			font-size: 2.2vmin;
+			line-height: 2.2vmin;
+			text-align: center;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			color: #ffffff;
 			transition: color 0.3s;
 			-moz-transition: color 0.3s;
@@ -81,25 +90,23 @@
 		.form_container .item-list {
 			box-sizing: content-box;
 			position: absolute;
-			top: -32px;
-			background-image: url(/drupal/sites/t-matrix2/themes/mytvtheme/images/fwbs/branch_dark_down.svg);
+			top: 50%;
+			transform: translateY(-8%);
+			background-image: url(./res/branch_dark_down.svg);
 			background-repeat: no-repeat;
-			background-size: 100% 100%;
-			width: 547px;
-			height: 547px;
-			padding-right: 250px;
-			background-position-x: -126px;
+			background-size: auto 100%;
+			/* padding-right: 250px; */
+			/* background-position-x: -126px; */
 		}
 
 
 
 		.form_container .item-list .item {
 			position: absolute;
-
-			left: 468px;
-			top: 442px;
-			width: 335px;
-			height: 64px;
+			left: 58.72%;
+			top: 80.8%;
+			width: 42.03%;
+			height: 11.7%;
 			display: flex;
 			align-items: center;
 			transition: width 0.3s ease-out;
@@ -124,37 +131,37 @@
 
 		.form_container .item-list .item:nth-child(2) {
 			position: absolute;
-			top: 114px;
-			left: 138px;
+			top: 20.8%;
+			left: 17.49%;
 		}
 
 		.form_container .item-list .item:nth-child(3) {
 			position: absolute;
-			left: 221px;
-			top: 196px;
+			left: 27.72%;
+			top: 35.83%;
 		}
 
 		.form_container .item-list .item:nth-child(4) {
 			position: absolute;
-			left: 303px;
-			top: 278px;
+			left: 37.94%;
+			top: 50.82%;
 		}
 
 		.form_container .item-list .item:nth-child(5) {
 			position: absolute;
-			left: 386px;
-			top: 360px;
+			left: 48.43%;
+			top: 65.81%;
 		}
 
 		.form_container .item-list .item img {
-			margin-right: 15px;
-			width: 19.104%;
-			height: auto;
+			margin-right: 4.47%;
+			height: 100%;
+			width: auto;
 		}
 
 		.form_container .item-list .item .desc {
 			width: 190px;
-			font-size: 16px;
+			font-size: 1.6vmin;
 			color: #fff;
 		}
 
@@ -168,7 +175,7 @@
 			position: relative;
 			content: ' ';
 			display: block;
-			background-image: url(/drupal/sites/t-matrix2/themes/mytvtheme/images/fwbs/light_on.png);
+			background-image: url(./res/light_on.png);
 			-webkit-filter: grayscale(100%);
 			filter: grayscale(100%);
 			background-size: 100% 100%;
@@ -176,8 +183,8 @@
 			-moz-transition: width 0.3s ease-out, height 0.3s ease-out;
 			-webkit-transition: width 0.3s ease-out, height 0.3s ease-out;
 			-o-transition: width 0.3s ease-out, height 0.3s ease-out;
-			width: 40px;
-			height: 40px;
+			width: 4vmin;
+			height: 4vmin;
 			flex-shrink: 0;
 			margin-right: 10px;
 			transform: translate(-50%, -50%);
@@ -186,7 +193,8 @@
 
 
 		.form_container .item-list:hover {
-			background-image: url(/drupal/sites/t-matrix2/themes/mytvtheme/images/fwbs/branch_while_down.svg);
+			background-image: url(./res/branch_while_down.svg);
+			z-index: 999;
 		}
 
 		.form_container:hover .year {
@@ -194,22 +202,22 @@
 		}
 
 		.form_container:hover .item-list .item::before {
-			background-image: url(/drupal/sites/t-matrix2/themes/mytvtheme/images/fwbs/light_on.png);
+			background-image: url(./res/light_on.png);
 		}
 
 		.form_container:hover .item-list .item:hover {
-			width: 370px;
+			width: 50.42%;
 
 		}
 
 		.form_container:hover .item-list .item:hover .lightbox::before {
-			width: 50px;
-			height: 50px;
+			width: 4vmin;
+			height: 4vmin;
 		}
 
 		.form_container:hover .item-list .item:hover .desc,
 		.form_container:hover .item-list .item .desc:hover {
-			font-size: 17px;
+			font-size: 1.7vmin;
 		}
 
 		.form_container:hover .item-list .item img,
@@ -228,13 +236,8 @@
 			opacity: 1;
 			animation: light_ani 0.6s infinite alternate;
 			-webkit-animation: light_ani 0.6s infinite alternate;
-			/*Safari and Chrome*/
-			/*动画的速度曲线*/
-			/* Safari 和 Chrome */
 			-webkit-animation: light_ani 0.6s infinite alternate;
-			/*轮流反向播放动画。*/
 			-webkit-animation-timing-function: ease-in-out;
-			/*轮流反向播放动画。*/
 			animation-timing-function: ease-in-out;
 		}
 
@@ -267,17 +270,19 @@
 		.form_container:nth-child(2n) .year {
 			position: absolute;
 			top: auto;
-			bottom: 25px;
-			left: 19px;
+			width: 10.5%;
+			bottom: 0;
+			left: 0;
 		}
 
 
 		.form_container:nth-child(2n) .item-list {
-			background-image: url(/drupal/sites/t-matrix2/themes/mytvtheme/images/fwbs/branch_dark_up.svg);
+			background-image: url(./res/branch_dark_up.svg);
 			left: 0px;
 			top: auto;
-			bottom: -31px;
-			background-position-x: -120px;
+			bottom: 50%;
+			transform: translateY(8%);
+			/* background-position-x: -120px; */
 		}
 
 
@@ -285,46 +290,46 @@
 		.form_container:nth-child(2n) .item-list .item {
 			position: absolute;
 			top: auto;
-			left: 476px;
-			bottom: 442px;
+			left: 59.72%;
+			bottom: 80.80%;
 		}
 
 
 		.form_container:nth-child(2n) .item-list .item:nth-child(2) {
 
 			top: auto;
-			left: 147px;
-			bottom: 114px;
+			left: 18.44%;
+			bottom: 20.84%;
 		}
 
 		.form_container:nth-child(2n) .item-list .item:nth-child(3) {
-			left: 230px;
-			bottom: 196px;
+			left: 28.85%;
+			bottom: 35.83%;
 
 		}
 
 		.form_container:nth-child(2n) .item-list .item:nth-child(4) {
-			left: 312px;
-			bottom: 278px;
+			left: 39.14%;
+			bottom: 50.82%;
 
 		}
 
 		.form_container:nth-child(2n) .item-list .item:nth-child(5) {
-			left: 394px;
-			bottom: 360px;
+			left: 49.43%;
+			bottom: 65.81%;
 
 		}
 
 
 
-		.form_container:nth-child(2n) .item-list:hover {
-			background-image: url(/drupal/sites/t-matrix2/themes/mytvtheme/images/fwbs/branch_while_up.svg);
-		}
+		/* .form_container:nth-child(2n) .item-list:hover {
+			background-image: url(./res/branch_while_up.svg);
+		} */
 
 		/* 内容框 */
 		.show-content-box {
-			width: 1200px;
-			height: 864px;
+			width: 80%;
+			height: 86.4%;
 			position: absolute;
 			left: 50%;
 			top: 50%;
@@ -403,7 +408,7 @@
 		.content-view {
 			height: 100%;
 			width: 100%;
-			background-color: #10131B;
+			background-color: #fff;
 			opacity: 0.9;
 			overflow-y: scroll;
 		}
@@ -413,7 +418,7 @@
 			top: 43px;
 			right: 43px;
 			display: block;
-			background-image: url(/drupal/sites/t-matrix2/themes/mytvtheme/images/fwbs/closer.svg);
+			background-image: url(./res/closer.svg);
 			background-repeat: no-repeat;
 			background-size: 100% 100%;
 			width: 66px;
@@ -423,7 +428,7 @@
 		}
 
 		.show-content {
-			margin: 42px auto;
+			margin: 3.5% auto;
 			width: 90%;
 		}
 
@@ -446,17 +451,17 @@
 		}
 
 		.content-node .left-time .day {
-			font-size: 32px;
+			font-size: 3.2vmin;
 			text-align: center;
 			font-weight: bold;
-			color: #ffffff;
+			color: #343740;
 		}
 
 		.content-node .left-time .month {
-			font-size: 22px;
+			font-size: 2.2vmin;
 			text-align: center;
 			font-weight: bold;
-			color: #ffffff;
+			color: #343740;
 		}
 
 		.content-node .right-article {
@@ -468,7 +473,7 @@
 		/* 文章模型 */
 		.right-article .cover-img {
 			width: 46%;
-			background-image: url(/drupal/sites/t-matrix2/themes/mytvtheme/images/fwbs/cover-img.jpg);
+			background-image: url(./res/cover-img.jpg);
 			background-repeat: no-repeat;
 			background-size: 100% 100%;
 			height: 241px;
@@ -478,25 +483,25 @@
 			margin-top: 33px;
 			margin-bottom: 26px;
 			opacity: 1;
-			font-size: 22px;
+			font-size: 2.2vmin;
 			font-weight: 600;
 			text-align: left;
-			color: #ffffff;
+			color: #343740;
 			line-height: 30px;
 			letter-spacing: 0px;
 		}
 
 		.right-article .article-content {
-			font-size: 18px;
-			color: #ffffff;
+			font-size: 1.8vmin;
+			color: #343740;
 			height: 110px;
 			transition: height 0.3s ease;
 		}
 
 		.right-article .fold-btn {
 			cursor: pointer;
-			font-size: 16px;
-			color: #fddb00;
+			font-size: 1.6vmin;
+			color: #98A2AD;
 			letter-spacing: 2px;
 		}
 
@@ -515,14 +520,17 @@
 			left: 0;
 			top: 0;
 			width: 100vw;
+			opacity: 0;
 			height: 100vh;
-			opacity: 0.5;
+			background: #343740;
+			transition: opacity 1s;
 			z-index: -1;
+
 		}
 	</style>
 
 	<div class="fwbs-main" id="main">
-		<div class="region">
+		<div class="region" id="region-line">
 
 			<div class="form_container">
 				<div class="item-list">

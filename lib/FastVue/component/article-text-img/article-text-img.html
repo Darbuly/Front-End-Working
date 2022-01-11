@@ -5,8 +5,8 @@
 			<div class="desc">{{ propsdata.desc }}
 			</div>
 		</div>
-		<div class="right">
-			<img src="./images/p1/组 704@2x.png" alt="">
+		<div class="right" :style="{backgroundImage:'url('+propsdata.cover+')'}">
+			<img :src="propsdata.img_spuare_url" alt="">
 		</div>
 	</div>
 </div>

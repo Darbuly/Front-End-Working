@@ -1,0 +1,149 @@
+.product-notice {
+	width: 100%;
+	background: rgba(26, 27, 29, 0.85);
+	;
+}
+
+.product-notice-wrap {
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.product-notice-content {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.p-n-c-title {
+	font-weight: bold;
+	color: #ffffff;
+}
+
+.product-notice-content img {
+	width: auto;
+	height: 100%;
+}
+
+.p-n-c-img-wrap {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.p-n-c-btn {
+	flex-shrink: 0;
+	background-color: #87A348;
+	outline: 0;
+	border: none;
+	color: #ffffff;
+}
+
+.p-n-c-btn:hover {
+	cursor: pointer;
+	background-color: #828D5F;
+}
+
+.p-n-c-pinfo {
+	display: flex;
+	align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+
+	.p-n-c-show-mobile {
+		display: none;
+	}
+
+
+	.product-notice-wrap {
+		width: 1000px;
+	}
+
+	.p-n-c-pinfo {
+		margin-right: 20px;
+		padding: 20px 0;
+	}
+
+	.p-n-c-title {
+		margin-left: 41px;
+		font-size: 18px;
+		line-height: 25px;
+		letter-spacing: 1px;
+	}
+
+
+	.p-n-c-img-wrap {
+		justify-content: flex-start;
+		width: 100px;
+		height: 63px;
+	}
+
+	.p-n-c-btn {
+		width: 122px;
+		height: 40px;
+		font-size: 14px;
+	}
+
+
+}
+
+@media screen and (max-width: 768px) {
+	.p-n-c-show-pc {
+		display: none;
+	}
+
+	.product-notice {
+		width: 100vw;
+	}
+
+	.product-notice-wrap {
+		width: 84%;
+	}
+
+	.product-notice-content {
+		display: flex;
+		padding: 6.6666vw 0;
+	}
+
+	.p-n-c-img-wrap {
+		width: 24vw;
+		height: 10vw;
+		margin-right: 3.06vw;
+	}
+
+	.p-n-c-pinfo {
+		width: 100%;
+	}
+
+	.p-n-c-title {
+		font-size: 3.7333vw;
+		text-align: left;
+		color: #ffffff;
+		line-height: 5.33vw;
+		font-weight: normal;
+		letter-spacing: 1px;
+		width: 100%;
+	}
+
+	.p-n-c-btn {
+		width: 28vw;
+		height: 10.133vw;
+		border-radius: 2.1333vw;
+		flex-shrink: 0;
+		font-size: 3.73333vw;
+		text-align: center;
+		color: #ffffff;
+		line-height: 5.3333vw;
+
+
+	}
+
+	.p-n-c-img-wrap.p-n-c-show-mobile img {
+		width: 100%;
+	}
+
+}

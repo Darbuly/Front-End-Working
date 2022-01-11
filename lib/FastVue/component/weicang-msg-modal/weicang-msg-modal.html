@@ -1,0 +1,13 @@
+<div class="weicang-msg-modal" v-if='show'>
+
+	<div class="msg-modal-wrap">
+		<div class="msg-modal-title">{{title}}</div>
+		<div class="msg-modal-content">{{msg}}</div>
+		<div class="msg-modal-btn-group">
+			<button v-for="(bItem,bIndex) in btn_list" @click="clickBtn(bItem)" class="msg-modal-btn">
+				{{bItem.title}}
+			</button>
+		</div>
+	</div>
+
+</div>
