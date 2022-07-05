@@ -20,12 +20,18 @@
 	<link rel="stylesheet" href="../../../lib/vant/index.css">
 	<script src="../../../lib/vant/vant.min.js"></script>
 
+	<link rel="stylesheet" href="./css/yw_global.css">
 
 	<link rel="stylesheet" href="../fapiao_input/likeap.css">
 </head>
 
 <style>
-
+	.sm-btn-icon-add,
+	.sm-btn-icon-reduce {
+		width: 26px;
+		height: 26px;
+		background-color: red;
+	}
 </style>
 
 <body>
@@ -46,7 +52,8 @@
 
 		const F1 = new FastVue({
 			appName: 'myFirstFastVue',
-			templatePathRoot: '../../../lib/FastVue/component/'
+			templatePathRoot: '../../../lib/FastVue/component/',
+			component_version: '1.2'
 		});
 
 
@@ -65,17 +72,19 @@
 					{
 						img_url: './images/p.png',
 						p_title: '<p>茶立方体1<p>',
-						count: 1,
+						count: 0,
 						p_price: 2999
 					},
 					{
 						img_url: './images/p.png',
 						p_title: '<p>茶立方体2茶立方体1茶立方体1茶立方体1茶立方体1茶立方体1茶立方体1茶立方体1茶立方体1茶立方体1茶立方体1<p>',
-						count: 9999,
+						count: 0,
 						p_price: 2999
 					}
 
 				],
+				disable: true,
+				msgVm: null
 			},
 			methods: {
 				open() {
@@ -85,15 +94,24 @@
 						message: h('weicang-sku', {
 							props: {
 								propsdata: {
-									product_list: that.product_list
+									product_list: that.product_list,
+									disable: that.disable,
+									SkuVm: that
 								}
 							}
 						}),
 						showCancelButton: true,
 						confirmButtonText: '确定',
 						cancelButtonText: '取消',
+						afterCreateBox: (instance) => {
+							//这里将对话框实例保存起来
+							console.log('afterCreateBox');
+							that.msgVm = instance;
+						},
 						beforeClose: (action, instance, done) => {
+							console.log(that.product_list);
 
+							return;
 							that.title = '传进来的值4'
 
 							if (action === 'confirm') {

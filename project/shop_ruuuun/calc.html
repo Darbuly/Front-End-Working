@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+	function calc(x0, y0, thet, W, H) {
+
+		var tanthet = Math.tan(thet),
+			sinthet = Math.sin(thet),
+			costhet = Math.cos(thet);
+
+
+		var z = W - x0 + (H - y0) / tanthet + x0 / costhet - (H - y0) / sinthet - H * tanthet - H / costhet;
+
+		var fm = z + y0 / costhet + x0 * tanthet / costhet + y0 * tanthet + x0 * Math.pow(tanthet, 2);
+		var fz = 1 / costhet + tanthet / costhet + Math.pow(tanthet, 2);
+		var x = fm / fz;
+		var y = y0 - x * tanthet + x0 * tanthet;
+
+		console.log(x);
+		console.log(y);
+
+
+	}
+
+	function calc2(x0, y0, thet, W, H) {
+		var tanthet = Math.tan(thet),
+			sinthet = Math.sin(thet),
+			costhet = Math.cos(thet);
+
+		var x = (W - x0) * sinthet + (H - y0) * costhet;
+		var y = x * (1 / costhet - tanthet);
+		console.log(W - x);
+		console.log(H - y);
+
+	}
+
+	function calc3(x0, y0, thet, W, H) {
+		var tanthet = Math.tan(thet),
+			sinthet = Math.sin(thet),
+			costhet = Math.cos(thet);
+
+		var x = (W - x0) * tanthet * costhet - y0 * costhet
+
+		var y = (x - W + x0) * tanthet + y0;
+		console.log(W - x)
+		console.log(y)
+
+	}
+
+	function AllCalc(x0, y0, _thet, W, H) {
+		if (_thet == 90) {
+			if (y0 > H / 2) {
+				return {
+					x: x0,
+					y: 0
+				}
+			} else {
+				return {
+					x: x0,
+					y: H
+				}
+			}
+		}
+		var thet = _thet * Math.PI / 180,
+			tanthet = Math.tan(thet),
+			sinthet = Math.sin(thet),
+			costhet = Math.cos(thet);
+		if (_thet < 90) {
+			var _x = (W - x0) * sinthet + (H - y0) * costhet;
+			var _y = _x * (1 / costhet - tanthet);
+			var x = W - _x;
+			var y = H - _y;
+		} else {
+			var _x = (W - x0) * tanthet * costhet - y0 * costhet
+			var _y = (_x - W + x0) * tanthet + y0;
+			var x = W - _x;
+			var y = _y;
+		}
+		return {
+			x: x,
+			y: y
+		}
+	}
+
+
+	// var point = AllCalc(250, 119, 66.5, 375, 581);
+	var point = AllCalc(256, 449, 112.9, 375, 581);
+	console.log(point);
+	// calc2(250, 119, 66.5 * Math.PI / 180, 375, 581);
+	calc3(256, 449, 112.9 * Math.PI / 180, 375, 581);
+
+</script>
+
+
+
+</html>

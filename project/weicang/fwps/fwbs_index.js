@@ -219,7 +219,7 @@ function foldArticleToggle(e) {
 			$clamp(aContent, { clamp: 99 });
 			aContent.dataset.fold = '0';
 		} else {
-			aContent.style.height = '110px';
+			aContent.style.maxheight = '110px';
 			$clamp(aContent, { clamp: 4 });
 			aContent.dataset.fold = '1';
 			e.innerText = '[展开]';

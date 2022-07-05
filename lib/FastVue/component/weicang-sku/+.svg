@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 16备份</title>
+    <g id="疯狂的小树" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="PC端选择规格" transform="translate(-864.000000, -174.000000)">
+            <g id="编组-20" transform="translate(377.000000, 25.000000)">
+                <g id="编组-5" transform="translate(125.000000, 130.000000)">
+                    <g id="编组-21备份" transform="translate(308.000000, 19.000000)">
+                        <g id="编组-16备份" transform="translate(54.000000, 0.000000)">
+                            <circle id="椭圆形" cx="13" cy="13" r="13"></circle>
+                            <g id="-" transform="translate(6.933333, 6.566667)" fill="#82A63F" fill-rule="nonzero">
+                                <polygon id="路径" points="0 5.56666667 0 6.56666667 12.1333333 6.56666667 12.1333333 5.56666667"></polygon>
+                                <polygon id="路径" transform="translate(6.066667, 6.066667) rotate(-90.000000) translate(-6.066667, -6.066667) " points="-6.73535302e-16 5.56666667 -6.73535302e-16 6.56666667 12.1333333 6.56666667 12.1333333 5.56666667"></polygon>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

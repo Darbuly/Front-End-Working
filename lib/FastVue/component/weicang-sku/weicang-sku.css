@@ -1,4 +1,153 @@
 .weicang-sku-wrap {
 	width: 100%;
-	background-color: red;
+	margin-top: 40px;
+}
+
+.weicang-sku-wrap .pl-row {
+	display: flex;
+	margin-bottom: 20px;
+	align-items: center;
+}
+
+.weicang-sku-wrap .pl-row:last-child {
+	margin-bottom: 0px;
+}
+
+.pl-row .pl-left {
+	flex-shrink: 0;
+}
+
+.pl-row .pl-left .pl-img {
+	width: 88px;
+	height: 88px;
+}
+
+.pl-center {
+	margin-left: 20px;
+	width: 187px;
+}
+
+.pl-center .pl-title p {
+	font-size: 14px;
+	text-align: left;
+	color: #343740;
+	line-height: 30px;
+	letter-spacing: 0.87px;
+}
+
+.pl-center .pl-price {
+	font-size: 16px;
+	text-align: left;
+	color: #343740;
+	line-height: 22px;
+	letter-spacing: 0.63px;
+}
+
+.pl-right .action-num {
+	display: flex;
+	margin-left: 22px;
+}
+
+
+
+.pl-right {
+	margin-left: 0px;
+	position: relative;
+}
+
+.action-num .sub_number {
+	font-size: 14px;
+	font-weight: 400;
+	color: #343740;
+	border: none;
+	width: 27px;
+	text-align: center;
+	background: #ffffff;
+	line-height: 20px;
+}
+
+.action-desc {
+	position: absolute;
+	margin-top: 9px;
+	width: 130px;
+	font-size: 12px;
+	font-weight: 400;
+	text-align: center;
+	color: #98a2ad;
+	line-height: 17px;
+	left: 0;
+	top: 26px;
+}
+
+@media screen and (max-width: 768px) {
+
+	.action-desc {
+		margin-top: 2px;
+		width: 22.13vw;
+		font-size: 2.9333vw;
+		line-height: 4.26vw;
+		left: 0;
+		top: 26px;
+	}
+
+	.pl-right .action-num {
+		margin-left: 2.6667vw;
+	}
+
+	.weicang-sku-wrap {
+		margin-top: 10.6666vw;
+		margin-bottom: 10.6666vw;
+	}
+
+
+	.weicang-sku-wrap .pl-row {
+		margin-bottom: 9.0666666vw;
+	}
+
+
+	.pl-row .pl-left .pl-img {
+		width: 13.333333vw;
+		height: 13.333333vw;
+	}
+
+	.pl-center {
+		margin-left: 4.533333vw;
+		width: 35.7333333vw;
+	}
+
+	.pl-center .pl-title p {
+		font-size: 3.2vw;
+		line-height: 6.66667vw;
+		letter-spacing: 0.1889vw;
+	}
+
+	.pl-center .pl-price {
+		font-size: 3.73333vw;
+		line-height: 5.3333vw;
+		letter-spacing: 0.14vw;
+	}
+
+
+	.sm-btn-icon-reduce {
+		width: 26px;
+		height: 26px;
+	}
+
+	.sm-btn-icon-add {
+		width: 26px;
+		height: 26px;
+	}
+
+	.pl-right {
+		margin-left: 0px;
+	}
+
+
+	.action-num .sub_number {
+		font-size: 3.7333VW;
+		width: 5.333VW;
+		line-height: 5.333VW;
+	}
+
+
 }

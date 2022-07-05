@@ -1,20 +1,24 @@
 <div class="weicang-sku">
 	<div class="weicang-sku-wrap">
 		<div class="product-list-wrap">
-			<div v-for="(pItem,pIndex) in propsdata.product_list" class="pl-row">
+			<div v-for="(pItem,pIndex) in tmp_product_list" class="pl-row">
 				<div class="pl-left"><img :src="pItem.img_url" alt="" class="pl-img"></div>
 				<div class="pl-center">
 					<div class="pl-title" v-html="pItem.p_title"></div>
-					<div class="pl-price">{{pItem.p_price}}</div>
+					<div class="pl-price">￥{{pItem.p_price}}</div>
 				</div>
 				<div class="pl-right">
-					<div class="action-num" style="display: flex;">
-						<div class="sm-btn-icon-reduce sm-btn-icon-disabled"></div>
-
-						<input class="sub_number" type="text" name="unit_quantityX" value="1"
-							disabled="disabled" style="font-size: 18px; font-weight: 800; color: #343740; border: none;
-   width: 30px; text-align: center; background: #ffffff;line-height: 25px;">
-						<div class="sm-btn-icon-add"></div>
+					<div class="action-num">
+						<div :class="{'sm-btn-icon-reduce':true, 'sm-btn-icon-disabled':pItem.count==0}"
+							@click="subCount(pIndex)">
+						</div>
+						<input class="sub_number" type="text" name="unit_quantityX"
+							:value="pItem.count" disabled="disabled">
+						<div :class="{'sm-btn-icon-add':true, 'sm-btn-icon-disabled':pItem.count>=pItem.max}"
+							@click="addCount(pIndex)"></div>
+					</div>
+					<div v-if="pItem.count>=pItem.max||true" class="action-desc">
+						库存不足，无法添加更多数量到购物袋。
 					</div>
 				</div>
 			</div>

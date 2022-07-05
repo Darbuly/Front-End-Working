@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1148px" height="52px" viewBox="0 0 1148 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="登录框2" transform="translate(-723.000000, -345.000000)">
+            <g id="编组-7" transform="translate(724.000000, 345.201010)">
+                <g id="编组" transform="translate(0.000000, -0.000000)">
+                    <polygon id="矩形备份-13" fill="#FFFFFF" transform="translate(193.000000, 19.798990) rotate(-45.000000) translate(-193.000000, -19.798990) " points="179 5.79898987 207 5.79898987 179 33.7989899"></polygon>
+                    <rect id="矩形备份-2" fill="#FFFFFF" x="986.285714" y="8.79898987" width="53.4285714" height="22"></rect>
+                    <rect id="矩形备份-3" fill="#FFFFFF" x="1126.42857" y="17.7989899" width="4" height="4"></rect>
+                    <rect id="矩形备份-6" fill="#FFFFFF" x="1134.42857" y="17.7989899" width="4" height="4"></rect>
+                    <rect id="矩形备份-7" fill="#FFFFFF" x="1142.42857" y="17.7989899" width="4" height="4"></rect>
+                    <rect id="矩形备份-4" fill="#FFFFFF" x="978" y="8.79898987" width="4" height="22"></rect>
+                    <rect id="矩形备份-5" fill="#FFFFFF" x="970" y="8.79898987" width="4" height="22"></rect>
+                    <rect id="矩形备份-8" fill="#FFFFFF" x="1044" y="8.79898987" width="4" height="22"></rect>
+                    <rect id="矩形备份-9" fill="#FFFFFF" x="1052" y="8.79898987" width="4" height="22"></rect>
+                    <rect id="矩形备份" stroke="#FFFFFF" stroke-width="4" x="81" y="11.7989899" width="16" height="16"></rect>
+                    <line x1="98" y1="19.7989899" x2="1121.96753" y2="19.7989899" id="路径-2" stroke="#FFFFFF" stroke-width="3"></line>
+                    <polyline id="路径-2备份" stroke="#FFFFFF" stroke-width="3" points="-2.87769808e-13 49.7989899 33.9978027 19.7989899 81 19.7989899"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

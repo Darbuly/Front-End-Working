@@ -1,0 +1,9 @@
+<div class="captcha-wrap">
+	<!-- <img class="captcha-img" src="" alt=""> -->
+
+	<van-cell-group inset>
+		<van-field v-model="code" name="验证码" label="验证码" placeholder="请输入验证码"
+			:rules="[{ required: true, message: '请填写验证码' }]" />
+		<div class="captcha-img"></div>
+	</van-cell-group>
+</div>

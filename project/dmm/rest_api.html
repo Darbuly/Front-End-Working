@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<!-- jq -->
+	<script src="../../../lib/jquery/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+	<button onclick="post()">test</button>
+</body>
+
+<script>
+
+	function post() {
+		// $.ajax({
+		// 	type: 'POST',
+		// 	url: "http://dmm.ruuuun.com/DMM/UniAPI?API=addClass",
+		// 	data: {
+		// 		"class_name": "尖子班11xxxx23",
+		// 	},
+		// 	success: function (data) {
+		// 		console.log('data', data)
+		// 	},
+		// 	error: function () {
+		// 	}
+		// });
+
+		$.ajax({
+			type: 'POST',
+			url: "http://dmm.ruuuun.com/DMM/UniAPI?API=addStudent",
+			data: {
+				"class_id": 8,
+				"student_name": "小明3",
+			},
+			dataType: "json",
+			success: function (data) {
+				console.log('data', data)
+			},
+			error: function () {
+			}
+		});
+
+
+		// $.ajax({
+		// 	type: 'POST',
+		// 	url: "http://dmm.ruuuun.com/DMM/UniAPI?API=addSessionEvent",
+		// 	data: {
+		// 		"app_id": "saaaaa",
+		// 		"access_time": '2022-06-16 17:52:00',
+		// 	},
+		// 	success: function (data) {
+		// 		console.log('data', data)
+		// 	},
+		// 	error: function () {
+		// 	}
+		// });
+
+
+	}
+
+
+
+
+</script>
+
+</html>

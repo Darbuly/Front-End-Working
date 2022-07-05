@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="./js/jquery.min.js"></script>
+	<style>
+		body {
+			background-color: black;
+		}
+
+		.fkxs-logo-ani {
+			background-image: url(./images/fkxs_logo_ani2.png);
+			width: 427px;
+			height: 70px;
+			background-repeat: no-repeat;
+			background-size: auto 100%;
+			transition: background-position .3s steps(17);
+		}
+
+		.fkxs-logo-ani-run {
+			background-position: 100% 0;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div id='fkxs_logo' class="fkxs-logo-ani "></div>
+
+</body>
+
+<script>
+
+
+	function runFkxsLogo(direct) {
+
+		if (direct == 1) {
+
+			if (timing < an_time && timing != 0) {
+
+			} else {
+				$('#fkxs_logo').addClass('fkxs-logo-ani-run');
+				runLogo()
+			}
+
+		}
+		if (direct == 0) {
+
+			if (timing < an_time && timing != 0) {
+				//处于动画时间，应该进入延时动画
+				if (!hadDelay) {
+					setTimeout(function () {
+						runFkxsLogo(0)
+					}, (an_time - timing) * 1000)
+					hadDelay = true;
+				}
+
+			} else {
+				$('#fkxs_logo').removeClass('fkxs-logo-ani-run');
+				runLogo()
+				hadDelay = false;
+			}
+
+
+
+		}
+
+	}
+
+
+	var timing = 0;
+	var an_time = 0.35;//动画时间
+	var hadDelay = false;
+	function rander() {
+		timing += 0.0166666666666667;// 1/60
+	}
+
+	function runLogo() {
+		//开时
+		timing = 0;
+
+		requestAnimationFrame(function () {
+			rander()
+			//当超过400ms后才停止
+			if (timing <= an_time) {
+				requestAnimationFrame(arguments.callee)
+			} else {
+			}
+
+		});
+
+	}
+
+
+	$('#fkxs_logo').hover(function () {
+		runFkxsLogo(1);
+	}, function () {
+		runFkxsLogo(0);
+
+	});
+</script>
+
+</html>

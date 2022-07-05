@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<style>
+		body {
+			background-color: black;
+		}
+
+		#animation-container {
+			width: 80%;
+			height: 80%;
+			background-image: url("fkxs.png");
+			background-repeat: no-repeat;
+			background-size: auto 100%;
+			background-position: 0 0;
+		}
+	</style>
+</head>
+
+<body>
+	<div style="width: 500px;height: 500px;">
+		<main id="animation-container"></main>
+	</div>
+
+</body>
+
+<script type="text/javascript">
+	const animationEl = document.querySelector("#animation-container");
+
+	const frameNumber = 5;
+	const frameTime = 2000 / (frameNumber - 1);
+
+	let frame = 0;
+	let enterTiming = 0;
+	let requestFlag = null;
+
+	const animationFunc = (type = "in", width) => {
+		const nowTime = Date.now();
+		if (nowTime - enterTiming >= frameTime) {
+			enterTiming = nowTime;
+			// frame * 100 替换为 frame * 图片容器宽度
+			animationEl.style.backgroundPosition = `${frame / (frameNumber - 1) * 100}%  0`;
+			if (type === "in") {
+				frame += 1;
+				if (frame >= frameNumber) {
+					return;
+				}
+			} else {
+				if (frame <= 0) {
+					return;
+				}
+				frame -= 1;
+			}
+
+		}
+		requestFlag = requestAnimationFrame(() => animationFunc(type, width));
+	}
+
+	const handleListener = (type, width) => {
+		cancelAnimationFrame(requestFlag);
+
+		frame === frameNumber && (frame -= 1)
+
+		enterTiming = Date.now();
+		requestFlag = requestAnimationFrame(() => animationFunc(type, width))
+	}
+
+	animationEl.addEventListener("mouseover", (e) => {
+		handleListener("in", animationEl.clientWidth)
+	})
+
+
+	animationEl.addEventListener("mouseout", () => {
+		handleListener("out", animationEl.clientWidth)
+	})
+</script>
+
+</html>

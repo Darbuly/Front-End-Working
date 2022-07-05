@@ -35,6 +35,7 @@
 }
 
 .p-n-c-btn {
+	border-radius: 4px;
 	flex-shrink: 0;
 	background-color: #87A348;
 	outline: 0;
@@ -50,6 +51,7 @@
 .p-n-c-pinfo {
 	display: flex;
 	align-items: center;
+	margin: 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -132,7 +134,7 @@
 	.p-n-c-btn {
 		width: 28vw;
 		height: 10.133vw;
-		border-radius: 2.1333vw;
+		border-radius: 4px;
 		flex-shrink: 0;
 		font-size: 3.73333vw;
 		text-align: center;

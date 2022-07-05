@@ -1,0 +1,46 @@
+<div class="jianyu-table-class">
+	<el-table :ref="column.id" :data="tableData" :cell-class-name="CellClassName" @row-click="rowClick"
+		:class="column.id" :max-height="column.maxHeight" :show-header="showHeader"
+		:highlight-current-row="highlighCurrentRow" style="width: 100%">
+		<template v-for="(cItem,cIndex) in column.list">
+			<el-table-column v-if="cItem.render" :label="cItem.title" :width="cItem.width">
+				<template slot-scope="scope">
+					<template v-for="(rItem,rIndex) in cItem.render">
+						<i v-if="rItem.type=='icon' " :class="rItem.class"></i>
+						<span :title="scope.row[cItem.dataIndex]" v-if="rItem.type=='text'">{{
+							scope.row[cItem.dataIndex] }}</span>
+					</template>
+				</template>
+			</el-table-column>
+			<el-table-column v-if="cItem.valueEnum" :label="cItem.title" :width="cItem.width">
+				<template slot-scope="scope">
+					<div :class="'value-enum-'+cItem.dataIndex+'-'+scope.row[cItem.dataIndex]">
+						{{cItem.valueEnum[scope.row[cItem.dataIndex]].text}}</div>
+				</template>
+				<template slot="header" slot-scope="scope">
+					<span>{{cItem.title}}</span>
+					<el-popover placement="bottom" title="标题" width="200" trigger="click">
+						<el-table :data="gridData">
+							<el-table-column width="150" property="date" label="日期">
+							</el-table-column>
+							<el-table-column width="100" property="name" label="姓名">
+							</el-table-column>
+							<el-table-column width="300" property="address" label="地址">
+							</el-table-column>
+						</el-table>
+
+						<a slot="reference">click 激活</a>
+					</el-popover>
+
+				</template>
+			</el-table-column>
+			<el-table-column v-else-if="!cItem.valueEnum && !cItem.render" :label="cItem.title"
+				:width="cItem.width">
+				<template slot-scope="scope">
+					<div>{{ scope.row[cItem.dataIndex] }}</div>
+				</template>
+			</el-table-column>
+		</template>
+	</el-table>
+
+</div>

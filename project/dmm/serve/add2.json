@@ -1,0 +1,12 @@
+{
+	"req": {
+		"API": "addSessionEventDetail",
+		"require": [],
+		"return": "${var jsonobject;\nJSON.stringify(status);}"
+	},
+	"resp": {
+		"2": "${var jsonobject;JSON.stringify(infos);}",
+		"devid": "52",
+		"overtime": "0"
+	}
+}

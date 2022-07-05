@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<style>
+		#path1 {
+			stroke: #9C27B0;
+			stroke-dashoffset: 7%;
+			stroke-dasharray: 0 35%;
+			animation: animation 3s linear forwards;
+		}
+
+		@keyframes animation {
+			100% {
+				stroke-dasharray: 7% 7%;
+				stroke-dashoffset: 7%;
+
+			}
+		}
+
+		#path2 {
+			stroke: red;
+			stroke-dashoffset: 7%;
+			stroke-dasharray: 0 35%;
+			animation: animation2 3s linear forwards;
+		}
+
+		@keyframes animation2 {
+			100% {
+				stroke-dasharray: 7% 7%;
+				stroke-dashoffset: 14%;
+
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<svg version="1.1" style="width:100vw;height:100vh;" xmlns="http://www.w3.org/2000/svg">
+		<symbol id="pathSymbol">
+			<path class="path"
+				d="M344,26c3.595,1.373,3.172,0.899,5,4c16.619,39.859-50.248,119.052-93,107c-0.572-46.929,22.555-81.661,53-98 C320.666,34.667,332.334,30.333,344,26z" />
+			<path class="path"
+				d="M338,132c53.094-1.055,80.442,15.317,103,44c0,1.333,0,2.667,0,4c-40.96,30.44-66.713,87.897-34,147 c6.417,11.595,21.062,26.807,32,34c5.333,2.667,10.667,5.333,16,8c-4.646,40.842-57.294,115.573-94,124 c-31.519,7.236-54.682-11.118-77-16c-37.039-8.102-61.021,12.37-87,18c-35.953,7.792-63.181-27.32-76-45 c-59.011-81.386-102.75-270.669,25-313c37.527-12.435,76.171,6.998,106,13C271.355,153.895,325.573,138.184,338,132z" />
+		</symbol>
+		<g>
+			<use xlink:href="#pathSymbol" id="path1"></use>
+			<use xlink:href="#pathSymbol" id="path2"></use>
+		</g>
+
+	</svg>
+
+</html>

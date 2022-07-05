@@ -1,0 +1,13 @@
+{
+	"req": {
+		"API": "addSessionEvent",
+		"require": [],
+		"return": "${var jsonobject;\nJSON.stringify(status);}"
+	},
+	"resp": {
+		"1": "${var jsonobject;JSON.stringify(infos);}",
+		"devid": "52",
+		"overtime": "0",
+		"post": "${query('select (last_value+1) id from session_event_id_seq')[0].id}"
+	}
+}

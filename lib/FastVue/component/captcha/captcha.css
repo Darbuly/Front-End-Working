@@ -1,0 +1,12 @@
+.captcha-img {
+	width: 100px;
+	height: 33px;
+	background-color: blueviolet;
+}
+
+.captcha-img {
+	position: absolute;
+	right: 10%;
+	top: 50%;
+	transform: translateY(-50%);
+}
