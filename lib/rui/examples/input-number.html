@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+
+</head>
+
+<body>
+	<div id="app">
+		<el-input-number v-model="num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
+	</div>
+
+</body>
+
+<script src="../rui.js"></script>
+
+<script>
+
+
+	rui.use(['input-number'], function () {
+		var inputNumber = rui['input-number'];
+		inputNumber.render({
+			el: "#app",
+			data: {
+				num: 1
+			},
+			methods: {
+				handleChange(value) {
+					console.log(value);
+				}
+			}
+		})
+	})
+
+</script>
+
+</html>

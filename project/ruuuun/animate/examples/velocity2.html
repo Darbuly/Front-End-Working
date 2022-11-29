@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<script src="../../../../lib/jquery/jquery.min.js"></script>
+	<script src="../animate-lib/velocity.js"></script>
+</head>
+
+<style>
+
+</style>
+
+<body>
+	<div id="app">
+		测试动画
+	</div>
+</body>
+
+<script>
+
+	//方案1：失败
+	// $("#app")
+	// 	.velocity({ fontSize: "16px", opacity: 1 }, { duration: 0, queue: "b" })
+	// 	.velocity({ opacity: 1 }, { duration: 1000 * 8, queue: "b" })
+	// 	.velocity({ fontSize: "200px", opacity: 0 }, {
+	// 		duration: 1000 * 10, queue: "b",
+	// 	})
+	// $("#app").dequeue('b')
+
+
+	//方案2：失败
+	$("#app")
+		.velocity({ fontSize: "16px", }, { duration: 0, queue: "b" })
+		.velocity({ fontSize: "200px" }, { duration: 1000 * 5, queue: "b" })
+		.velocity({ fontSize: "48px" }, { duration: 1000 * 5, queue: "b" })
+		.velocity({ opacity: 1 }, { duration: 1000 * 8, queue: "a" })
+		.velocity({ opacity: 0 }, { duration: 1000 * 2, queue: "a" })
+		.velocity({}, {
+			duration: 0, complete: function (e) {
+				console.log('归位')
+
+			},
+		})
+
+	$("#app").dequeue('b').dequeue('a')
+
+</script>
+
+</html>

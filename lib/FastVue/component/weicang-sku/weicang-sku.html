@@ -14,10 +14,10 @@
 						</div>
 						<input class="sub_number" type="text" name="unit_quantityX"
 							:value="pItem.count" disabled="disabled">
-						<div :class="{'sm-btn-icon-add':true, 'sm-btn-icon-disabled':pItem.count>=pItem.max}"
+						<div :class="{'sm-btn-icon-add':true, 'sm-btn-icon-disabled':pItem.count>=pItem.max||pItem.count>=max_count}"
 							@click="addCount(pIndex)"></div>
 					</div>
-					<div v-if="pItem.count>=pItem.max||true" class="action-desc">
+					<div v-if="pItem.count>=pItem.max" class="action-desc">
 						库存不足，无法添加更多数量到购物袋。
 					</div>
 				</div>

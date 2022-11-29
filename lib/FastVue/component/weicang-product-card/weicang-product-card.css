@@ -1,0 +1,294 @@
+
+.weicang-product-card-wrap {
+	overflow: hidden;
+	background-color: rgba(208,212,217,0.10);;
+}
+.weicang-product-card {
+	display: flex;
+	justify-content: center;
+	height: 432px;
+	margin-top: 160px;
+	margin-bottom: 80px;
+}
+
+
+.wpc-photo-wrap {
+	display: flex;
+}
+.wpc-text-wrap {
+	margin-left: 80px;
+	max-width: 432px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.wpc-photo-select {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+
+.wpc-slide-item {
+	width: 136px;
+	height: 136px;
+	border: 2px solid transparent;
+}
+
+.wpc-slide-item:hover {
+	cursor: pointer;
+}
+
+.wpc-slide-item ,
+.wpc-photo-show {
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.wpc-photo-swipe {
+	display: none;
+}
+
+.wpc-slide-item.wpc-selected {
+	border: 2px solid #87a348;
+}
+
+.wpc-photo-show {
+	margin-left: 12px;
+	width: 432px;
+	height: 432px;
+}
+
+.wpc-text-title {
+	font-size: 32px;
+	font-weight:bold;
+	color: #343740;
+	line-height: 45px;
+	margin-bottom: 4px;
+	flex-shrink: 0;
+}
+
+.wpc-text-subtitle {
+	font-size: 20px;
+	text-align: left;
+	color: #7c8795;
+	line-height: 28px;
+	margin-bottom: 24px;
+	flex-shrink: 0;
+}
+
+.wpc-text-desc {
+	font-size: 24px;
+	font-weight:bold;
+	color: #343740;
+	line-height: 36px;
+	height: 100%;
+}
+.wpc-text-desc p {
+	margin: 0;
+}
+
+.wpc-text-cost {
+	flex-shrink: 0;	
+	font-size: 20px;
+	color: #343740;
+	line-height: 28px;
+	letter-spacing: 0.63px;
+	
+}
+
+.wpc-text-cost .wpc-cost {
+	font-size: 42px;
+	color: #343740;
+	line-height: 59px;
+	letter-spacing: 1.31px;
+	position: relative;
+	padding-right: 8px;
+}
+.vip-cost {
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateX(100%) translateY(-50%);
+	background-color: #98A2AD;
+	font-size: 16px;
+	text-align: center;
+	color: #ffffff;	
+	line-height: 22px;
+	border-radius: 4px;
+	padding: 1px 4px ;
+}
+
+.wpx-text-novip {
+	font-size: 20px;
+	color: #343740;
+	line-height: 28px;
+	letter-spacing: 0.63px;
+	flex-shrink: 0;
+	margin-bottom: 20px;
+}
+
+.wpc-text-btn {
+	flex-shrink: 0;
+    color: #fff;
+    text-shadow: none;
+	box-shadow: none;
+	background-image: none;
+	min-width: 100px;
+    font-size: 14px;
+    background: #87a348;
+    border-radius: 4px;
+    font-weight: 400;
+    height: 36px;
+	letter-spacing: 1px;
+	margin: 0;
+    padding: 8px 16px 8px;
+	cursor: pointer;
+    display: inline-block;
+    min-height: 1em;
+    outline: 0;
+    border: none;
+    vertical-align: baseline;
+	line-height: 1em;
+    font-style: normal;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+.wpc-btn-disable {
+	background: #7c8795 !important;
+	color: #fff;
+}
+.wpc-text-btn:hover {
+	background-color: #7d885b;
+    color: #fff;
+    text-shadow: none;
+}
+
+
+
+@media screen and (max-width: 768px) {
+
+
+	.weicang-product-card {
+		flex-direction: column;
+		justify-content: flex-start;
+		width: 89.333vw;
+		height: auto;
+		margin: 13vw auto 5.333333333vw;
+	}
+	
+	
+	.wpc-photo-wrap {
+		flex-direction: column-reverse;
+	}
+	.wpc-text-wrap {
+		margin-left: 0;
+		width: 100%;
+		position: relative;
+	}
+	
+	.wpc-photo-select {
+		flex-direction: row;
+		width: 100%;
+		margin-top: 2.1333vw;
+		margin-bottom: 3.2vw;
+	}
+	
+	.wpc-slide-item {
+		width: 28vw;
+		height: 28vw;
+		border: 2px solid transparent;
+	}
+	
+	.wpc-slide-item ,
+	.wpc-photo-show {
+		background-size: 100% 100%;
+	}
+	
+	.wpc-photo-show {
+		display: none;
+	}
+
+	.wpc-photo-show-m {
+		margin-left: 0;
+		background-repeat: no-repeat;
+		background-size: 100%;
+		width: 89.333vw;
+		height: 89.3333vw;
+	}
+
+	/* .van-swipe__indicators {
+		display: none;
+	} */
+	
+	.wpc-text-title {
+		font-size: 5.3333vw;
+		line-height: 7.4666vw;
+		margin-bottom: 0.533vw;
+		flex-shrink: 0;
+	}
+	
+	.wpc-text-subtitle {
+		font-size: 3.7333vw;
+		line-height: 5.3333vw;
+		margin-bottom: 2.1111vw;
+		flex-shrink: 0;
+	}
+	
+	.wpc-text-desc {
+		font-size: 4.2vw;
+		line-height: 6.9vw;
+	}
+	
+	.wpc-text-cost {
+		margin-top: 5.3333vw;
+		font-size: 4.266vw;
+		line-height: 5.8vw;
+		letter-spacing: 1px;
+	}
+
+	.wpc-photo-swipe {
+		display: block;
+	}
+	
+	.wpc-text-cost .wpc-cost {
+		padding-right: 1.6vw;
+		font-size: 8.5vw;
+		line-height: 12vw;
+		letter-spacing: 1px;
+	}
+	.vip-cost {
+		font-size: 3.2vw;
+		line-height: 4.5vw;
+		padding: 1px 2px ;
+	}
+	
+	.wpx-text-novip {
+		font-size: 4.266vw;
+		line-height: 5.866vw;
+		letter-spacing: 1px;
+		margin-bottom: 0px;
+		color:#4A4F60;
+	}
+	
+	.wpc-text-btn {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		font-size: 3.73335vw;
+		padding: 2.1333vw 4vw;
+		width: 29.38885vw;
+		min-width: 29.38885vw;
+		height: 8vw;
+	}
+	
+	.wpc-text-btn:hover {
+		background-color: #7d885b;
+		color: #fff;
+		text-shadow: none;
+	}
+	
+
+}

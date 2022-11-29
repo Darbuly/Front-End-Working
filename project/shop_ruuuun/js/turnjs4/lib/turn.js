@@ -17,7 +17,7 @@
 
     vendor = '',
 
-    version = '4.1.0.1.24',//奔跑修改版本从 4.1.0 => 4.1.0.1.0 开始
+    version = '4.1.0.2.1',//奔跑修改版本从 4.1.0 => 4.1.0.1.0 开始
 
     PI = Math.PI,
 
@@ -50,6 +50,7 @@
     corners = {
       backward: ['bl', 'tl'],
       forward: ['br', 'tr'],
+      vertical: ['bl', 'br'],
       all: ['tl', 'bl', 'tr', 'br', 'l', 'r']
     },
 
@@ -122,6 +123,10 @@
       // 点击生效时间(s)
 
       clickEffectTime: 1,
+
+      // 横屏模式
+
+      isHorizontal: false
     },
 
     flipOptions = {
@@ -934,6 +939,40 @@
 
       },
 
+
+
+
+      // Sets or gets the isHorizontal mode
+
+      horizontal: function (isHorizontal) {
+
+        var data = this.data(),
+          currentHorizontal = data.opts.isHorizontal;
+
+        if (isHorizontal == null) {
+          return currentHorizontal;
+        }
+
+        if (currentHorizontal == isHorizontal) {
+          //没有变化
+          return this;
+
+        } else {
+
+          data.opts.isHorizontal = isHorizontal;
+
+          var size = this.turn('size');
+          turnMethods._movePages.call(this, 1, 0);
+          this.turn('size', size.width, size.height).
+            turn('update');
+
+          return this;
+
+        }
+
+      },
+
+
       // Gets and sets the direction of the flipbook
 
       direction: function (dir) {
@@ -1496,6 +1535,7 @@
       _eventStart: function (e, opts, corner) {
 
         var data = opts.turn.data(),
+          isHorizontal = data.opts.isHorizontal,
           actualZoom = data.pageZoom[opts.page];
 
         if (e.isDefaultPrevented()) {
@@ -1520,8 +1560,14 @@
           if ((corner.charAt(1) == 'l' && data.direction == 'ltr') ||
             (corner.charAt(1) == 'r' && data.direction == 'rtl')) {
 
-            opts.next = (opts.next < opts.page) ? opts.next : opts.page - 1;
-            opts.force = true;
+            if (isHorizontal) {
+              opts.next = (opts.next > opts.page) ? opts.next : opts.page + 1;
+            } else {
+
+              opts.next = (opts.next < opts.page) ? opts.next : opts.page - 1;
+              opts.force = true;
+            }
+
 
           } else {
 
@@ -1594,22 +1640,40 @@
           page = $(e.target),
           data = page.data().f,
           turn = data.opts.turn,
-          turnData = turn.data();
+          turnData = turn.data(),
+          isHorizontal = turnData.opts.isHorizontal;
 
         if (turnData.display == 'single') {
 
           if (point.centerCirclePoint && point.realpoint) {
 
             // 跩边型拖动到中心才翻页
-            outArea = (point.corner == 'br' || point.corner == 'tr') ?
-              point.realpoint.x < page.width() / 2 :
-              point.realpoint.x > page.width() / 2;
+            if (isHorizontal) {
+              outArea = (point.corner == 'bl' || point.corner == 'br') ?
+                point.realpoint.x < page.height() / 2 :
+                point.realpoint.x > page.height() / 2;
+
+            } else {
+              outArea = (point.corner == 'br' || point.corner == 'tr') ?
+                point.realpoint.x < page.width() / 2 :
+                point.realpoint.x > page.width() / 2;
+            }
+
 
 
           } else {
-            outArea = (point.corner == 'br' || point.corner == 'tr') ?
-              point.x < page.width() / 2 :
-              point.x > page.width() / 2;
+
+            if (isHorizontal) {
+              outArea = (point.corner == 'bl' || point.corner == 'br') ?
+                point.y < page.height() / 2 :
+                point.y > page.height() / 2;
+
+            } else {
+              outArea = (point.corner == 'br' || point.corner == 'tr') ?
+                point.x < page.width() / 2 :
+                point.x > page.width() / 2;
+            }
+
           }
 
 
@@ -1719,19 +1783,6 @@
           _arguments = arguments,
           that = this;
 
-
-        // if (flipMethods.isDoublefingerEvents(_arguments[0])) {
-        // } else {
-
-        //   for (var page in data.pages) {
-        //     if (has(page, data.pages) &&
-        //       flipMethods._eventStart.apply(data.pages[page], _arguments) === false) {
-        //       return false;
-        //     }
-        //   }
-        // }
-
-
         // 如果处于缩放状态，这里无效
         if (data.preventTurn) {
           return true;
@@ -1779,7 +1830,7 @@
 
       //
       _touchMove: function () {
-        this.tlog('_touchMove')
+        // this.tlog('_touchMove')
 
         //点击计时器没到时，如果出现MOVE,那么杜绝缩放事件，进行翻页事件。
         var data = this.data(),
@@ -2194,6 +2245,7 @@
         var data = this.data().f,
           page = data.opts.page,
           turnData = data.opts.turn.data(),
+          isHorizontal = turnData.opts.isHorizontal,
           odd = page % 2;
 
         if (data.effect == 'hard') {
@@ -2206,18 +2258,26 @@
 
           if (turnData.display == 'single') {
 
-            if (page == 1)
-              // return (turnData.direction == 'ltr') ?
-              //   corners['forward'] : corners['backward'];
+            if (isHorizontal) {
 
-              return corners['forward'];
+              if (page == 1)
+                return corners['vertical'];
+              else if (page == turnData.totalPages)
+                return [];
+              else
+                return corners['vertical'];
 
-            else if (page == turnData.totalPages)
-              return [];
-            // return (turnData.direction == 'ltr') ?
-            //   corners['backward'] : corners['forward'];
-            else
-              return corners['forward'];
+
+            } else {
+
+              if (page == 1)
+                return corners['forward'];
+              else if (page == turnData.totalPages)
+                return [];
+              else
+                return corners['forward'];
+
+            }
 
           } else {
 
@@ -2579,11 +2639,30 @@
         var data = this.data().f,
           turnData = data.opts.turn.data(),
           o = flipMethods._c.call(this, point.corner),
-          width = this.width(),
-          height = this.height();
 
-        // this.tlog(`point x=${point.x} y=${point.y}`)
-        // console.log('oooooo', o)
+          width = this.width(),
+          height = this.height(),
+          isHorizontal = turnData.opts.isHorizontal;
+
+        /**
+         * 横屏处理：o折角原点要逆时针翻转
+         */
+        if (isHorizontal) {
+          if (point.corner == 'br') {
+
+            // 横屏下：br->tr
+            o = point2D(height, 0)
+          }
+
+          if (point.corner == 'bl') {
+
+            // 横屏下：bl->br
+            o = point2D(height, width);
+          }
+
+        }
+
+
 
         switch (data.effect) {
 
@@ -2721,23 +2800,58 @@
                 var rel = point2D(0, 0);
                 var middle = point2D(0, 0);
 
-                rel.x = (o.x) ? o.x - point.x : point.x;
 
 
+                /**
+                 * 横屏处理，rel的计算：
+                 */
+                if (isHorizontal) {
+                  if (point.corner == 'br') {
+                    rel.x = (o.x) ? o.x - point.y : point.y;
+                    if (!hasRot) {
+                      rel.y = 0;
+                    } else {
+                      rel.y = (o.y) ? o.y - (width - point.x) : (width - point.x);
+                    }
+                  }
 
-                if (!hasRot) {
-                  rel.y = 0;
+                  if (point.corner == 'bl') {
+                    rel.x = (o.x) ? o.x - point.y : point.y;
+                    if (!hasRot) {
+                      rel.y = 0;
+                    } else {
+                      rel.y = point.x;
+                    }
+                  }
+
                 } else {
-                  rel.y = (o.y) ? o.y - point.y : point.y;
+
+                  rel.x = (o.x) ? o.x - point.x : point.x;
+
+                  if (!hasRot) {
+                    rel.y = 0;
+                  } else {
+                    rel.y = (o.y) ? o.y - point.y : point.y;
+                  }
+
                 }
 
+                if (isHorizontal) {
+                  if (point.corner == 'br') {
+                    middle.x = (left) ? height - rel.x / 2 : point.y + rel.x / 2;
+                  }
 
-                // console.log("rel", rel);
+                  if (point.corner == 'bl') {
+                    middle.x = point.y + rel.x / 2;
+                  }
 
-                middle.x = (left) ? width - rel.x / 2 : point.x + rel.x / 2;
+                } else {
+                  middle.x = (left) ? width - rel.x / 2 : point.x + rel.x / 2;
+
+                }
+
                 middle.y = rel.y / 2;
 
-                // console.log("middle", middle);
 
                 var alpha = A90 - Math.atan2(rel.y, rel.x),
                   gamma = alpha - Math.atan2(middle.y, middle.x),
@@ -2747,24 +2861,102 @@
 
                 tr = point2D(distance * Math.sin(alpha), distance * Math.cos(alpha));
 
-                console.log("tr", tr);
 
-                if (alpha > A90) {
-                  tr.x = tr.x + Math.abs(tr.y * rel.y / rel.x);
-                  tr.y = 0;
-                  if (Math.round(tr.x * Math.tan(PI - alpha)) < height) {
-                    point.y = Math.sqrt(Math.pow(height, 2) + 2 * middle.x * rel.x);
-                    if (top) point.y = height - point.y;
-                    return compute();
+                /**
+                 * 横屏处理：>90度时，height -> width  top->left left->top
+                 */
+                if (isHorizontal) {
+
+                  if (point.corner == 'br') {
+
+                    if (alpha > A90) {
+                      tr.x = tr.x + Math.abs(tr.y * rel.y / rel.x);
+                      tr.y = 0;
+
+                      // height -> width
+                      if (Math.round(tr.x * Math.tan(PI - alpha)) < width) {
+
+                        // height -> width
+                        point.x = Math.sqrt(Math.pow(width, 2) + 2 * middle.x * rel.x);
+                        if (top) point.x = width - point.x;
+                        return compute();
+
+
+                      }
+                    }
+
+                    if (alpha > A90) {
+
+                      // h=w ，warpper 是正方形
+                      // height -> width
+                      var beta = PI - alpha, dd = h - width / Math.sin(beta);
+                      mv = point2D(Math.round(dd * Math.cos(beta)), Math.round(dd * Math.sin(beta)));
+                      if (left) mv.x = - mv.x;
+                      if (top) mv.y = - mv.y;
+                    }
+
                   }
+
+                  if (point.corner == 'bl') {
+
+
+                    if (alpha > A90) {
+                      tr.x = tr.x + Math.abs(tr.y * rel.y / rel.x);
+                      tr.y = 0;
+
+                      // height -> width
+                      if (Math.round(tr.x * Math.tan(PI - alpha)) < width) {
+
+                        // height -> width
+                        // top->left
+                        // left->top
+                        point.x = Math.sqrt(Math.pow(width, 2) + 2 * middle.x * rel.x);
+                        if (left) point.x = width - point.x;
+                        return compute();
+
+
+                      }
+                    }
+
+                    if (alpha > A90) {
+
+                      // h=w ，warpper 是正方形
+                      // height -> width
+                      var beta = PI - alpha, dd = h - width / Math.sin(beta);
+                      mv = point2D(Math.round(dd * Math.cos(beta)), Math.round(dd * Math.sin(beta)));
+                      if (top) mv.x = - mv.x;
+                      if (left) mv.y = - mv.y;
+                    }
+
+
+                  }
+
+
+                } else {
+
+                  if (alpha > A90) {
+                    tr.x = tr.x + Math.abs(tr.y * rel.y / rel.x);
+                    tr.y = 0;
+                    if (Math.round(tr.x * Math.tan(PI - alpha)) < height) {
+                      point.y = Math.sqrt(Math.pow(height, 2) + 2 * middle.x * rel.x);
+                      if (top) point.y = height - point.y;
+                      return compute();
+                    }
+                  }
+
+                  if (alpha > A90) {
+                    var beta = PI - alpha, dd = h - height / Math.sin(beta);
+                    mv = point2D(Math.round(dd * Math.cos(beta)), Math.round(dd * Math.sin(beta)));
+                    if (left) mv.x = - mv.x;
+                    if (top) mv.y = - mv.y;
+                  }
+
+
+
                 }
 
-                if (alpha > A90) {
-                  var beta = PI - alpha, dd = h - height / Math.sin(beta);
-                  mv = point2D(Math.round(dd * Math.cos(beta)), Math.round(dd * Math.sin(beta)));
-                  if (left) mv.x = - mv.x;
-                  if (top) mv.y = - mv.y;
-                }
+
+
 
                 px = Math.round(tr.y / Math.tan(alpha) + tr.x);
 
@@ -2775,10 +2967,44 @@
                   Math.round((left ? side - sideX : px + sideX)),
                   Math.round((top) ? sideY : height - sideY));
 
+
+
+                /**
+                 * 横屏处理：df计算，width与height对换，然后left 或者 top 遍历一下可以得到最终值
+                 */
+
+                if (isHorizontal) {
+                  if (point.corner == 'br') {
+
+                    side = height - px;
+                    sideX = side * Math.cos(alpha * 2);
+                    sideY = side * Math.sin(alpha * 2);
+                    df = point2D(
+                      Math.round(px + sideX),
+                      Math.round(width - sideY));
+
+                  }
+
+                  if (point.corner == 'bl') {
+
+                    side = height - px;
+                    sideX = side * Math.cos(alpha * 2);
+                    sideY = side * Math.sin(alpha * 2);
+                    df = point2D(
+                      Math.round(px + sideX),
+                      Math.round(sideY));
+
+                  }
+                }
+
+
+
                 // Gradients
                 if (turnData.opts.gradients) {
 
                   gradientSize = side * Math.sin(alpha);
+
+
 
                   var endingPoint = flipMethods._c2.call(that, point.corner),
                     far = Math.sqrt(Math.pow(endingPoint.x - point.x, 2) + Math.pow(endingPoint.y - point.y, 2)) / width;
@@ -2790,19 +3016,67 @@
 
                   gradientStartVal = gradientSize > 100 ? (gradientSize - 100) / gradientSize : 0;
 
-                  gradientEndPointA = point2D(
-                    gradientSize * Math.sin(alpha) / width * 100,
-                    gradientSize * Math.cos(alpha) / height * 100);
+                  if (isHorizontal) {
+                    if (point.corner == 'br') {
+                      gradientEndPointA = point2D(
+                        gradientSize * Math.sin(alpha) / height * 100,
+                        gradientSize * Math.cos(alpha) / width * 100);
+
+                    }
+
+                    if (point.corner == 'bl') {
+                      gradientEndPointA = point2D(
+                        gradientSize * Math.sin(alpha) / height * 100,
+                        gradientSize * Math.cos(alpha) / width * 100);
+
+                    }
+                  } else {
+
+                    gradientEndPointA = point2D(
+                      gradientSize * Math.sin(alpha) / width * 100,
+                      gradientSize * Math.cos(alpha) / height * 100);
+
+                  }
 
 
                   if (flipMethods._backGradient.call(that)) {
 
-                    gradientEndPointB = point2D(
-                      gradientSize * 1.2 * Math.sin(alpha) / width * 100,
-                      gradientSize * 1.2 * Math.cos(alpha) / height * 100);
 
-                    if (!left) gradientEndPointB.x = 100 - gradientEndPointB.x;
-                    if (!top) gradientEndPointB.y = 100 - gradientEndPointB.y;
+                    if (isHorizontal) {
+                      if (point.corner == 'br') {
+
+                        gradientEndPointB = point2D(
+                          gradientSize * 1.2 * Math.sin(alpha) / height * 100,
+                          gradientSize * 1.2 * Math.cos(alpha) / width * 100);
+
+                        gradientEndPointB.x = 100 - gradientEndPointB.x;
+                        gradientEndPointB.y = 100 - gradientEndPointB.y;
+
+                      }
+
+                      if (point.corner == 'bl') {
+
+                        gradientEndPointB = point2D(
+                          gradientSize * 1.2 * Math.sin(alpha) / height * 100,
+                          gradientSize * 1.2 * Math.cos(alpha) / width * 100);
+
+                        gradientEndPointB.x = 100 - gradientEndPointB.x;
+
+                      }
+                    } else {
+
+
+                      gradientEndPointB = point2D(
+                        gradientSize * 1.2 * Math.sin(alpha) / width * 100,
+                        gradientSize * 1.2 * Math.cos(alpha) / height * 100);
+
+                      if (!left) gradientEndPointB.x = 100 - gradientEndPointB.x;
+                      if (!top) gradientEndPointB.y = 100 - gradientEndPointB.y;
+
+
+                    }
+
+
 
                   }
 
@@ -2810,6 +3084,23 @@
 
                 tr.x = Math.round(tr.x);
                 tr.y = Math.round(tr.y);
+
+                /**
+                 * 横屏处理，源tr计算用于目标tr:
+                 */
+                if (isHorizontal) {
+                  if (point.corner == 'br') {
+                    tr = point2D(tr.y, tr.x);
+                    df = point2D(df.y, df.x);
+                    mv = point2D(mv.y, mv.x);
+                  }
+
+                  if (point.corner == 'bl') {
+                    tr = point2D(tr.y, tr.x);
+                    df = point2D(df.y, df.x);
+                    mv = point2D(mv.y, mv.x);
+                  }
+                }
 
                 return true;
               },
@@ -2825,6 +3116,16 @@
                 that.css(cssA).
                   transform(rotate(a) + translate(tr.x + aliasingFk, tr.y, ac), origin);
 
+                if (isHorizontal) {
+                  /**
+                   * 横屏处理下，背景图是颠倒的，需要颠倒处理
+                   */
+                  data.ashadow.next().css(cssA).transform(
+                    rotate(180), '50% 50%'
+                  );
+
+                }
+
                 data.fpage.css(cssA).transform(
                   rotate(a) +
                   translate(tr.x + df.x - mv.x - width * x[0] / 100, tr.y + df.y - mv.y - height * x[1] / 100, ac) +
@@ -2833,15 +3134,26 @@
 
                 data.wrapper.transform(translate(-tr.x + mvW - aliasingFk, -tr.y + mvH, ac) + rotate(-a), origin);
 
+
                 data.fwrapper.transform(translate(-tr.x + mv.x + mvW, -tr.y + mv.y + mvH, ac) + rotate(-a), origin);
 
                 if (turnData.opts.gradients) {
 
-                  if (x[0])
-                    gradientEndPointA.x = 100 - gradientEndPointA.x;
+                  if (isHorizontal) {
+                    if (x[0])
+                      gradientEndPointA.y = 100 - gradientEndPointA.y;
 
-                  if (x[1])
-                    gradientEndPointA.y = (100 - gradientEndPointA.y);
+                    if (x[1])
+                      gradientEndPointA.x = (100 - gradientEndPointA.x);
+                  } else {
+                    if (x[0])
+                      gradientEndPointA.x = 100 - gradientEndPointA.x;
+
+                    if (x[1])
+                      gradientEndPointA.y = (100 - gradientEndPointA.y);
+                  }
+
+
 
                   /**
                    * 
@@ -2854,26 +3166,86 @@
                   // cssB['box-shadow'] = '0 0 20px rgba(0,0,0,' + (0.5 * shadowVal) + ')';
                   // folding.css(cssB);
 
-                  //这里调整折角背面的阴影值
-                  gradient(data.ashadow,
-                    point2D(left ? 100 : 0, top ? 0 : 100),
-                    point2D(gradientEndPointA.x, gradientEndPointA.y),
-                    [[gradientStartVal, 'rgba(0,0,0,0)'],
-                    [((1 - gradientStartVal) * 0.8) + gradientStartVal, 'rgba(0,0,0,' + (0.13 * gradientOpacity) + ')'],
-                    [1, 'rgba(255,255,255,' + (0.2 * gradientOpacity) + ')']],
-                    3,
-                    alpha);
+                  if (isHorizontal) {
 
-                  if (flipMethods._backGradient.call(that))
-                    // 这里调整折角落在B面的阴影
-                    gradient(data.bshadow,
-                      point2D(left ? 0 : 100, top ? 0 : 100),
-                      point2D(gradientEndPointB.x, gradientEndPointB.y),
-                      [[0.4, 'rgba(0,0,0,0)'],
-                      [0.8, 'rgba(0,0,0,' + (0.2 * gradientOpacity) + ')'],
-                      [1, 'rgba(0,0,0,0)']
-                      ],
-                      3);
+                    if (point.corner == 'br') {
+
+                      //这里调整折角背面的阴影值
+                      gradient(data.ashadow,
+                        point2D(left ? 0 : 100, top ? 100 : 0),
+                        point2D(gradientEndPointA.y, gradientEndPointA.x),
+                        [[gradientStartVal, 'rgba(0,0,0,0)'],
+                        [((1 - gradientStartVal) * 0.8) + gradientStartVal, 'rgba(0,0,0,' + (0.13 * gradientOpacity) + ')'],
+                        [1, 'rgba(255,255,255,' + (0.2 * gradientOpacity) + ')']],
+                        3,
+                        alpha);
+
+                      if (flipMethods._backGradient.call(that))
+                        // 这里调整折角落在B面的阴影
+                        gradient(data.bshadow,
+                          point2D(left ? 0 : 100, top ? 0 : 100),
+                          point2D(gradientEndPointB.y, gradientEndPointB.x),
+                          [[0.4, 'rgba(0,0,0,0)'],
+                          [0.8, 'rgba(0,0,0,' + (0.2 * gradientOpacity) + ')'],
+                          [1, 'rgba(0,0,0,0)']
+                          ],
+                          3);
+
+
+                    }
+
+                    if (point.corner == 'bl') {
+
+                      //这里调整折角背面的阴影值
+                      gradient(data.ashadow,
+                        point2D(0, 0),
+                        point2D(gradientEndPointA.y, gradientEndPointA.x),
+                        [[gradientStartVal, 'rgba(0,0,0,0)'],
+                        [((1 - gradientStartVal) * 0.8) + gradientStartVal, 'rgba(0,0,0,' + (0.13 * gradientOpacity) + ')'],
+                        [1, 'rgba(255,255,255,' + (0.2 * gradientOpacity) + ')']],
+                        3,
+                        alpha);
+
+                      if (flipMethods._backGradient.call(that))
+                        // 这里调整折角落在B面的阴影
+                        gradient(data.bshadow,
+                          point2D(0, 100),
+                          point2D(gradientEndPointB.y, gradientEndPointB.x),
+                          [[0.4, 'rgba(0,0,0,0)'],
+                          [0.8, 'rgba(0,0,0,' + (0.2 * gradientOpacity) + ')'],
+                          [1, 'rgba(0,0,0,0)']
+                          ],
+                          3);
+
+
+                    }
+
+
+                  } else {
+
+                    //这里调整折角背面的阴影值
+                    gradient(data.ashadow,
+                      point2D(left ? 100 : 0, top ? 0 : 100),
+                      point2D(gradientEndPointA.x, gradientEndPointA.y),
+                      [[gradientStartVal, 'rgba(0,0,0,0)'],
+                      [((1 - gradientStartVal) * 0.8) + gradientStartVal, 'rgba(0,0,0,' + (0.13 * gradientOpacity) + ')'],
+                      [1, 'rgba(255,255,255,' + (0.2 * gradientOpacity) + ')']],
+                      3,
+                      alpha);
+
+                    if (flipMethods._backGradient.call(that))
+                      // 这里调整折角落在B面的阴影
+                      gradient(data.bshadow,
+                        point2D(left ? 0 : 100, top ? 0 : 100),
+                        point2D(gradientEndPointB.x, gradientEndPointB.y),
+                        [[0.4, 'rgba(0,0,0,0)'],
+                        [0.8, 'rgba(0,0,0,' + (0.2 * gradientOpacity) + ')'],
+                        [1, 'rgba(0,0,0,0)']
+                        ],
+                        3);
+                  }
+
+
                 }
 
               };
@@ -2898,14 +3270,40 @@
                 transform(point2D(-tr.x, tr.y), [0, 0, 0, 1], [0, 0], -a);
                 break;
               case 'bl':
-                point.x = Math.max(point.x, 1);
-                compute();
-                transform(point2D(tr.x, -tr.y), [1, 1, 0, 0], [100, 100], -a);
+
+                /**
+                 * 横屏处理，transform传参处理：
+                 */
+                if (isHorizontal) {
+
+                  point.y = Math.min(point.y, height - 1);
+                  compute();
+                  transform(point2D(tr.x, -tr.y), [0, 0, 1, 1], [0, 0], a);
+
+                } else {
+
+                  point.x = Math.max(point.x, 1);
+                  compute();
+                  transform(point2D(tr.x, -tr.y), [1, 1, 0, 0], [100, 100], -a);
+
+                }
                 break;
               case 'br':
-                point.x = Math.min(point.x, width - 1);
-                compute();
-                transform(point2D(-tr.x, -tr.y), [0, 1, 1, 0], [0, 100], a);
+
+                /**
+                 * 横屏处理，transform传参处理：
+                 */
+                if (isHorizontal) {
+                  point.y = Math.min(point.y, height - 1);
+                  compute();
+                  transform(point2D(-tr.x, -tr.y), [1, 0, 0, 1], [100, 0], -a);
+                } else {
+
+                  point.x = Math.min(point.x, width - 1);
+                  compute();
+                  transform(point2D(-tr.x, -tr.y), [0, 1, 1, 0], [0, 100], a);
+                }
+
                 break;
             }
 
@@ -2989,6 +3387,7 @@
 
 
 
+
           if (!visible || !data.point || data.point.corner != c.corner) {
 
             var corner = (
@@ -3009,6 +3408,8 @@
             var that = this,
               point = (data.point && data.point.corner == c.corner) ?
                 data.point : flipMethods._c.call(this, c.corner, 1);
+
+
 
             this.animatef({
               from: [point.x, point.y],
@@ -3176,6 +3577,7 @@
         var data = this.data().f,
           turn = data.opts.turn,
           turnData = data.opts.turn.data(),
+          isHorizontal = turnData.opts.isHorizontal,
           width = this.width(),
           height = this.height();
 
@@ -3184,10 +3586,31 @@
         if (previousPage > 0) {
           var _corner = {};
           var thet = Math.PI * 2 / 5;
-          var _point = calcPoint(width / 4, height / 2, thet * 180 / Math.PI, width, height);
-          _corner.x = _point.x;
-          _corner.y = _point.y;
-          _corner.corner = _point.corner;
+
+          if (isHorizontal) {
+            var calc_width = height;
+            var calc_height = width;
+          } else {
+            var calc_width = width;
+            var calc_height = height;
+          }
+
+          var _point = calcPoint(calc_width / 4, calc_height / 2, thet * 180 / Math.PI, calc_width, calc_height);
+
+          var returnPoint = _point;
+
+          if (isHorizontal) {
+            returnPoint = {
+              x: width - _point.y,
+              y: _point.x
+            }
+            if (_point.corner == 'tr') returnPoint.corner = 'br';
+            if (_point.corner == 'br') returnPoint.corner = 'bl';
+          }
+
+          _corner.x = returnPoint.x;
+          _corner.y = returnPoint.y;
+          _corner.corner = returnPoint.corner;
           _corner.realpoint = true;
           _corner.canEffect = true;
           _corner.direction = 'right';
@@ -3209,11 +3632,13 @@
       },
 
 
+      // 翻页释放之后的动画
       turnPage: function (corner) {
 
         var that = this,
           data = this.data().f,
           turnData = data.opts.turn.data(),
+          isHorizontal = turnData.opts.isHorizontal,
           corner = {
             corner: (data.corner) ?
               data.corner.corner :
@@ -3227,6 +3652,15 @@
             corner.corner,
             (data.opts.turn) ? turnData.opts.elevation : 0),
           p4 = flipMethods._c2.call(this, corner.corner);
+
+        if (isHorizontal) {
+          if (corner.corner == 'bl') {
+            p4 = point2D(0, - this.height());
+          }
+          if (corner.corner == 'br') {
+            p4 = point2D(this.width(), -this.height());
+          }
+        }
 
         this.trigger('flip').
           animatef({
@@ -3286,7 +3720,10 @@
 
 
         var data = this.data().f,
-          turn = data.opts.turn;
+          turn = data.opts.turn,
+
+          turnData = turn.data(),
+          isHorizontal = turnData.opts.isHorizontal;
 
 
         /**
@@ -3332,7 +3769,9 @@
           }
           var c = 'l';
 
-          if (point.x < width / 2) {
+          var inoutArea = flipMethods._checkInOutArea.call(this, point);
+
+          if (inoutArea == 'in') {
             c = 'l';
             this.tlog(" 拖动翻页区域")
 
@@ -3354,7 +3793,7 @@
             }
 
           }
-          else if (point.x >= width / 2) {
+          else if (inoutArea == 'out') {
             c = 'r';
             this.tlog(" 内部横向拖动区域 ")
 
@@ -3386,8 +3825,9 @@
 
         var data = this.data().f,
           turn = data.opts.turn,
-          turnData = data.opts.turn.data();
-        e = (isTouch) ? e.originalEvent.touches : [e];
+          turnData = data.opts.turn.data(),
+          isHorizontal = turnData.opts.isHorizontal,
+          e = (isTouch) ? e.originalEvent.touches : [e];
         if (!data.disabled) {
 
           if (data.corner) {
@@ -3416,10 +3856,24 @@
             if (data.corner.centerCirclePoint) {
               // 横向翻页处理 - 拽边型
 
-              currentPoint.x = e[0].pageX - pos.left;
-              currentPoint.y = e[0].pageY - pos.top;
-              deltaX = currentPoint.x - data.corner.startPoint.x;
-              deltaY = currentPoint.y - data.corner.startPoint.y;
+              if (isHorizontal) {
+                currentPoint.x = e[0].pageY - pos.top;
+                currentPoint.y = width - (e[0].pageX - pos.left);
+                deltaX = currentPoint.x - data.corner.startPoint.x;
+                deltaY = currentPoint.y - data.corner.startPoint.y;
+
+                var calc_width = height;
+                var calc_height = width;
+
+              } else {
+                currentPoint.x = e[0].pageX - pos.left;
+                currentPoint.y = e[0].pageY - pos.top;
+                deltaX = currentPoint.x - data.corner.startPoint.x;
+                deltaY = currentPoint.y - data.corner.startPoint.y;
+
+                var calc_width = width;
+                var calc_height = height;
+              }
 
               if (data.corner.showFold) {
                 // 如果已经是满足折角条件了，就不需要再进行复杂的条件判断了，直接上动画
@@ -3427,10 +3881,25 @@
                 // FIXME: 采取任总说的thet算法
                 thet = Math.PI / 2 - Math.atan2(data.corner.centerCirclePoint.y - currentPoint.y, data.corner.centerCirclePoint.x - currentPoint.x);
 
-                point = calcPoint(currentPoint.x, currentPoint.y, thet * 180 / Math.PI, width, height);
-                data.corner.x = point.x;
-                data.corner.y = point.y;
-                data.corner.corner = point.corner;
+                point = calcPoint(currentPoint.x, currentPoint.y, thet * 180 / Math.PI, calc_width, calc_height);
+
+                var returnPoint = point;
+
+                if (isHorizontal) {
+                  returnPoint = {
+                    x: width - point.y,
+                    y: point.x
+                  }
+
+                  if (point.corner == 'tr') returnPoint.corner = 'br';
+                  if (point.corner == 'br') returnPoint.corner = 'bl';
+
+                }
+
+
+                data.corner.x = returnPoint.x;
+                data.corner.y = returnPoint.y;
+                data.corner.corner = returnPoint.corner;
                 data.corner.realpoint = currentPoint;
                 flipMethods._showFoldedPage.call(this, data.corner);
 
@@ -3483,10 +3952,26 @@
                       // FIXME: 采取任总说的thet算法
                       thet = Math.PI / 2 - Math.atan2(data.corner.centerCirclePoint.y - currentPoint.y, data.corner.centerCirclePoint.x - currentPoint.x);
 
-                      point = calcPoint(currentPoint.x, currentPoint.y, thet * 180 / Math.PI, width, height);
-                      data.corner.x = point.x;
-                      data.corner.y = point.y;
-                      data.corner.corner = point.corner;
+                      point = calcPoint(currentPoint.x, currentPoint.y, thet * 180 / Math.PI, calc_width, calc_height);
+
+
+                      var returnPoint = point;
+
+                      if (isHorizontal) {
+                        returnPoint = {
+                          x: width - point.y,
+                          y: point.x
+                        }
+
+                        if (point.corner == 'tr') returnPoint.corner = 'br';
+                        if (point.corner == 'br') returnPoint.corner = 'bl';
+
+                      }
+
+
+                      data.corner.x = returnPoint.x;
+                      data.corner.y = returnPoint.y;
+                      data.corner.corner = returnPoint.corner;
                       data.corner.realpoint = currentPoint;
                       data.corner.showFold = true;
 
@@ -3533,10 +4018,25 @@
                         // FIXME: 采取任总说的thet算法
                         thet = Math.PI / 2 - Math.atan2(data.corner.centerCirclePoint.y - currentPoint.y, data.corner.centerCirclePoint.x - currentPoint.x);
 
-                        point = calcPoint(currentPoint.x, currentPoint.y, thet * 180 / Math.PI, width, height);
-                        data.corner.x = point.x;
-                        data.corner.y = point.y;
-                        data.corner.corner = point.corner;
+                        point = calcPoint(currentPoint.x, currentPoint.y, thet * 180 / Math.PI, calc_width, calc_height);
+
+                        var returnPoint = point;
+
+                        if (isHorizontal) {
+                          returnPoint = {
+                            x: width - point.y,
+                            y: point.x
+                          }
+
+                          if (point.corner == 'tr') returnPoint.corner = 'br';
+                          if (point.corner == 'br') returnPoint.corner = 'bl';
+
+                        }
+
+
+                        data.corner.x = returnPoint.x;
+                        data.corner.y = returnPoint.y;
+                        data.corner.corner = returnPoint.corner;
                         data.corner.realpoint = currentPoint;
                         data.corner.showFold = true;
                         flipMethods._showFoldedPage.call(this, data.corner, true);
@@ -3556,7 +4056,7 @@
               // 拽角翻页处理 - 拽角型
 
               /**
-               * 拽角型不会出现回翻的情况，因为到时候我们会暂时把 bl tl 给禁用。
+               * 拽角型不会出现回翻的情况，因为到时候我们会暂时把 bl tl 给禁用。（横屏模式下，是禁用 tl tr）
                */
 
               data.corner.x = e[0].pageX - pos.left;
@@ -3684,6 +4184,7 @@
           offsetValue = 5,
           width = this.width(),
           height = this.height(),
+          isHorizontal = this.data().f.opts.turn.data().opts.isHorizontal,
           currentPoint = {
             x: e.pageX - pos.left,
             y: e.pageY - pos.top
@@ -3693,21 +4194,66 @@
           thet;
 
 
-        if (currentPoint.y > height / 2) offsetValue = -1 * offsetValue;
+        if (isHorizontal) {
 
-        centerCirclePoint = point2D(width - 1, currentPoint.y + offsetValue);
-        thet = Math.PI / 2 - Math.atan2(centerCirclePoint.y - currentPoint.y, centerCirclePoint.x - currentPoint.x);
-        point = calcPoint(currentPoint.x, currentPoint.y, thet * 180 / Math.PI, width, height);
 
-        return {
-          x: point.x,
-          y: point.y,
-          corner: point.corner,
-          centerCirclePoint: centerCirclePoint,
-          startPoint: currentPoint,
-          realpoint: currentPoint,
-          canEffect: false
+          /**
+           *  calc_height = width;
+           *  calc_currentPoint.x = currentPoint.y calc_currentPoint.y = width - currentPoint.x 
+           *  
+           */
+          var calc_height = width,
+            calc_width = height,
+            calc_currentPoint = {
+              x: currentPoint.y,
+              y: width - currentPoint.x
+            }
+
+
+
+          if (calc_currentPoint.y < calc_height / 2) offsetValue = -1 * offsetValue;
+
+          centerCirclePoint = point2D(calc_width - 1, calc_currentPoint.y + offsetValue);
+          thet = Math.PI / 2 - Math.atan2(centerCirclePoint.y - calc_currentPoint.y, centerCirclePoint.x - calc_currentPoint.x);
+          point = calcPoint(calc_currentPoint.x, calc_currentPoint.y, thet * 180 / Math.PI, calc_width, calc_height);
+
+          var returnPoint = {
+            x: width - point.y,
+            y: point.x
+          }
+
+          if (point.corner == 'tr') returnPoint.corner = 'br';
+          if (point.corner == 'br') returnPoint.corner = 'bl';
+
+          return {
+            x: returnPoint.x,
+            y: returnPoint.y,
+            corner: returnPoint.corner,
+            centerCirclePoint: centerCirclePoint,
+            startPoint: calc_currentPoint,
+            realpoint: calc_currentPoint,
+            canEffect: false
+          }
+
+        } else {
+          if (currentPoint.y > height / 2) offsetValue = -1 * offsetValue;
+
+          centerCirclePoint = point2D(width - 1, currentPoint.y + offsetValue);
+          thet = Math.PI / 2 - Math.atan2(centerCirclePoint.y - currentPoint.y, centerCirclePoint.x - currentPoint.x);
+          point = calcPoint(currentPoint.x, currentPoint.y, thet * 180 / Math.PI, width, height);
+
+          return {
+            x: point.x,
+            y: point.y,
+            corner: point.corner,
+            centerCirclePoint: centerCirclePoint,
+            startPoint: currentPoint,
+            realpoint: currentPoint,
+            canEffect: false
+          }
         }
+
+
 
       },
 
@@ -3752,6 +4298,32 @@
         delete data.drag_end_point;
       },
 
+
+      // 判断当前坐标是拖动翻页区域还是内部横向拖动区域
+      _checkInOutArea: function (point) {
+        var width = this.width(),
+          height = this.height(),
+          data = this.data().f,
+          turn = data.opts.turn,
+          turnData = turn.data(),
+          isHorizontal = turnData.opts.isHorizontal;
+
+        if (isHorizontal) {
+          if (point.y < height / 2) {
+            return 'in';
+          } else {
+            return 'out';
+          }
+
+        } else {
+          if (point.x < width / 2) {
+            return 'in';
+          } else {
+            return 'out';
+          }
+        }
+
+      },
 
 
       disable: function (disable) {
@@ -4204,7 +4776,6 @@
       }
     }
   });
-
   // Export some globals
 
   $.isTouch = isTouch;

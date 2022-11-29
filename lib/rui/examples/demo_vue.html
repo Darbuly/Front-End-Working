@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+
+</head>
+
+<body>
+
+	<div id="app">
+		<button @click="addCount">点击添加计数</button>
+		<h1>{{count}}</h1>
+	</div>
+
+
+</body>
+<script src="../rui.js"></script>
+
+<script>
+
+	rui.use(['demo_vue'], function () {
+		var demo_vue = rui.demo_vue;
+		demo_vue.render({
+			el: "#app",
+			data: {
+				count: 0
+			},
+			methods: {
+				addCount: function () {
+					this.count = this.count + 1;
+				}
+			}
+		})
+	})
+
+
+</script>
+
+</html>

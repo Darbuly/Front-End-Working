@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<link rel="stylesheet" href="../../../lib/element/element.css">
+
+	<script src="../../../lib/vue/vue_2.6.11.js"></script>
+
+	<script src="../../../lib/element/element.js"></script>
+
+	<style>
+		.el-carousel__item h3 {
+			color: #475669;
+			font-size: 18px;
+			opacity: 0.75;
+			line-height: 300px;
+			margin: 0;
+		}
+
+		.el-carousel__item:nth-child(2n) {
+			background-color: #99a9bf;
+		}
+
+		.el-carousel__item:nth-child(2n+1) {
+			background-color: #d3dce6;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<el-carousel indicator-position="outside">
+			<el-carousel-item v-for="item in 4" :key="item">
+				<h3>{{ item }}</h3>
+			</el-carousel-item>
+		</el-carousel>
+	</div>
+</body>
+
+<script>
+	new Vue({
+		el: '#app'
+	})
+</script>
+
+</html>

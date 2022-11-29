@@ -149,5 +149,14 @@
 		line-height: 5.333VW;
 	}
 
+	.sm-btn-icon-reduce:hover,
+	.sm-btn-icon-add:hover {
+    		background-position-x: 0px;
+	}
+
+	.sm-btn-icon-disabled {
+		background-position-x: -52px !important;
+	}
+
 
 }

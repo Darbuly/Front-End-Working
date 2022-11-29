@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<link rel="stylesheet" href="../../../lib/vant/index.css">
+
+	<script src="../../../lib/vue/vue_2.6.11.js"></script>
+	<script src="../../../lib/vant/vant.min.js"></script>
+
+	<style>
+		.my-swipe .van-swipe-item {
+			color: #fff;
+			font-size: 20px;
+			line-height: 150px;
+			text-align: center;
+			background-color: #39a9ed;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+			<van-swipe-item>1</van-swipe-item>
+			<van-swipe-item>2</van-swipe-item>
+			<van-swipe-item>3</van-swipe-item>
+			<van-swipe-item>4</van-swipe-item>
+
+		</van-swipe>
+
+		<div id="xxxx">
+
+			<van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+				<van-swipe-item>1</van-swipe-item>
+				<van-swipe-item>2</van-swipe-item>
+				<van-swipe-item>3</van-swipe-item>
+				<van-swipe-item>4</van-swipe-item>
+			</van-swipe>
+		</div>
+
+	</div>
+</body>
+<script>
+	new Vue({
+		el: "#app",
+		data: {
+			text1: 'text1'
+		}
+
+	})
+
+	new Vue({
+		el: "#xxxx",
+	})
+
+</script>
+
+</html>

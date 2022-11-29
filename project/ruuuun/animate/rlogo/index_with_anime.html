@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./css/index.css">
+	<title>Document</title>
+	<script src="../animate-lib/wk_run_animate.js"></script>
+</head>
+
+<body>
+
+
+	<div class="head"></div>
+
+	<div class="r-logo-wrapper" id="rLogoWrapper" style="height:2000px;background-color: pink;">
+
+		<div class="style-sticky">
+
+			<div class="style-sticky-wrapper">
+
+				<div id="bannerMask" class="banner-mask-container">
+
+					<div id="logoText" class="logo-text"
+						style='font-size: 64px; background-image: url("./images/r-logo-bg.jpg");  line-height: 100vh; will-change: font-size;'>
+						R
+					</div>
+
+				</div>
+
+				<div id="bannerText" class="banner-text">
+					<h3 id="falshText" class="flash-text" style="font-size: 64px;">客户你来，其他我们来。</h3>
+				</div>
+
+
+			</div>
+
+
+		</div>
+
+
+	</div>
+
+
+	<div class="footer"></div>
+
+
+</body>
+
+<script src="../../../../lib/anime/anime.min.js"></script>
+
+<script>
+	let animate_line = {
+		0: {
+			"logoText": {
+				"fontSize": "64px"
+			}
+		},
+		30: {
+			"logoText": {
+				"fontSize": "1000px"
+			},
+		},
+		40: {
+			"bannerMask": {
+				"opacity": 1
+			},
+			"logoText": {
+				"fontSize": "1200px"
+			},
+		},
+		45:
+		{
+			"logoText": {
+				"fontSize": "1500px"
+			},
+			"bannerMask": {
+				"opacity": 0
+			}
+		},
+		46: {
+			"bannerText": {
+				"opacity": 0
+			},
+			"falshText": {
+				"opacity": 0,
+				"translateY": true,
+			}
+		},
+		57:
+		{
+			"bannerText": {
+				"opacity": 1,
+
+			},
+			"falshText": {
+				"opacity": 1,
+				"translateY": -24
+			}
+		}
+
+	}
+
+
+	function toAnimeTimeline(animate_line, main_duration) {
+
+		if (!main_duration) {
+			throw new Error('toAnimeTimeline main_duration 不能为空')
+		}
+
+		let mian_track = {
+			duration: main_duration,
+			easing: 'linear',
+		}
+		let all_time = main_duration;
+
+		//格式化时间线
+		let formatedTimeLine = RAtoAttributeTimeline(animate_line, false);
+
+		let anime_time_line = [];
+
+		for (const el in formatedTimeLine) {
+			if (Object.hasOwnProperty.call(formatedTimeLine, el)) {
+				const el_frame = formatedTimeLine[el];
+
+				for (const attribute in el_frame) {
+					if (Object.hasOwnProperty.call(el_frame, attribute)) {
+						const value_line = el_frame[attribute];
+
+						let last_ky = {
+							last_value: null,
+							key_frame: null
+						}
+
+						for (const key_frame in value_line) {
+							if (Object.hasOwnProperty.call(value_line, key_frame)) {
+								const value = value_line[key_frame];
+								if (last_ky.last_value === null) {
+									last_ky.last_value = value;
+									last_ky.key_frame = key_frame;
+								} else {
+
+									if (last_ky.last_value != value) {
+										let frame = {}
+										frame[attribute] = value;
+
+										let duration = (Number(key_frame) - Number(last_ky.key_frame)) * 0.01 * all_time;
+										let offset = all_time * ((100 - Number(last_ky.key_frame)) * 0.01)
+
+										let atl_item = {
+											params: {
+												targets: '#' + el,
+												duration: parseFloat(duration.toFixed(2)),
+												...frame,
+											},
+											offset: `-=${offset.toFixed(2)}`,
+										}
+
+										anime_time_line.push(atl_item);
+
+										last_ky.last_value = value;
+										last_ky.key_frame = key_frame;
+
+									}
+
+
+								}
+
+							}
+						}
+
+					}
+				}
+
+			}
+		}
+
+		return anime_time_line;
+
+
+	}
+
+
+
+</script>
+
+<script>
+
+	var anime_time_line = toAnimeTimeline(animate_line, 1000)
+
+	var animation = anime.timeline({
+		easing: 'linear',
+		autoplay: false
+	}).add({
+		duration: 1000
+	})
+
+	anime_time_line.map(function (aItem) {
+		console.log('anime_time_line', aItem)
+		animation.add(aItem.params, aItem.offset)
+	})
+
+
+
+	// var animation = anime.timeline({
+	// 	easing: 'easeInOutSine',
+	// 	autoplay: false
+	// }).add({
+	// 	easing: 'easeInOutSine',
+	// 	duration: 2000
+	// })
+	// 	.add({
+	// 		targets: '#logoText',
+	// 		fontSize: "1500px",
+	// 		easing: 'easeInOutSine',
+	// 		duration: 2000
+	// 	}, "-=2000").add({
+	// 		targets: "#bannerMask",
+	// 		opacity: 0,
+	// 		duration: 100,
+	// 	}, '-=600').add({
+	// 		targets: "#bannerText",
+	// 		opacity: 1,
+	// 		duration: 100
+	// 	}, '-=540').add({
+	// 		targets: "#falshText",
+	// 		opacity: 1,
+	// 		translateY: -24,
+	// 		duration: 100
+	// 	}, '-=530')
+	console.log('animation.duration', animation.duration);
+	window.addEventListener("scroll", () => {
+
+
+		let sticky_wrapper = document.getElementById("rLogoWrapper")
+
+		const scrolled =
+			(document.documentElement.scrollTop - sticky_wrapper.offsetTop) /
+			(sticky_wrapper.scrollHeight -
+				document.documentElement.clientHeight);
+
+
+		// [0%,70%] logo 放大
+		if (scrolled > 0 && scrolled < 1) {
+			animation.seek(animation.duration * (scrolled));
+		}
+
+	});
+
+
+</script>
+
+</html>

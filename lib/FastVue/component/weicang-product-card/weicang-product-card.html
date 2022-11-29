@@ -1,0 +1,37 @@
+<div class="weicang-product-card-wrap">
+	<div class="weicang-product-card">
+
+		<div class="wpc-photo-wrap">
+			<div class="wpc-photo-select">
+				<div v-for="(sItem,sIndex) in slide_list"
+					:class="{'wpc-slide-item':true,'wpc-selected':sIndex==selected_index}"
+					@click="onSelect(sIndex)" :style="{'background-image': `url(${sItem})`}"></div>
+			</div>
+			<div class="wpc-photo-show" :style="{'background-image': `url(${slide_list[selected_index]})`}">
+			</div>
+			<van-swipe ref="wpcSwipe" :show-indicators="false" class="wpc-photo-swipe"
+				@change="onSwipeChange" indicator-color="white">
+				<van-swipe-item v-for="(sItem,sIndex) in slide_list">
+					<div class="wpc-photo-show-m" :style="{'background-image': `url(${sItem})`}">
+					</div>
+				</van-swipe-item>
+			</van-swipe>
+
+		</div>
+
+		<div class="wpc-text-wrap">
+			<div class="wpc-text-title">{{product_title}}</div>
+			<div class="wpc-text-subtitle">{{product_subtitle}}</div>
+			<div class="wpc-text-desc" v-html="product_desc"></div>
+			<div class="wpc-text-cost">
+				￥<span class="wpc-cost">{{product_cost}}<div class="vip-cost">会员价</div></span>
+			</div>
+			<div class="wpx-text-novip">非会员价￥<span
+					class="wpc-original-cost">{{product_original_cost}}</span></div>
+			<div class="wpc-text-btn-wrap"> <button
+					:class="{'wpc-text-btn':true,'wpc-btn-disable':disable_btn}"
+					@click="clickBtn">{{btn_text}}</button>
+			</div>
+		</div>
+	</div>
+</div>

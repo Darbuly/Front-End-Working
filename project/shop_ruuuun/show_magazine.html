@@ -126,10 +126,10 @@
 
 <script>
 
-	var rt
+	var rt, pinchObj
 	window.onload = function () {
 		rt = new RunTracking({
-			debug: false,
+			debug: true,
 
 			firstRequestUrl: "http://dmm.ruuuun.com/DMM/UniAPI?API=addSessionEvent",
 			RequestUrl: "http://dmm.ruuuun.com/DMM/UniAPI?API=addSessionEventDetail",
@@ -196,9 +196,10 @@
 					console.log('yepnope done')
 					that.read_ebook("./one_book/1244/", "detail", "png", 8); //制作完成开始阅读
 
-					new PinchZoom.default($("#vueEbookApp")[0], {
+					pinchObj = new PinchZoom.default($("#vueEbookApp")[0], {
 						turnApp: '.sj-book',
 						setOffsetsOnce: true,
+						disablePinch: true
 					});
 
 					$("#vueEbookApp").bind('pz_zoomstart', function () {
@@ -227,7 +228,7 @@
 					this.width = $(window).width();
 
 				} else {
-					this.display = 'double';
+					this.display = 'single';
 					this.width = 920;
 				}
 
@@ -349,14 +350,14 @@
 
 					// Sets the number of pages.
 					pages: this.turnjs_arg.total_pages,
-					width: this.width,
+					width: this.width - 100,
 					height: this.height,
 
 					//flip对象
 					flip: { cornerSize: 50, debug: true },
 					//开发模式
 					debug: true,
-					// 开发模式参考线
+					//开发模式参考线
 					debugShowReferenceLine: false,
 					//拖动翻页生效时间 ms
 					dragDuration: 2000,
@@ -367,6 +368,10 @@
 
 					//跩边型翻页生效时间（大于这个时间，将采取是否跨过中线的方式去判断翻页）
 					outAreaReleasedDuration: 200,
+
+					//横屏模式：
+
+					isHorizontal: true,
 
 
 					when: {
@@ -519,6 +524,14 @@
 
 </script>
 
+<script>
+	var RBook = {
+		afterPageImgLoad: function (pageElement, page, img = null) {
+			var lyout = $('<div class="page-layout">hello</div>');
+			appendToDivLayout(lyout, pageElement, page);
+		}
+	}
+</script>
 
 
 </html>

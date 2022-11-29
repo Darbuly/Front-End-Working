@@ -1,0 +1,69 @@
+<div class="field-number-title" v-if="show">
+    <!-- 默认类型 -->
+    <div class="field-big-title">
+        <span class="field-number" v-text="field_number"></span>
+        <span class="title" v-text="field_title"></span>
+    </div>
+    <van-field v-if="field_type!='datetime' 
+    && field_type!='captcha' 
+    && field_type!='deadline'
+    && field_type!='profile'
+    && field_type!='radio'" v-model="field_value" :type='field_type' name="用户名" :label="field_label"
+        :placeholder="fleld_placeholder" :maxlength="field_maxlength"
+        :rules="[{ required: true, message: '请填写用户名' }]" />
+
+    <!-- 时间类型 -->
+    <van-field v-if="field_type=='datetime'" readonly clickable name="datetimePicker" :label="field_label"
+        :value="field_value" :placeholder="fleld_placeholder" @click="showPicker = true" />
+    <van-popup v-model="showPicker" position="bottom">
+        <van-datetime-picker :type="field_type" @confirm="onPickerConfirm" @cancel="showPicker = false" />
+    </van-popup>
+
+    <!-- 验证码类型 -->
+
+    <van-cell-group v-if="field_type=='captcha'" inset>
+        <van-field name="验证码" v-model="field_value" label="验证码" placeholder="请输入验证码"
+            :rules="[{ required: true, message: '请填写验证码' }]" />
+        <img class="captcha-img" @click="refreshCaptcha" :src="field_params['img_url']" alt="">
+    </van-cell-group>
+
+    <!-- 截止日期型 -->
+    <van-cell-group v-if="field_type=='deadline'" inset>
+        <van-field name="radio" :label="field_label">
+            <template #input>
+                <van-radio-group v-model="field_value['type']" direction="horizontal">
+                    <van-radio name="1">7天</van-radio>
+                    <van-radio name="2">15天</van-radio>
+                    <van-radio name="3">长期有效</van-radio>
+                    <van-radio name="-1">指定日期</van-radio>
+                </van-radio-group>
+            </template>
+        </van-field>
+        <van-field v-if="field_value['type']=='-1'" readonly clickable name="datetimePicker" :label="field_label"
+            :value="field_value['data']" :placeholder="fleld_placeholder" @click="showPicker = true" />
+        <van-popup v-model="showPicker" position="bottom">
+            <van-datetime-picker type="datetime" :min-date="new Date()" @confirm="onDeadlinePickerConfirm"
+                @cancel="showPicker = false" />
+        </van-popup>
+    </van-cell-group>
+
+
+    <!-- 单选型 -->
+    <van-cell-group v-if="field_type=='radio'" inset>
+        <van-field name="radio" :label="field_label">
+            <template #input>
+                <van-radio-group @change="redioChange" v-model="field_value" direction="horizontal"
+                    :disabled="field_disabled">
+                    <van-radio v-for="(oItem,oIndex) in field_params['options']" :key="oIndex" :name="oItem.value">
+                        {{oItem.key}}</van-radio>
+                </van-radio-group>
+            </template>
+        </van-field>
+    </van-cell-group>
+
+    <!-- 数据项展示型 -->
+    <van-cell-group v-if="field_type=='profile'">
+        <van-cell v-for="(cItem,cIndex) in field_params['cells']" :key="cIndex" :title="cItem.title"
+            :value="cItem.value" />
+    </van-cell-group>
+</div>

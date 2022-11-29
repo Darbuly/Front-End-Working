@@ -1,0 +1,165 @@
+html,
+body {
+	width: 100%;
+	background-color: #ffffff;
+}
+
+.loadingMask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* 下拉菜单 start*/
+.van-dropdown-menu__bar {
+	height: 1rem;
+
+}
+
+.van-dropdown-menu__item {
+	justify-content: flex-start;
+}
+
+.van-dropdown-menu__title {
+	padding-left: 0.4rem;
+	padding-right: 0.4rem;
+	opacity: 1;
+	font-size: 0.28rem;
+	font-weight: bold;
+	color: #5275f7;
+}
+
+.van-dropdown-item .van-overlay {
+	display: none;
+}
+
+
+.van-dropdown-item .van-popup {
+	width: 3.36rem;
+	height: 2.47rem;
+	top: 0.24rem;
+	left: 0.4rem;
+	border-radius: 5px;
+	box-shadow: 0px 3px 24px 4px rgba(0, 0, 0, 0.16);
+}
+
+.van-dropdown-item::before {
+	width: 0;
+	height: 0;
+	border-left: 0.2rem solid transparent;
+	border-right: 0.2rem solid transparent;
+	border-bottom: 0.4rem solid #fff;
+	content: '';
+	position: absolute;
+	top: 0px;
+	z-index: 999999;
+	left: 3rem;
+}
+
+
+.van-dropdown-item .van-cell__value {
+	display: none;
+}
+
+.van-dropdown-item__option {
+	text-align: center;
+}
+
+/* 下拉菜单 end*/
+
+/* 表单字段 start*/
+.field-number-title::after {
+	display: block;
+	content: '';
+	width: 100%;
+	height: 0.38rem;
+	border-bottom: 1px solid #E6E9F0;
+}
+
+.field-number-title:last-child ::after {
+	display: none;
+}
+
+.field-big-title {
+	width: 6.7rem;
+	height: 1.2rem;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+}
+
+.field-big-title .field-number {
+	width: 0.48rem;
+	height: 0.48rem;
+	background-color: #5275f7;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 0.48rem;
+	font-size: 0.28rem;
+	color: #ffffff;
+}
+
+.field-big-title .title {
+	margin-left: 0.2rem;
+	font-size: 0.32rem;
+	font-weight: bold;
+	text-align: left;
+	color: #383950;
+}
+
+.field-number-title .van-cell {
+	width: 6.7rem;
+	margin: 0 auto;
+	background-color: #f1f2f5;
+	border-radius: 0.1rem;
+
+}
+
+.van-cell .van-field__control::-webkit-input-placeholder {
+	font-size: 0.32rem;
+	color: #A6A8B3;
+}
+
+
+/* 表单字段 end */
+
+/* 提交按钮 start*/
+.van-button {
+	position: fixed;
+	height: 1rem;
+	left: 0;
+	bottom: 0;
+}
+
+.van-button .van-button__text {
+	font-size: 0.32rem;
+}
+
+/* 提交按钮 end */
+
+/* 上传图片 start */
+.upload-vant {
+	width: 6.70rem;
+	margin: 0 auto;
+}
+
+/* 上传图片 end */
+
+/* 图片验证码 start */
+.captcha-img {
+	width: 100px;
+	height: 33px;
+	background-color: blueviolet;
+	position: absolute;
+	right: 10%;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+/* 图片验证码 end */

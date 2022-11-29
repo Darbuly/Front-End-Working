@@ -1,0 +1,45 @@
+<html>
+
+<body>
+	<script>
+		function getUrl(fil) {
+			var Cnv = document.getElementById('myCanvas');
+			var Cntx = Cnv.getContext('2d');//获取2d编辑容器
+			var imgss = new Image();//创建一个图片
+			var agoimg = document.getElementById("ago");
+
+			for (var intI = 0; intI < fil.length; intI++) {//图片回显
+				var tmpFile = fil[intI];
+				var reader = new FileReader();
+				reader.readAsDataURL(tmpFile);
+				reader.onload = function (e) {
+					url = e.target.result;
+					imgss.src = url;
+					agoimg.src = url;
+					agoimg.onload = function () {
+						//等比缩放
+						var m = imgss.height / imgss.width;
+						Cnv.width = 300;//该值影响缩放后图片的大小
+						Cnv.height = 300 * m;
+						Cntx.scale(-1, 1); //
+						Cntx.translate(-Cnv.width, 0);
+						//img放入画布中
+						Cntx.drawImage(agoimg, 0, 0, 300, 300 * m);
+						//把画布中的数据，写出到某img的src里
+						var Pic = document.getElementById("myCanvas").toDataURL("image/png");
+						var imgs = document.getElementById("press");
+						imgs.src = Pic;
+					}
+				}
+			}
+		}
+
+	</script>
+	<input type="file" id="fileId" name="fileId" value="上传图片" hidefocus="true" onchange="getUrl(this.files);" />
+	<br />
+	<canvas id="myCanvas" style="display: none"></canvas>
+	old img::<img src="" alt="" id="ago" style="width: 500px;" />
+	new img::<img src="" alt="" id="press" />
+</body>
+
+</html>

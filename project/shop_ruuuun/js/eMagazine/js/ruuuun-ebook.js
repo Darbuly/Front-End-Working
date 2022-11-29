@@ -8,6 +8,8 @@ function loadPage(page, pageElement, file_path, file_name, exten_name) {
 		e.preventDefault();
 	});
 
+
+
 	if (page - offset_index < vm.turnjs_arg.orgfile_pages) {
 		img.load(function () {
 			// Set the size
@@ -17,6 +19,9 @@ function loadPage(page, pageElement, file_path, file_name, exten_name) {
 			// var pageElement = $('.sj-book .p' + page);
 			$(this).appendTo(pageElement);
 
+			if (RBook) {
+				RBook.afterPageImgLoad(pageElement, page, img);
+			}
 
 			var Cnv = document.getElementById('myCanvas');
 			var old_img_elm = this;
@@ -50,7 +55,15 @@ function loadPage(page, pageElement, file_path, file_name, exten_name) {
 		// 			console.log(data);
 		// 			return;
 		// 		} else {
-		// 			img.attr('src', data.data);
+		// 			var Cnv = document.getElementById('myCanvas');
+		// 			AutoRotateImg(data.data, Cnv, function (src, rotated) {
+		// 				if (rotated) {
+		// 					if (!vm.ebookApp.turn('horizontal')) {
+		// 						vm.ebookApp.turn('horizontal', true);
+		// 					}
+		// 				}
+		// 				img.attr('src', src);
+		// 			})
 		// 		}
 
 		// 	},
@@ -195,4 +208,46 @@ function reflectImg(old_img_elm, Cnv, width, callback) {
 		var Pic = Cnv.toDataURL("image/png");
 		callback(Pic);
 	}
+}
+
+
+
+
+function AutoRotateImg(img_src, Cnv, callback) {
+	var Cntx = Cnv.getContext('2d');//获取2d编辑容器
+	const FILE_TYPE = 'image/jpeg';
+
+	var old_img_elm = new Image();//创建一个图片
+	old_img_elm.src = img_src;
+	old_img_elm.onload = function () {
+
+
+		if (old_img_elm.height < old_img_elm.width) {
+			//旋转纠正宽高
+			Cnv.width = old_img_elm.height
+			Cnv.height = old_img_elm.width;
+			Cntx.clearRect(0, 0, Cnv.width, Cnv.height)
+			Cntx.translate(Cnv.width, 0);
+			Cntx.rotate(90 * Math.PI / 180)
+			Cntx.drawImage(old_img_elm, 0, 0, old_img_elm.width, old_img_elm.height)
+			var Pic = Cnv.toDataURL(FILE_TYPE);
+			callback(Pic, true);
+		} else {
+			Cnv.width = old_img_elm.width
+			Cnv.height = old_img_elm.height;
+			Cntx.clearRect(0, 0, Cnv.width, Cnv.height)
+			Cntx.drawImage(old_img_elm, 0, 0, old_img_elm.width, old_img_elm.height)
+			var Pic = Cnv.toDataURL(FILE_TYPE);
+			callback(Pic, false);
+		}
+
+
+	}
+}
+
+
+//给当前页添加一层div图层
+function appendToDivLayout(divlayout, pageElement, page) {
+	$(divlayout).addClass('page-layout-' + page);
+	divlayout && divlayout.appendTo(pageElement);
 }

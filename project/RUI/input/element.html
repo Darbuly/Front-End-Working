@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<script src="../../../lib/vue/vue_2.6.11.js"></script>
+
+	<link rel="stylesheet" href="./element/input.css">
+	<link rel="stylesheet" href="./element/input-number.css">
+	<link rel="stylesheet" href="./element/icon.css">
+
+	<script src="./element/index.js"></script>
+
+</head>
+
+<body>
+	<div id="app">
+		<el-input-number v-model="num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
+	</div>
+
+</body>
+
+<script>
+
+	new Vue({
+		el: "#app",
+		data: {
+			num: 1
+		},
+		methods: {
+			handleChange(value) {
+				console.log(value);
+			}
+		}
+	})
+
+
+</script>
+
+</html>

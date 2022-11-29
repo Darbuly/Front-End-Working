@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>UIM特效开发</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<script src="../../../../lib/jquery/jquery.min.js"></script>
+
+	<script src="../../../../lib/rui/rui.js"></script>
+
+</head>
+
+
+<style>
+	* {
+		padding: 0;
+		margin: 0;
+	}
+
+	body {
+		background-color: rgb(34, 34, 34);
+	}
+
+	#aniAttrTmp {
+		display: none;
+	}
+
+	.ani-ctrl-wrap {
+		padding: 10px 5px;
+	}
+
+	.ani-select-wrap {
+		display: flex;
+	}
+
+	.ani-add-btn {
+		width: 100%;
+		height: 56px;
+	}
+
+	.ani-item {
+		width: 80px;
+		height: 80px;
+		background-color: rgb(34, 34, 34);
+		color: #fff;
+		line-height: 80px;
+		text-align: center;
+		margin-right: 5px;
+	}
+
+	.effect-selected {
+		border: 1px solid red;
+	}
+
+	.work {
+		width: 100%;
+		display: flex;
+	}
+
+	.show-animate {
+		width: 70%;
+		height: 100vh;
+		background-color: #eee;
+		position: relative;
+	}
+
+	#target {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+
+	#target2 {
+		position: absolute;
+		left: 0;
+		top: 200px;
+		transform: translateX();
+	}
+</style>
+
+<body>
+	<div class="work">
+
+		<div class="show-animate">
+
+			<span id="target">测试动画</span>
+
+			<span id="target2">测试动画2</span>
+		</div>
+
+		<div id="aniAttrWrap" class="ani-attr-wrap">
+		</div>
+
+	</div>
+
+
+
+
+
+	<div id="aniAttrTmp" style="display: none">
+		<div style="width: 30%;">
+
+			<button class="ani-add-btn" type="button" @click="chngEl">切换对象</button>
+			<button class="ani-add-btn" type="button" @click="addAniItem">添加特效</button>
+			<el-collapse v-model="activeNames">
+				<el-collapse-item v-for="(aItem,aIndex) in anitItemList"
+					:title="'特效'+aItem.id+' ('+aniEffectList[aItem.use_effect_id-1].name+')'"
+					:name="aItem.id">
+
+					<div class="ani-ctrl-wrap">
+
+						<div class="ani-select-wrap">
+							<div v-for="(eItem,eIndex) in aniEffectList"
+								@click="selectEffect(aItem.id,eItem.id)"
+								:class="{'ani-item':true,'effect-selected':aItem.use_effect_id==eItem.id}">
+								{{eItem.name}}</div>
+						</div>
+
+						<div class="ani-ctrl">
+							<span>持续时间:</span>
+							<el-input-number v-model="aItem.duration"
+								@change="handleDurationChange" :min="1" :max="10"
+								label="描述文字">
+							</el-input-number>
+
+							<br>
+							<span>延迟时间:</span>
+							<el-input-number v-model="aItem.delay"
+								@change="handleDelayChange" :min="0" :max="10"
+								label="描述文字"></el-input-number>
+							<br>
+							<span>循环次数:</span>
+							<el-input-number v-model="aItem.loop" @change="handleLoopChange"
+								:min="1" :max="10" label="描述文字"></el-input-number>
+							<br>
+							<span>循环间隔:</span>
+							<el-input-number v-model="aItem.loopInterval"
+								@change="handleLoopIntervalChange" :min="0" :max="10"
+								label="描述文字">
+							</el-input-number>
+						</div>
+
+
+					</div>
+
+
+				</el-collapse-item>
+			</el-collapse>
+		</div>
+	</div>
+
+
+	<script src="../../../../lib/anime/anime.js"></script>
+	<script>
+
+		var element = document.getElementById('target');
+
+		rui.use(['collapse', 'input-number'], function () {
+
+			var tmpStr = $("#aniAttrTmp")[0].innerHTML;
+			var collapse = rui.collapse;
+			collapse.render({
+				el: "#aniAttrWrap",
+				template: tmpStr,
+				data: {
+					num: 1,
+					testEl: 'target',
+					activeNames: '1',
+					aniEffectList: [
+						// {
+						// 	id: 1,
+						// 	name: "向上淡入",
+						// },
+						// {
+						// 	id: 2,
+						// 	name: "从小到大",
+						// },
+						{
+							id: 1,
+							name: "字体变大",
+						},
+						{
+							id: 2,
+							name: "淡出",
+						},
+						{
+							id: 4,
+							name: "向右淡入",
+						}
+					],
+					anitItemList: [{
+						//dev
+						el: 'target',
+
+						id: 1,
+						use_effect_id: 1,
+						duration: 1,
+						delay: 0,
+						loop: 1,
+						loopInterval: 0
+					}]
+				},
+				methods: {
+					chngEl: function () {
+						this.testEl = 'target2';
+					},
+					addAniItem: function () {
+						console.log('addAniItem');
+
+						const lastItem = this.anitItemList[this.anitItemList.length - 1];
+
+						const option = {
+							//dev
+							el: this.testEl,
+
+							id: lastItem.id + 1,
+							use_effect_id: 1,
+							duration: 1,
+							delay: 0,
+							loop: 1,
+							loopInterval: 0
+						}
+
+						this.anitItemList.push(option)
+
+						this.exposeData();
+
+					},
+					selectEffect: function (ani_id, effect_id) {
+						console.log('effect_id', effect_id);
+
+						for (let i = 0; i < this.anitItemList.length; i++) {
+							const anitItem = this.anitItemList[i];
+
+							if (anitItem.id == ani_id) {
+								this.anitItemList[i].use_effect_id = effect_id;
+							}
+
+						}
+
+						this.exposeData();
+					},
+					handleDurationChange: function (e) {
+						console.log('handleDurationChange', e);
+						this.exposeData();
+					},
+					handleDelayChange: function (e) {
+						console.log('handleDelayChange', e);
+						this.exposeData();
+					},
+					handleLoopChange: function (e) {
+						console.log('handleLoopChange', e);
+						this.exposeData();
+					},
+					handleLoopIntervalChange: function (e) {
+						console.log('handleLoopIntervalChange', e);
+						this.exposeData();
+					},
+					exposeData: function () {
+
+						let res = JSON.parse(JSON.stringify(this.anitItemList));
+						let res2 = [];
+
+						res.map(function (rItem) {
+							res2.push({
+								el: 'target',
+								...rItem,
+								fillMode: 'backwards'//backwards forwards
+							})
+						})
+
+						play(res2, element);
+					}
+				}
+			})
+
+		});
+	</script>
+
+
+	<script src="../animate-lib/animate-def.js"></script>
+	<script src="../animate-lib/wk_run_animate.js"></script>
+	<script>
+		var def_data = animateDataLib;
+
+
+		let aniEffectList = [];
+		for (const id in def_data) {
+			if (Object.hasOwnProperty.call(def_data, id)) {
+				const animate = def_data[id];
+				aniEffectList.push({
+					id: animate.id,
+					name: animate.name
+				})
+			}
+		}
+
+		console.log("aniEffectList", aniEffectList)
+
+
+		function play(anitItemList, e) {
+			var animatelist = RAtranslateLinetime(anitItemList, def_data)
+			console.log('animate list', animatelist)
+
+			RAdriveAnimate(animatelist['animate'], animatelist['data'])
+		}
+	</script>
+
+
+</body>
+
+</html>

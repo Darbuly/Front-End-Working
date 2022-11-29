@@ -1,0 +1,55 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.style-sticky {
+	position: sticky;
+	position: -webkit-sticky;
+	top: 0;
+	height: 100vh;
+	width: 100%;
+}
+
+.style-sticky-wrapper {
+	background-position: 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	overflow: hidden;
+	width: 100%;
+	height: 100vh;
+}
+
+
+.letter-wrapper {
+
+	width: 1139px;
+	margin: 0 auto;
+	height: 100vh;
+	position: relative;
+	background-image: url(../images/l-bg.png);
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	background-position-y: 50%;
+	overflow: hidden;
+}
+
+.letter-wrapper-font{
+	width: 100%;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+.letter-text-wrapper {
+	width: 91.74%;
+	margin: 0 auto;
+	margin-top: 13.75%;
+	position: relative;
+	overflow: hidden;
+}
+
+.letter-text {
+	width: 100%;
+	transform:matrix(1, 0, 0, 1, 0, -0)
+}
