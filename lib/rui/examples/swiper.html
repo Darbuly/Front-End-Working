@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+</head>
+
+<style>
+	.swiper {
+		width: 600px;
+		height: 300px;
+	}
+</style>
+
+<body>
+	<div class="swiper">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide">Slide 1</div>
+			<div class="swiper-slide">Slide 2</div>
+			<div class="swiper-slide">Slide 3</div>
+		</div>
+		<!-- 如果需要分页器 -->
+		<div class="swiper-pagination"></div>
+
+		<!-- 如果需要导航按钮 -->
+		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next"></div>
+
+	</div>
+</body>
+<script src="../rui.js"></script>
+
+<script>
+
+	rui.use(['swiper'], function () {
+		var Swiper = rui.swiper;
+		var mySwiper = new Swiper('.swiper', {
+			loop: true, // 循环模式选项
+			autoplay: {
+				delay: 3000
+			},
+			speed: 300,
+			// 如果需要分页器
+			pagination: {},
+			// 如果需要前进后退按钮
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+
+		})
+
+	})
+
+
+</script>
+
+</html>
