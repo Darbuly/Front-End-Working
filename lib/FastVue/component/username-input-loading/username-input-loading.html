@@ -1,0 +1,26 @@
+<div>
+
+	<el-form v-if="can_edit" :model="ruleForm" :class="{'username-input':true,'username-textarea':autosize}"
+		:rules="rules" ref="ruleForm" label-width="100px" :hide-required-asterisk="true">
+		<el-form-item label="" prop="name">
+			<el-input v-if="autosize" type="textarea" class="username-input-textarea" autosize :placeholder="placeholder"
+				v-model="ruleForm.name">
+			</el-input>
+			<el-input v-if='!autosize' v-model="ruleForm.name" :placeholder="placeholder"></el-input>
+
+			<div class="username-input-btngroups">
+				<button :class="{'ui':true,'primary':true, 'usercode':true, 'button':true,'loading':loading}" type="button"
+					@click="usernameYes">确认</button>
+				<button :class="{'ui':true,'primary':true, 'usercode':true, 'button':true}" type="button"
+					@click="closeEditStatus">取消</button>
+			</div>
+
+		</el-form-item>
+	</el-form>
+	<div v-else :class="{'username-input-text':true,'username-textarea':autosize}">
+		<div class="username-input-text-body" @click="openEditStatus">
+			{{ruleForm.name}}
+		</div>
+		<button class='username-text-btn-edit' type="button" @click="openEditStatus"></button>
+	</div>
+</div>

@@ -1,0 +1,92 @@
+<div :class="dynamicClass" v-if="nodeData">
+
+	<!-- 表节点/分组节点 -->
+	<div v-if="!isAttrNode()&&nodeData.alias" class="t-node-head-table">
+		<span>{{nodeData.alias}}</span>
+		<span v-if="hasBody()" :class='{"t-node-action":true, "fold-body":true,"folded":foldBody }'
+			@click="toFoldBody"></span>
+	</div>
+	<!-- <span>{{JSON.stringify(parentDataVue)}}</span> -->
+
+	<!-- 属性末梢节点渲染： -->
+	<template v-if="isAttrNode()">
+		<div class="t-node-attr-wrap">
+			<!-- S 枚举 -->
+			<el-form-item v-if="nodeData.data_type=='enum'" class="t-node-head-attr" :label="nodeData.alias+'：'">
+
+				<template v-if="nodeData.enum_list.length <= 3">
+					<!-- S 单选 -->
+					<el-radio-group v-if="!nodeData.multiple" @change="handleFocus($event,true)"
+						v-model="parentDataVue[nodeData.name]" size="small">
+						<el-radio v-for="(item,eIndex) in nodeData.enum_list" :label="item.value" :key="eIndex"
+							border>{{item.label}}</el-radio>
+					</el-radio-group>
+					<!-- E 单选 -->
+
+					<!-- S 多选 -->
+					<el-checkbox-group :min="1" :max="nodeData.multiple_limit" v-if="nodeData.multiple"
+						v-model="parentDataVue[nodeData.name]">
+						<el-checkbox v-for="(item,eIndex) in nodeData.enum_list" :label="item.value" size="small" border
+							:key="eIndex">{{item.label}}</el-checkbox>
+					</el-checkbox-group>
+					<!-- E 多选 -->
+
+				</template>
+				<el-select @change="handleChanged" @focus="handleFocus" v-else v-model="parentDataVue[nodeData.name]"
+					placeholder="请选择" :multiple="nodeData.multiple&&!nodeData.repeatable"
+					:multiple-limit="nodeData.multiple_limit">
+					<el-option v-for="item in nodeData.enum_list" :key="item.id" :label="item.label" :value="item.value">
+					</el-option>
+				</el-select>
+			</el-form-item>
+			<!-- E 枚举 -->
+
+			<!-- S OA-FORM -->
+			<dmm-oa-form v-else-if="nodeData.data_type=='oa-form'" :form_id="'container_'+_uid+'_'+nodeData.id"
+				:page_id="nodeData.page_id" :var_obj="parentDataVue" :var_name="nodeData.name"
+				:extra_data="nodeData.extra_data"></dmm-oa-form>
+			<!-- E OA-FORM -->
+
+			<!-- S 输入框 -->
+			<el-form-item v-else class="t-node-head-attr" :label="nodeData.alias+'：'">
+				<el-input @change="handleChanged" v-model="parentDataVue[nodeData.name]" @focus="handleFocus"></el-input>
+			</el-form-item>
+			<!-- E 输入框 -->
+
+			<!-- S 属性节点里的action -->
+			<div v-if="nodeData.single_group_item" class="attr-action-wrap">
+				<span v-if="hasBody() && nodeData.single_group_item"
+					:class='{"t-node-action":true, "fold-body":true,"folded":foldBody }' @click="toFoldBody"></span>
+				<div @click="addRowParent" class="attr-action-item attr-add"></div>
+				<el-popconfirm v-if="group_row_index>0" title="确定删除吗？" @confirm="removeRowParent(group_row_index)">
+					<div plain slot="reference" class="attr-action-item attr-remove"></div>
+				</el-popconfirm>
+			</div>
+			<!-- E 属性节点里的action -->
+
+		</div>
+	</template>
+
+	<!-- 继续深入节点：只要还有children -->
+
+
+	<div v-if="hasBody()" :class='{"t-node-body":true,"hide-body":foldBody}'>
+		<div v-for="(oneChildren,mulit_index) in resolveChildren" class="multi">
+			<template v-if="oneChildren" v-for="(row,row_index) in oneChildren">
+				<dmm-tmplt-tree-node v-for="(row_node,index) in row" :node-data="row_node" :key="row_index+'_'+index"
+					:componentkey="nodeData.uuid" v-bind="$attrs" :active-componentkey="activeComponentkey"
+					:parent-data-vue="getVueDataByPath(formData,row_node.value_path,row_node)" v-on="$listeners"
+					:form-data="formData" :level="Number(level)+1" :group_row_index="row_index"></dmm-tmplt-tree-node>
+
+				<div v-if="canAdd()" class="tree-row-action">
+
+					<el-button plain class="action-element tree-add" @click="addRow">添加
+					</el-button>
+					<el-popconfirm class="action-element" v-if="row_index > 0" title="确定删除吗？" @confirm="removeRow(row_index)">
+						<el-button plain class="tree-remove" slot="reference">删除</el-button>
+					</el-popconfirm>
+				</div>
+			</template>
+		</div>
+	</div>
+</div>

@@ -105,6 +105,7 @@
 
 			<button class="ani-add-btn" type="button" @click="chngEl">切换对象</button>
 			<button class="ani-add-btn" type="button" @click="addAniItem">添加特效</button>
+			<button class="ani-add-btn" type="button" @click="posPlay">位置播放</button>
 			<el-collapse v-model="activeNames">
 				<el-collapse-item v-for="(aItem,aIndex) in anitItemList"
 					:title="'特效'+aItem.id+' ('+aniEffectList[aItem.use_effect_id-1].name+')'"
@@ -273,6 +274,10 @@
 						})
 
 						play(res2, element);
+					},
+					posPlay: function () {
+						console.log('点播放');
+
 					}
 				}
 			})

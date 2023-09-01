@@ -1,0 +1,7 @@
+<div class="dmm-tmplt-tree">
+	<el-form ref="form" label-position="right" :model="formData" label-width="100px">
+		<dmm-tmplt-tree-node v-if="Object.keys(dynamicData).length>0&&Object.keys(formData).length>0"
+			:node-data='dynamicData' :form-data="formData" @update-focus="updateFocus"
+			:active-componentkey="activeComponentkey" @call-hook="callHook" level="1"></dmm-tmplt-tree-node>
+	</el-form>
+</div>

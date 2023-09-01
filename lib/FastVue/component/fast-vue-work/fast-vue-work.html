@@ -1,0 +1,32 @@
+<div class="demo-class">
+
+	<el-form ref="form" :model="form" label-width="80px">
+		<el-form-item label="导出类型">
+			<el-select v-model="form.exportType" placeholder="请选择活动区域">
+				<el-option v-for="(eItem,eIndex) in exportType" :key="eIndex" :label="eItem.label"
+					:value="eItem.value"></el-option>
+			</el-select>
+		</el-form-item>
+		<el-form-item label="组件id">
+			<el-input v-model="form.name"></el-input>
+		</el-form-item>
+		<el-form-item label="标签名">
+			<el-input v-model="form.tagsname"></el-input>
+		</el-form-item>
+		<template v-if="Array.isArray(form.code)">
+			<el-form-item v-for="(cItem,cIndex) in form.code" :key="cIndex" :label="cItem.label">
+				<el-input type="textarea" v-model="cItem.code"></el-input>
+			</el-form-item>
+		</template>
+		<template v-else>
+			<el-form-item label="代码">
+				<el-input type="textarea" v-model="form.code"></el-input>
+			</el-form-item>
+		</template>
+
+		<el-form-item>
+			<el-button type="primary" @click="onSubmit">立即导出</el-button>
+			<el-button>取消</el-button>
+		</el-form-item>
+	</el-form>
+</div>

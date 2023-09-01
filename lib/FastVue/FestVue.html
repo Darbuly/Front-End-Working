@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FastVue </title>
+
+
+  <link rel="stylesheet" href="../element/element.css">
+
+
+</head>
+
+<style>
+
+</style>
+
+<body>
+  <div id="container">
+  </div>
+
+  <button onclick="test()">test</button>
+
+</body>
+<!-- vue -->
+<script src="../vue/vue_2.6.11.js"></script>
+<!-- vant -->
+<script src="../element/element.js"></script>
+
+<!-- jq -->
+<script src="../jquery/jquery.min.js"></script>
+<!-- FastVue -->
+<script src="../FastVue/FastVue.js"></script>
+<script>
+  var app = null;
+  async function iniFastVue() {
+
+    const F1 = new FastVue({
+      appName: 'myFirstFastVue',
+      templatePathRoot: '../FastVue/component/'
+    });
+
+    F1.useInVue();
+
+    app = await F1.pushComponent('#container', 'fast-vue-work', {
+    }, {
+
+    }, true)
+
+  }
+  iniFastVue()
+
+
+</script>
+
+</html>

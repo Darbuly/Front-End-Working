@@ -54,6 +54,18 @@
 	margin: 0;
 }
 
+.p-n-c-close {
+	width:24px;
+	height:24px;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-image: url(./close.svg);
+}
+
+.p-n-c-close:hover {
+	cursor: pointer;
+}
+
 @media screen and (min-width: 768px) {
 
 	.p-n-c-show-mobile {
@@ -89,6 +101,7 @@
 		height: 40px;
 		font-size: 14px;
 	}
+
 
 
 }
@@ -147,5 +160,11 @@
 	.p-n-c-img-wrap.p-n-c-show-mobile img {
 		width: 100%;
 	}
+
+	.p-n-c-close {
+		width:3.733vw;
+		height:3.733vw;
+	}
+	
 
 }

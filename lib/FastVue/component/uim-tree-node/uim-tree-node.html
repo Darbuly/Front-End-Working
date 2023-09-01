@@ -1,0 +1,23 @@
+<div>
+  <div v-for="(node,nIndex) in dynamicTreeData" :key="nIndex" :level="level" :nIndex="nIndex" :class="dynamicClass">
+
+    <!-- header S -->
+    <div class="uf-header" @click="toggleNode(nIndex)" :template_id="'node_container_'+level"
+      :id_key="getIdkey(nIndex)">
+      <uim-container :template_id="'node_container_'+level" :id_key="getIdkey(nIndex)" height="26"
+        :field-name="`第${level}级节点容器`">
+        <uim-label :template_id="'node_label_'+level" :id_key="getIdkey(nIndex)">{{node.label}}</uim-label>
+      </uim-container>
+    </div>
+    <!-- header E -->
+
+    <!-- body S -->
+    <div ref="body" v-if="node._showBody && Array.isArray(node.children) && 0 < node.children.length" class="utn-body">
+      {{JSON.stringify(node._showBody)}}
+      <uim-tree-node :tree-data="node.children" :level="Number(level+1)" :item-dic="itemDic"
+        :parentkey="getIdkey(nIndex)"></uim-tree-node>
+    </div>
+    <!-- body E -->
+
+  </div>
+</div>

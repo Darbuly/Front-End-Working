@@ -1,0 +1,10 @@
+<div class="demo-class"> <el-tree :data="data" default-expand-all>
+        <span class="custom-tree-node" slot-scope="{ node, data }">
+            <div class="uf-header" :template_id="'node_container_'+node.level" :id_key="node.id">
+                <uim-container :template_id="'node_container_'+node.level" :id_key="node.id" height="26"
+                    :field-name="`第${node.level}级节点容器`">
+                    <uim-label :template_id="'node_label_'+node.level" :id_key="node.id">{{node.label}}</uim-label>
+                </uim-container>
+            </div>
+        </span>
+    </el-tree></div>
