@@ -93,38 +93,32 @@
 			<button class="ani-add-btn" type="button" @click="addAniItem">添加特效</button>
 			<el-collapse v-model="activeNames">
 				<el-collapse-item v-for="(aItem,aIndex) in anitItemList"
-					:title="'特效'+aItem.id+' ('+aniEffectList[aItem.use_effect_id-1].name+')'"
-					:name="aItem.id">
+					:title="'特效'+aItem.id+' ('+aniEffectList[aItem.use_effect_id-1].name+')'" :name="aItem.id">
 
 					<div class="ani-ctrl-wrap">
 
 						<div class="ani-select-wrap">
-							<div v-for="(eItem,eIndex) in aniEffectList"
-								@click="selectEffect(aItem.id,eItem.id)"
+							<div v-for="(eItem,eIndex) in aniEffectList" @click="selectEffect(aItem.id,eItem.id)"
 								:class="{'ani-item':true,'effect-selected':aItem.use_effect_id==eItem.id}">
 								{{eItem.name}}</div>
 						</div>
 
 						<div class="ani-ctrl">
 							<span>持续时间:</span>
-							<el-input-number v-model="aItem.duration"
-								@change="handleDurationChange" :min="1" :max="10"
-								label="描述文字">
+							<el-input-number v-model="aItem.duration" @change="handleDurationChange" :min="1" :max="10" label="描述文字">
 							</el-input-number>
 
 							<br>
 							<span>延迟时间:</span>
-							<el-input-number v-model="aItem.delay"
-								@change="handleDelayChange" :min="0" :max="10"
+							<el-input-number v-model="aItem.delay" @change="handleDelayChange" :min="0" :max="10"
 								label="描述文字"></el-input-number>
 							<br>
 							<span>循环次数:</span>
-							<el-input-number v-model="aItem.loop" @change="handleLoopChange"
-								:min="1" :max="10" label="描述文字"></el-input-number>
+							<el-input-number v-model="aItem.loop" @change="handleLoopChange" :min="1" :max="10"
+								label="描述文字"></el-input-number>
 							<br>
 							<span>循环间隔:</span>
-							<el-input-number v-model="aItem.loopInterval"
-								@change="handleLoopIntervalChange" :min="0" :max="10"
+							<el-input-number v-model="aItem.loopInterval" @change="handleLoopIntervalChange" :min="0" :max="10"
 								label="描述文字">
 							</el-input-number>
 						</div>
@@ -169,7 +163,7 @@
 						},
 						{
 							id: 2,
-							name: "淡出",
+							name: "测试",
 						}
 					],
 					anitItemList: [{
@@ -258,6 +252,7 @@
 
 	<script>
 		var def_data = animateDataLib;
+		console.log('animateDataLib', animateDataLib)
 		function play(anitItemList, e) {
 			var animatelist = translateLinetime(anitItemList, def_data)
 			console.log('animate list', animatelist)

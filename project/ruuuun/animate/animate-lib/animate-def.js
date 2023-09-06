@@ -13,11 +13,10 @@ var testData = {
 }
 var testData2 = {
 	id: 98,
-	name: '淡出',
+	name: '测试',
 	data: {
-		0: { "opacity": 1 },
-		80: { "opacity": 1 },
-		100: { "opacity": 0 }
+		0: { "rotate": "0deg" },
+		100: { "rotate": "180deg" }
 	}
 }
 
