@@ -275,6 +275,9 @@
 	padding-right: 5px;
 }	
 
+.prd-detail-content img {
+	width: 100%;
+}
 
 @media screen and (max-width: 960px){
 
