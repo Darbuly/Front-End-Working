@@ -1,0 +1,63 @@
+<div class="prd-detail">
+
+	<div class="prd-detail-header">
+
+		<!-- S 封面图 -->
+		<div class="pd-cover-wrapper">
+			<el-carousel ref="pdCover" class="pd-cover-carousel" height="656px" :interval="5000" arrow="always"
+				@change="pdCoverChange">
+				<el-carousel-item v-for="item in 4" :key="item" :name="`${item}`">
+					<img src="https://img01.yzcdn.cn/vant/cat.jpeg" alt="">
+				</el-carousel-item>
+				<div class="pd-indicator">
+					<div class="pd-indicator-wrapper">
+						<div :class=" { 'pd-indicator-item': true, 'pdi-active': index==pdCoverActiveIndex }"
+							@click="toggleCover(`${item}`)" v-for="(item,index) in 4" :key="item">
+							<img src="https://img01.yzcdn.cn/vant/cat.jpeg" alt="">
+						</div>
+					</div>
+				</div>
+			</el-carousel>
+
+		</div>
+		<!-- E 封面图 -->
+
+		<!-- S 产品属性与配置 -->
+		<div class="pd-attr-wrapper">
+			<div class="pd-attr-base">
+				<div class="pd-prdname">至尊版氨气,硫化氢,氧气气体检测仪</div>
+				<div class="pd-prdno">型号：GT(C5H9NO)-ION(10</div>
+				<div class="pd-attr">
+					<span class="pda-label">市场建议价：</span>
+					<span class="pda-value"><span class="pda-cs">￥</span>2099</span>
+				</div>
+				<div class="pd-attr">
+					<span class="pda-label">底价：</span>
+					<span class="pda-value"><span class="pda-cs">￥</span>2099</span>
+				</div>
+			</div>
+
+			<div class="pda-privilege-bundle">
+
+			</div>
+
+			<div class="pda-privilege-bundle">
+				<el-button-group>
+					<el-button round>优惠</el-button>
+					<el-button round>保障</el-button>
+					<el-button round>参数</el-button>
+					<el-button round>参数<i class="el-icon-arrow-down el-icon--down"></i></el-button>
+				</el-button-group>
+			</div>
+
+		</div>
+		<!-- E 产品属性与配置 -->
+
+
+
+	</div>
+
+	<div class="prd-detail-body">
+
+	</div>
+</div>
