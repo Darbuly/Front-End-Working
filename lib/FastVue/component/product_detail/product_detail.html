@@ -6,14 +6,16 @@
 		<div class="pd-cover-wrapper">
 			<el-carousel ref="pdCover" class="pd-cover-carousel" height="656px" :interval="5000" arrow="always"
 				@change="pdCoverChange">
-				<el-carousel-item v-for="item in 4" :key="item" :name="`${item}`">
-					<img src="https://img01.yzcdn.cn/vant/cat.jpeg" alt="">
+				<el-carousel-item v-for="(imgItem,imgIndex) in Object.values(sales_line_item.prd_img)" :key="imgIndex"
+					:name="`${imgIndex}`">
+					<img :src="coverImg(imgItem)" alt="">
 				</el-carousel-item>
 				<div class="pd-indicator">
 					<div class="pd-indicator-wrapper">
-						<div :class=" { 'pd-indicator-item': true, 'pdi-active': index==pdCoverActiveIndex }"
-							@click="toggleCover(`${item}`)" v-for="(item,index) in 4" :key="item">
-							<img src="https://img01.yzcdn.cn/vant/cat.jpeg" alt="">
+						<div :class=" { 'pd-indicator-item': true, 'pdi-active': imgIndex== pdCoverActiveIndex }"
+							@click="toggleCover(`${imgIndex}`)" :key="imgIndex"
+							v-for="(imgItem,imgIndex) in Object.values(sales_line_item.prd_img)">
+							<img :src="coverImg(imgItem)" alt="">
 						</div>
 					</div>
 				</div>
@@ -25,15 +27,17 @@
 		<!-- S 产品属性与配置 -->
 		<div class="pd-attr-wrapper">
 			<div class="pd-attr-base">
-				<div class="pd-prdname">至尊版氨气,硫化氢,氧气气体检测仪</div>
-				<div class="pd-prdno">型号：GT(C5H9NO)-ION(10</div>
+				<div class="pd-prdname">{{sales_line_item.prd_name}}</div>
+				<div class="pd-prdno">型号：{{sales_line_item.prd_no}}</div>
 				<div class="pd-attr">
 					<span class="pda-label">市场建议价：</span>
-					<span class="pda-value"><span class="pda-cs">￥</span>2099</span>
+					<span class="pda-value"><span
+							class="pda-cs">￥</span>{{CpqFormUtils('formatMoney',sales_line_item.price)}}</span>
 				</div>
 				<div class="pd-attr">
 					<span class="pda-label">底价：</span>
-					<span class="pda-value"><span class="pda-cs">￥</span>2099</span>
+					<span class="pda-value"><span
+							class="pda-cs">￥</span>{{CpqFormUtils('formatMoney',sales_line_item.price)}}</span>
 				</div>
 			</div>
 
@@ -42,26 +46,27 @@
 				<div class="pda-pb-pop-wrapper">
 					<div class="pop-attr">
 						<div class="pop-attr-label">优惠：</div>
-						<div class="pop-attr-value">有哈手动阀手动阀手动阀</div>
+						<div class="pop-attr-value">商品券满1500减20，满1300减80</div>
 					</div>
 					<div class="pop-attr">
-						<div class="pop-attr-label">优惠：</div>
-						<div class="pop-attr-value">有哈手动阀手动阀手动阀</div>
+						<div class="pop-attr-label">保障：</div>
+						<div class="pop-attr-value">极速退款，退货运费险，7天无理由退换，假一赔十</div>
 					</div>
 					<div class="pop-attr-line">
 					</div>
 					<div class="pop-setting">
-						<div class="pop-attr-label">优惠：</div>
+						<div class="pop-attr-label">参数：</div>
 						<div class="pop-attr-body">
-							<div class="pop-attr-item" v-for="item in 10">检测气体：总挥发性有机物{{item}}</div>
+							<div class="pop-attr-item" v-for="(item,index) in currentDshData">
+								{{item.DisplayName}}：{{item.AsString}}</div>
 						</div>
 					</div>
 					<div class="pop-attr-line">
 					</div>
 					<div class="pop-description">
-						<div class="pop-attr-label">优惠：</div>
+						<div class="pop-attr-label">资质：</div>
 						<div class="pop-attr-body">
-							这是一段文字。这是一段文字。这是一段文字。这是一段文字。这是一段文字。这是一段文字。这是一段文字。
+							商品具有中国强制性产品认证 (CCC)编号，符合国家CCC认证标准。
 						</div>
 					</div>
 				</div>
@@ -106,7 +111,8 @@
 		<div class="prd-detail-setting">
 			<div class="prd-detail-setting_header"><span>详情页</span></div>
 			<div class="prd-detail-setting_body">
-				<div class="prd-detail-setting_item" v-for="item in 16">检测气体：总挥发性有机物{{item}}</div>
+				<div class="prd-detail-setting_item" :key="index" v-for="(item,index) in currentDshData">
+					{{item.DisplayName}}：{{item.AsString}}</div>
 			</div>
 		</div>
 
