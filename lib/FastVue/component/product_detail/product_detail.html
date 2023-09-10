@@ -1,9 +1,9 @@
 <div class="prd-detail">
 
-	<div class="prd-detail-header">
+	<div class="prd-detail-header" v-if="sales_line_item">
 
 		<!-- S 封面图 -->
-		<div class="pd-cover-wrapper">
+		<div class="pd-cover-wrapper" v-if="sales_line_item.prd_img">
 			<el-carousel ref="pdCover" class="pd-cover-carousel" height="656px" :interval="5000" arrow="always"
 				@change="pdCoverChange">
 				<el-carousel-item v-for="(imgItem,imgIndex) in Object.values(sales_line_item.prd_img)" :key="imgIndex"
@@ -90,19 +90,15 @@
 
 			<el-form ref="fromConfigSelection" :model="fromConfigSelection" label-width="0px">
 				<el-form-item>
-					<el-radio-group class="prd-select-cnf" v-model="fromConfigSelection.config">
-						<el-radio border label="线上品牌商赞助"></el-radio>
-						<el-radio border label="线下场地免费"></el-radio>
-						<el-radio border label="线下场地免费2"></el-radio>
-						<el-radio border label="线下场地免费3"></el-radio>
+					<el-radio-group @change="handleChangeSch" class="prd-select-cnf" v-model="fromConfigSelection.sch_id">
+						<el-radio border :key="cIndex" v-for="(cItem,cIndex)  in config_scheme_options"
+							:label="cItem.id">{{cItem.SCH_NAME}}</el-radio>
 					</el-radio-group>
 				</el-form-item>
 			</el-form>
-
+			<dmm-config-node :sales_line_item="sales_line_item"></dmm-config-node>
 		</div>
 		<!-- E 产品属性与配置 -->
-
-
 
 	</div>
 
