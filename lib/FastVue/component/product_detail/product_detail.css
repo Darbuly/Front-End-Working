@@ -22,6 +22,9 @@
 	width: 100%;
 }
 
+.pd-cover-carousel .el-carousel__indicators {
+	display: none;
+}
 
 .pd-indicator {
 	width: 100%;
@@ -69,6 +72,10 @@
 	font-size: 14px;
 	font-weight: normal;
 	color: rgba(0,0,0,0.65);
+}
+
+.pd-attr-wrapper .el-radio.is-bordered+.el-radio.is-bordered {
+	margin-left: 0px;
 }
 
 .pd-attr-base {
@@ -222,12 +229,6 @@
 .pop-attr-line {
 	height: 1px;
 	background-color: #E4E4E4;;
-}
-
-
-
-.prd-detail-body {
-	height: 3000px;
 }
 
 .prd-detail-setting_header {
