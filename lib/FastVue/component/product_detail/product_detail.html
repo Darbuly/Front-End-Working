@@ -6,16 +6,14 @@
 		<div class="pd-cover-wrapper" v-if="SalesLineItem.prd_img">
 			<el-carousel ref="pdCover" class="pd-cover-carousel" height="656px" :interval="5000" arrow="always"
 				@change="pdCoverChange">
-				<el-carousel-item v-for="(imgItem,imgIndex) in Object.values(SalesLineItem.prd_img)" :key="imgIndex"
-					:name="`${imgIndex}`">
-					<img :src="coverImg(imgItem)" alt="">
+				<el-carousel-item v-for="(sItem,sIndex) in slideShowData" :key="sIndex" :key="sIndex" :name="`${sIndex}`">
+					<img :src="sItem.IMG_URL" alt="">
 				</el-carousel-item>
 				<div class="pd-indicator">
 					<div class="pd-indicator-wrapper">
-						<div :class=" { 'pd-indicator-item': true, 'pdi-active': imgIndex== pdCoverActiveIndex }"
-							@click="toggleCover(`${imgIndex}`)" :key="imgIndex"
-							v-for="(imgItem,imgIndex) in Object.values(SalesLineItem.prd_img)">
-							<img :src="coverImg(imgItem)" alt="">
+						<div :class=" { 'pd-indicator-item': true, 'pdi-active': sIndex== pdCoverActiveIndex }"
+							@click="toggleCover(`${sIndex}`)" :key="sIndex" v-for="(sItem,sIndex) in slideShowData" :key="sIndex">
+							<img :src="sItem.IMG_URL" alt="">
 						</div>
 					</div>
 				</div>
