@@ -94,7 +94,9 @@
 					</el-radio-group>
 				</el-form-item>
 			</el-form>
-			<dmm-config-node ref="configNode" :sales_line_item="SalesLineItem"></dmm-config-node>
+			<div v-if="SalesLineItem && SalesLineItem.sli_id">
+				<dmm-config-node ref="configNode" :sales_line_item="SalesLineItem"></dmm-config-node>
+			</div>
 		</div>
 		<!-- E 产品属性与配置 -->
 

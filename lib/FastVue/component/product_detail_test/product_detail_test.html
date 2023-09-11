@@ -1,4 +1,5 @@
 <div>
-	<product_detail :sales_line_item="sales_line_item" :dsh_data="dsh_data" :detail_data="detail_data"
-		:config_scheme_options="config_scheme_options" :slide_data="slide_data"></product_detail>
+	<product_detail v-if="sales_line_item && sales_line_item.sli_id" :sales_line_item="sales_line_item"
+		:dsh_data="dsh_data" :detail_data="detail_data" :config_scheme_options="config_scheme_options"
+		:slide_data="slide_data"></product_detail>
 </div>
