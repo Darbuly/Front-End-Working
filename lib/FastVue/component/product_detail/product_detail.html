@@ -6,13 +6,13 @@
 		<div class="pd-cover-wrapper" v-if="SalesLineItem.prd_img">
 			<el-carousel ref="pdCover" class="pd-cover-carousel" height="656px" :interval="5000" arrow="always"
 				@change="pdCoverChange">
-				<el-carousel-item v-for="(sItem,sIndex) in slideShowData" :key="sIndex" :key="sIndex" :name="`${sIndex}`">
+				<el-carousel-item v-for="(sItem,sIndex) in slideShowData" :key="sIndex" :name="`${sIndex}`">
 					<img :src="sItem.IMG_URL" alt="">
 				</el-carousel-item>
 				<div class="pd-indicator">
 					<div class="pd-indicator-wrapper">
 						<div :class=" { 'pd-indicator-item': true, 'pdi-active': sIndex== pdCoverActiveIndex }"
-							@click="toggleCover(`${sIndex}`)" :key="sIndex" v-for="(sItem,sIndex) in slideShowData" :key="sIndex">
+							@click="toggleCover(`${sIndex}`)" :key="sIndex" v-for="(sItem,sIndex) in slideShowData">
 							<img :src="sItem.IMG_URL" alt="">
 						</div>
 					</div>
@@ -115,4 +115,32 @@
 		</div>
 
 	</div>
+
+	<div class="prd-detail-action-wrapper">
+		<div class="prd-detail-action">
+			<div class="prd-total-left">
+				<div class="t-l">
+					<div class="icon-car"></div>
+					<div class="delivery">
+						<div class="delivery-label">货期</div>
+						<div class="delivery-value" style="color: black;font-weight: bold;">
+							预计为{{SalesLineItem.delivery_value_max}}个工作日</div>
+					</div>
+				</div>
+				<div class="t-r">
+					<div class="actual-quote">
+						实际报价：<span class="pda-value"><span
+								class="pda-cs">￥</span>{{CpqFormUtils('formatMoney',SalesLineItem.price)}}</span>
+					</div>
+					<div class="income-distribution">
+						所得分配：<span class="pda-value" style="font-size: 14px;"><span class="pda-cs">￥</span>0</span>
+					</div>
+				</div>
+			</div>
+			<div class="prd-action-right">
+				<el-button type="primary" class="dmm-cpq-btn" @click="addOneCart">加入购物车</el-button>
+			</div>
+		</div>
+	</div>
+
 </div>

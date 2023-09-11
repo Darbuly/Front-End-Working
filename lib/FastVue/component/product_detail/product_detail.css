@@ -280,6 +280,73 @@
 	width: 100%;
 }
 
+.prd-detail-action-wrapper {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: #fff;
+	font-size: 14px;
+	font-weight: normal;
+	color: #999999;
+	line-height: 20px;
+}
+
+.prd-total-left .t-l{
+	display: flex;
+	margin-left: 13px;
+}
+
+.prd-total-left  .t-r {
+	margin-right: 40px;
+}
+
+.icon-car {
+	width: 23px;
+	height: 21px;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAHKADAAQAAAABAAAAHAAAAABkvfSiAAADIElEQVRIDe2WO2iTURTH834QJUkpFkRB6CClQtGpWg0VpIrSQbDtYCRG8hAU6+DgUOikaHXQQTBpapaqIDr4wMdgUYm1aZ1MQRwclIKTpIpKDEnj74R+4fu+Jg3YOAi9cHPuef3PPeee794YDKvjf6+AUZ1AqVQyjo6OnkJ2ktkqvFqvWv9mPcM8E41G0yp53aUGMB6PDxLkCl4Zo9E4zbpUA8GBfj86OyYdBP1Yw26J2KKTSGYZr9e7tb+/v6jTadhEIrGlWCxmTCZTEMWQRrkMY9LpWiWzesHEJxQKzUJ+kGGrDmNZVpMhzlLiWmVcAsTmxHYgFosdUinzrD+jG4pEIvdU8vJSn6FeX5dnk58wuqlMAk0wN8Lfoifa9QArDgj4NE1zlHOPOJ3OE2TVyyb2EcjMjC1WrRJ3xQEVpGw2m8zlchPCs4EU5CrBumiuI4qN0IYFJNN14LUo4B6PZxjZHEFHOGO3Im9YQAEE3MW5HSar3r6+vl+ITiNrIXBYCajpUkX4l3Qev2YCjPN9GgjaYbfbpyizbGSNgtmwDAENkUk3F8Fus9m8LRwOv1OCqGnDMqRRvgH8Ug1ebd2wDKuBV5NpMqQkeUqzVgyhxrGxsR0LCws+2C/wd8hCGqHqSCaTnnw+PwCGNEmKkpY/Eb2xXGWVQftOwbThsAd6jCDHK0qDIe1yuXr8fv93RUZHyvqJ1WodJNgL1psVHRjDnOXjQqEww/osF8JF0WkC0lk+OuwpcueiY8Jms50DbC/8dRx/QuUtLA821IRMqiIvi4W132KxvCXIZWQH4YtQM7SLgJPipAkoAh7gNoxuMDsdDkdzIBD4KnKyz0DkjnwuvG4cAPQVoD0iZ+Plp4tlGvl55A8Ue80ZipDavwdcLuNOMtsJvc8mNnCWm3B+hrP6ZRAXA6V9DWmXcwwGg/NUaZfI+URGwKsEK8vkRz8o4zjgcwS5C1iKbOUfgBN6SW8rPMAX0K1ngx/Y7CS21xDPut3uR3r7qp+F7BKn7czbODQx3zB9dGnV/y88xg+xlb8cUna5N2McRzcPubyNq+PfVuAPMANEEC4dUeoAAAAASUVORK5CYII=);
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
+.delivery {
+	margin-left: 12px;
+}
+
+.delivery-value {
+	margin-top: 8px;
+}
+
+.actual-quote {
+	margin-bottom: 11px;
+}
+
+.prd-detail-action {
+	max-width: 1200px;
+	width: 100%;
+	margin: 20px auto;
+	display: flex;
+	align-items: center;
+}
+
+.prd-total-left {
+	width: 100%;
+	display: flex;
+	justify-content:space-between;
+}
+
+.prd-action-right {
+	flex-shrink: 0;
+}
+
+.dmm-cpq-btn {
+	padding: 15px 90px;
+	border-radius: 5px;
+	background-color: #007DFB;
+	border-color: #007DFB;
+}
+
+
 @media screen and (max-width: 960px){
 
 	.prd-detail-header {
