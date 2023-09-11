@@ -1,12 +1,12 @@
 <div class="prd-detail">
 
-	<div class="prd-detail-header" v-if="sales_line_item">
+	<div class="prd-detail-header" v-if="SalesLineItem">
 
 		<!-- S 封面图 -->
-		<div class="pd-cover-wrapper" v-if="sales_line_item.prd_img">
+		<div class="pd-cover-wrapper" v-if="SalesLineItem.prd_img">
 			<el-carousel ref="pdCover" class="pd-cover-carousel" height="656px" :interval="5000" arrow="always"
 				@change="pdCoverChange">
-				<el-carousel-item v-for="(imgItem,imgIndex) in Object.values(sales_line_item.prd_img)" :key="imgIndex"
+				<el-carousel-item v-for="(imgItem,imgIndex) in Object.values(SalesLineItem.prd_img)" :key="imgIndex"
 					:name="`${imgIndex}`">
 					<img :src="coverImg(imgItem)" alt="">
 				</el-carousel-item>
@@ -14,7 +14,7 @@
 					<div class="pd-indicator-wrapper">
 						<div :class=" { 'pd-indicator-item': true, 'pdi-active': imgIndex== pdCoverActiveIndex }"
 							@click="toggleCover(`${imgIndex}`)" :key="imgIndex"
-							v-for="(imgItem,imgIndex) in Object.values(sales_line_item.prd_img)">
+							v-for="(imgItem,imgIndex) in Object.values(SalesLineItem.prd_img)">
 							<img :src="coverImg(imgItem)" alt="">
 						</div>
 					</div>
@@ -27,17 +27,17 @@
 		<!-- S 产品属性与配置 -->
 		<div class="pd-attr-wrapper">
 			<div class="pd-attr-base">
-				<div class="pd-prdname">{{sales_line_item.prd_name}}</div>
-				<div class="pd-prdno">型号：{{sales_line_item.prd_no}}</div>
+				<div class="pd-prdname">{{SalesLineItem.prd_name}}</div>
+				<div class="pd-prdno">型号：{{SalesLineItem.prd_no}}</div>
 				<div class="pd-attr">
 					<span class="pda-label">市场建议价：</span>
 					<span class="pda-value"><span
-							class="pda-cs">￥</span>{{CpqFormUtils('formatMoney',sales_line_item.price)}}</span>
+							class="pda-cs">￥</span>{{CpqFormUtils('formatMoney',SalesLineItem.price)}}</span>
 				</div>
 				<div class="pd-attr">
 					<span class="pda-label">底价：</span>
 					<span class="pda-value"><span
-							class="pda-cs">￥</span>{{CpqFormUtils('formatMoney',sales_line_item.price)}}</span>
+							class="pda-cs">￥</span>{{CpqFormUtils('formatMoney',SalesLineItem.price)}}</span>
 				</div>
 			</div>
 
@@ -96,7 +96,7 @@
 					</el-radio-group>
 				</el-form-item>
 			</el-form>
-			<dmm-config-node :sales_line_item="sales_line_item"></dmm-config-node>
+			<dmm-config-node ref="configNode" :sales_line_item="SalesLineItem"></dmm-config-node>
 		</div>
 		<!-- E 产品属性与配置 -->
 
