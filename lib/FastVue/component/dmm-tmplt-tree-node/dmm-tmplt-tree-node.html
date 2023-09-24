@@ -47,6 +47,13 @@
 				:extra_data="nodeData.extra_data"></dmm-oa-form>
 			<!-- E OA-FORM -->
 
+			<!-- S 文本框 -->
+			<el-form-item class="t-node-head-attr" v-else-if="nodeData.data_type=='text'" :label="nodeData.alias+'：'">
+				<el-input type="textarea" @change="handleChanged" v-model="parentDataVue[nodeData.name]"
+					@focus="handleFocus"></el-input>
+			</el-form-item>
+			<!-- E 文本框 -->
+
 			<!-- S 输入框 -->
 			<el-form-item v-else class="t-node-head-attr" :label="nodeData.alias+'：'">
 				<el-input @change="handleChanged" v-model="parentDataVue[nodeData.name]" @focus="handleFocus"></el-input>
