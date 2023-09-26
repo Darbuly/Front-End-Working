@@ -24,7 +24,7 @@
 					<!-- E 单选 -->
 
 					<!-- S 多选 -->
-					<el-checkbox-group :min="1" :max="nodeData.multiple_limit" v-if="nodeData.multiple"
+					<el-checkbox-group :min="0" :max="nodeData.multiple_limit" v-if="nodeData.multiple"
 						@change="handleFocus($event,true)" v-model="parentDataVue[nodeData.name]">
 						<el-checkbox v-for="(item,eIndex) in nodeData.enum_list" :label="item.value" size="small" border
 							:key="eIndex">{{item.label}}</el-checkbox>
