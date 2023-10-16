@@ -5,5 +5,9 @@
 /** dev S **/
 .uim-container {
 	border:1px solid red;
+	width: 100px;
+	height: 100px;
+	background-size: 100%;
+	background-image: url(http://s1.youi365.com:28080/pds/uploadDir/custom/default/cover21694134483364.png);
 }
 /** dev E **/

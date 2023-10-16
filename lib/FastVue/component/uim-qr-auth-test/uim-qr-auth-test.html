@@ -1,5 +1,12 @@
 <div class="uim-qr-auth-class">
-    <uim-container :template_id="'uim_container_qrauth'" :id_key="uim_container_qrauth" height="320" width="320"
-        :field-name="`二维码显示容器`" :qrCodeUrl="qrCodeUrl"></uim-container>
-    <div class="qr-auth-tip-wrap">请用手机扫码</div>
+    <div class="qr-wrapper">
+        <uim-container :template_id="'uim_container_qrauth'" :id_key="'default'" height="320" width="320"
+            :field-name="`二维码显示容器`" :image="qrCodeUrl" image-show-type="cover"
+            style-ext="background-repeat: no-repeat;\nbackground-size: 100% 100%;"></uim-container>
+        <div v-if="status=='expired'" class="expired">
+            <div style="margin-bottom: 10px;">当前二维码已过期</div>
+            <button @click="refresh">刷新</button>
+        </div>
+    </div>
+    <div class="qr-auth-tip-wrap">{{status_text}}</div>
 </div>
