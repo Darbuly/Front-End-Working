@@ -2,7 +2,7 @@
 
 	<!-- 表节点/分组节点 -->
 	<div v-if="!isAttrNode()&&nodeData.alias" class="t-node-head-table">
-		<span>{{nodeData.alias}}</span>
+		<span :class='{"t-node-head-disabled":nodeData.disabled}'>{{nodeData.alias}}</span>
 		<span v-if="hasBody()" :class='{"t-node-action":true, "fold-body":true,"folded":foldBody }'
 			@click="toFoldBody"></span>
 	</div>

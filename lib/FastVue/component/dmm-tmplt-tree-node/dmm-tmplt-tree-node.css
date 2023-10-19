@@ -48,6 +48,9 @@
 	line-height: 20px;
 }
 
+.t-node-head-disabled {
+	text-decoration: line-through;
+}
 
 .el-form-item {
 	margin-bottom: 16px;
