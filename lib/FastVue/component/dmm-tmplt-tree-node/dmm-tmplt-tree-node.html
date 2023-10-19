@@ -16,7 +16,7 @@
 
 				<template v-if="nodeData.enum_list.length <= 3">
 					<!-- S 单选 -->
-					<el-radio-group v-if="!nodeData.multiple" @change="handleFocus($event,true)"
+					<el-radio-group :disabled="nodeData.disabled" v-if="!nodeData.multiple" @change="handleFocus($event,true)"
 						v-model="parentDataVue[nodeData.name]" size="small">
 						<el-radio v-for="(item,eIndex) in nodeData.enum_list" :label="item.value" :key="eIndex"
 							border>{{item.label}}</el-radio>
@@ -24,16 +24,16 @@
 					<!-- E 单选 -->
 
 					<!-- S 多选 -->
-					<el-checkbox-group :min="0" :max="nodeData.multiple_limit" v-if="nodeData.multiple"
-						@change="handleFocus($event,true)" v-model="parentDataVue[nodeData.name]">
+					<el-checkbox-group :disabled="nodeData.disabled" :min="0" :max="nodeData.multiple_limit"
+						v-if="nodeData.multiple" @change="handleFocus($event,true)" v-model="parentDataVue[nodeData.name]">
 						<el-checkbox v-for="(item,eIndex) in nodeData.enum_list" :label="item.value" size="small" border
 							:key="eIndex">{{item.label}}</el-checkbox>
 					</el-checkbox-group>
 					<!-- E 多选 -->
 
 				</template>
-				<el-select @change="handleChanged" @focus="handleFocus" v-else v-model="parentDataVue[nodeData.name]"
-					placeholder="请选择" :multiple="nodeData.multiple&&!nodeData.repeatable"
+				<el-select :disabled="nodeData.disabled" @change="handleChanged" @focus="handleFocus" v-else
+					v-model="parentDataVue[nodeData.name]" placeholder="请选择" :multiple="nodeData.multiple&&!nodeData.repeatable"
 					:multiple-limit="nodeData.multiple_limit">
 					<el-option v-for="item in nodeData.enum_list" :key="item.id" :label="item.label" :value="item.value">
 					</el-option>
