@@ -62,7 +62,7 @@
 			<!-- E 输入框 -->
 
 			<!-- S 属性节点里的action -->
-			<div v-if="nodeData.single_group_item" class="attr-action-wrap">
+			<div v-if="nodeData.single_group_item && canAddParent()" class="attr-action-wrap">
 				<span v-if="hasBody() && nodeData.single_group_item"
 					:class='{"t-node-action":true, "fold-body":true,"folded":foldBody }' @click="toFoldBody"></span>
 				<div @click="addRowParent" class="attr-action-item attr-add"></div>
