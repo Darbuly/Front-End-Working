@@ -1,4 +1,4 @@
-<div :class="dynamicClass" v-if="nodeData">
+<div :class="dynamicClass" v-if="nodeData && !nodeData.invisible">
 
 	<!-- 表节点/分组节点 -->
 	<div v-if="!isAttrNode()&&nodeData.alias" class="t-node-head-table">
@@ -18,16 +18,16 @@
 					<!-- S 单选 -->
 					<el-radio-group :disabled="nodeData.disabled" v-if="!nodeData.multiple" @change="handleFocus($event,true)"
 						v-model="parentDataVue[nodeData.name]" size="small">
-						<el-radio :disabled="item.disabled" v-for="(item,eIndex) in dynamicEnumList" :label="item.value"
-							:key="eIndex" border>{{item.label}}</el-radio>
+						<el-radio :disabled="item.disabled" v-for="(item,eIndex) in dynamicEnumList" v-show="!item.invisible"
+							:label="item.value" :key="eIndex" border>{{item.label}}</el-radio>
 					</el-radio-group>
 					<!-- E 单选 -->
 
 					<!-- S 多选 -->
 					<el-checkbox-group :disabled="nodeData.disabled" :min="0" :max="nodeData.multiple_limit"
 						v-if="nodeData.multiple" @change="handleFocus($event,true)" v-model="parentDataVue[nodeData.name]">
-						<el-checkbox :disabled="item.disabled" v-for="(item,eIndex) in dynamicEnumList" :label="item.value"
-							size="small" border :key="eIndex">{{item.label}}</el-checkbox>
+						<el-checkbox :disabled="item.disabled" v-show="!item.invisible" v-for="(item,eIndex) in dynamicEnumList"
+							:label="item.value" size="small" border :key="eIndex">{{item.label}}</el-checkbox>
 					</el-checkbox-group>
 					<!-- E 多选 -->
 
@@ -35,8 +35,8 @@
 				<el-select :disabled="nodeData.disabled" @change="handleChanged" @focus="handleFocus" v-else
 					v-model="parentDataVue[nodeData.name]" placeholder="请选择" :multiple="nodeData.multiple&&!nodeData.repeatable"
 					:multiple-limit="nodeData.multiple_limit">
-					<el-option :disabled="item.disabled" v-for="item in dynamicEnumList" :key="item.id" :label="item.label"
-						:value="item.value">
+					<el-option :disabled="item.disabled" v-show="!item.invisible" v-for="item in dynamicEnumList" :key="item.id"
+						:label="item.label" :value="item.value">
 					</el-option>
 				</el-select>
 			</el-form-item>
