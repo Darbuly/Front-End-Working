@@ -1,0 +1,6 @@
+<div class="cpq-simple-dialog">
+	<van-dialog v-model="show" :title="title" @confirm="confirm" @cancel="cancel" show-cancel-button>
+		<van-field v-model="message" rows="2" autosize :label="label" type="textarea" maxlength="50"
+			:placeholder="'请输入'+label" show-word-limit />
+	</van-dialog>
+</div>
